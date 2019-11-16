@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,28 +14,30 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
 public class Frame extends JFrame implements ActionListener{
 	
 	ImageIcon test = new ImageIcon("image.jpg");
-	
-	//Container contentPane;
-	
+
+	JPanel top_area = new JPanel(new BorderLayout());	// 상단에 위치하는 툴바&컴포넌트 자리
+	JPanel main_area = new JPanel(new BorderLayout());	// 메인
 	
 	public Frame() {
 		setTitle("POL Project");
 		setSize(800, 800);
 		setLayout(new BorderLayout());
 		menu();
-		
-		//contentPane = getContentPane();
-		//toolbar();
+		toolbar();
 		mainLayout();
+		add(top_area, BorderLayout.NORTH);
+		add(main_area, BorderLayout.CENTER);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		
 	}
@@ -103,15 +104,17 @@ public class Frame extends JFrame implements ActionListener{
 	
 	// 툴바 구성
 	void toolbar() {
-		JToolBar tb = new JToolBar("툴바", JToolBar.HORIZONTAL);
-
+		JToolBar tb = new JToolBar("Toolbar");
 		tb.setBackground(Color.red);
 		
-		tb.add(new JButton(new ImageIcon("new.jpg")));
+		tb.add(new JButton("Open"));
+		tb.add(new JButton("Save"));
+		tb.addSeparator();
+		tb.add(new JButton("EXIT"));
+		
 		tb.setFloatable(false);
 		
-		add(tb);
-		//contentPane.add(tb,BorderLayout.NORTH);
+		top_area.add(tb, BorderLayout.NORTH);
 	}
 	
 	
@@ -147,8 +150,8 @@ public class Frame extends JFrame implements ActionListener{
 		
 		/// p2 :: 서울시 지도 그림 들어갈 곳
 		JPanel p2 = new JPanel();
-		JLabel map = new JLabel(test);
-		map.setBounds(0,50, test.getIconWidth(), test.getIconHeight());
+		JLabel map = new JLabel("test - 그림 들어갈 곳");
+		//map.setBounds(0,50, test.getIconWidth(), test.getIconHeight());
 		p2.add(map);
 		
 		
@@ -157,15 +160,27 @@ public class Frame extends JFrame implements ActionListener{
 		
 		/// p3 :: 데이터 출력 할 곳
 		JPanel p3 = new JPanel();
-		// 텍스트 에어리어
-		JTextArea result = new JTextArea(5, 20);
-		p3.add(result);
+		// JTable
+		// 데모용 데이터
+		String header[] = {"지역", "미세먼지", "초미세먼지", "오존"};
+		String data[][] = {
+				{"강남", "10", "20", "30"},
+				{"강북", "22", "12", "43"},
+				{"용산", "8", "47", "21"}
+		};
+		// 테이블 생성
+		JTable result = new JTable(data, header);
+		JScrollPane scroll = new JScrollPane(result);
+		p3.add(scroll);
 		
 		
 		
 		
 		// 메인에 패널들 추가
-		add(p1, BorderLayout.NORTH); add(p2, BorderLayout.CENTER); add(p3, BorderLayout.SOUTH);
+		top_area.add(p1, BorderLayout.CENTER); 
+		
+		main_area.add(p2, BorderLayout.NORTH); 
+		main_area.add(p3, BorderLayout.SOUTH);
 		
 		
 		
