@@ -24,6 +24,11 @@ public class MenuActionListener implements ActionListener{
 		case "CSV 파일 저장하기":
 			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			break;
+		case "지역별 조회":
+			Frame.gDialog.setVisible(true);
+			break;
+		case "기간별 조회":
+			break;
 		
 		case "종료":
 			System.exit(0);

@@ -29,6 +29,8 @@ public class Frame extends JFrame {
 	MenuActionListener mal = new MenuActionListener();
 	ButtonActionListener bal = new ButtonActionListener();
 	
+	static GraphDialog gDialog;
+	
 	public Frame() {
 		setTitle("POL Project");
 		setSize(800, 800);
@@ -38,6 +40,10 @@ public class Frame extends JFrame {
 		mainLayout();
 		add(top_area, BorderLayout.NORTH);
 		add(main_area, BorderLayout.CENTER);
+		
+		gDialog = new GraphDialog(this, "±× ·¡ ÇÁ");
+		
+		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
