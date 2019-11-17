@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 class CircleGraph extends JPanel {
+	String area;
 	int num1;  
 	int num2;  
 	int num3; 
@@ -57,7 +58,9 @@ class CircleGraph extends JPanel {
 		//System.out.printf("%d %d %d", arc1, arc2, arc3);
 		// ¹ü·Ê
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 12));
+		g.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 20));
+		g.drawString(area, 300, 100);
+		g.setFont(new Font("±¼¸²Ã¼", Font.PLAIN, 15));
 		g.drawString(Constant.pollut_0 + " : ³ë¶û", 300, 150);
 		g.drawString(Constant.pollut_1 + " : »¡°­", 300, 170);
 		g.drawString(Constant.pollut_2 + " : ÆÄ¶û", 300, 190);
@@ -89,6 +92,10 @@ class CircleGraph extends JPanel {
 		this.num1 = num1;
 		this.num2 = num2;
 		this.num3 = num3;
+	}
+	
+	public void setName(String in) {
+		this.area = in;
 	}
 
 }
