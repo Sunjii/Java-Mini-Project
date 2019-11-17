@@ -19,12 +19,15 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
-public class Frame extends JFrame implements ActionListener{
+public class Frame extends JFrame {
 	
 	ImageIcon test = new ImageIcon("image.jpg");
 
 	JPanel top_area = new JPanel(new BorderLayout());	// 상단에 위치하는 툴바&컴포넌트 자리
 	JPanel main_area = new JPanel(new BorderLayout());	// 메인
+	
+	MenuActionListener mal = new MenuActionListener();
+	ButtonActionListener bal = new ButtonActionListener();
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -47,52 +50,56 @@ public class Frame extends JFrame implements ActionListener{
 		JMenuItem item;
 		JMenuBar mb = new JMenuBar();
 		// 메뉴 구성
+		
 		// 1. 파일
 		JMenu file = new JMenu("파일");
 		// 1. Items
 		item = new JMenuItem("DB 저장");
-		item.addActionListener(this);
+		item.addActionListener(mal);
 		file.add(item);
 		item = new JMenuItem("DB 불러오기");
-		item.addActionListener(this);
+		item.addActionListener(mal);
 		file.add(item);
 		item = new JMenuItem("CSV 파일 불러오기");
-		item.addActionListener(this);
+		item.addActionListener(mal);
 		file.add(item);
 		item = new JMenuItem("CSV 파일 저장하기");
-		item.addActionListener(this);
+		item.addActionListener(mal);
 		file.add(item);
+		file.addSeparator();
 		item = new JMenuItem("종료");
-		item.addActionListener(this);
+		item.addActionListener(mal);
 		file.add(item);
 		mb.add(file);
+		
 		// 2. 그래프
 		JMenu graph = new JMenu("그래프");
 		// 2. Items
+		item = new JMenuItem("지역별 조회");
+		item.addActionListener(mal);
+		graph.add(item);
+		item = new JMenuItem("기간별 조회");
+		item.addActionListener(mal);
+		graph.add(item);
 		
 		mb.add(graph);
+		
 		// 3. 통계
 		JMenu statics = new JMenu("통계");
 		// 3. Items
-		
+		item = new JMenuItem("UC");
+		item.addActionListener(mal);
+		statics.add(item);
+
 		mb.add(statics);
+		
 		// 4. 설정
-		JMenu option = new JMenu("옵션");
+		JMenu option = new JMenu("설정");
 		// 4. Items
 		
 		mb.add(option);
 		// 5.
 		
-		
-		
-		/*
-		JMenu subj = new JMenu("과목");
-		JMenu ratio = new JMenu("비율");
-		JMenu stu_manage = new JMenu("학생관리");
-		JMenu score_manage = new JMenu("성적관리");
-		JMenu statics = new JMenu("통계");
-		JMenu graph = new JMenu("그래프");
-		*/
 		
 
 		setJMenuBar(mb);
@@ -105,12 +112,26 @@ public class Frame extends JFrame implements ActionListener{
 	// 툴바 구성
 	void toolbar() {
 		JToolBar tb = new JToolBar("Toolbar");
-		tb.setBackground(Color.red);
-		
-		tb.add(new JButton("Open"));
-		tb.add(new JButton("Save"));
+		tb.setBackground(Color.gray);
+		JButton item;
+		item = new JButton("Open");
+		item.addActionListener(bal);
+		tb.add(item);
+		item = new JButton("Save");
+		item.addActionListener(bal);
+		tb.add(item);
 		tb.addSeparator();
-		tb.add(new JButton("EXIT"));
+		item = new JButton("Graph 1");
+		item.addActionListener(bal);
+		tb.add(item);
+		item = new JButton("Graph 2");
+		item.addActionListener(bal);
+		tb.add(item);
+		tb.addSeparator();
+		item = new JButton("종료");
+		item.addActionListener(bal);
+		tb.add(item);
+	
 		
 		tb.setFloatable(false);
 		
@@ -162,7 +183,7 @@ public class Frame extends JFrame implements ActionListener{
 		JPanel p3 = new JPanel();
 		// JTable
 		// 데모용 데이터
-		String header[] = {"지역", "미세먼지", "초미세먼지", "오존"};
+		String header[] = {"지역", Constant.pollut_0, Constant.pollut_1, Constant.pollut_2};
 		String data[][] = {
 				{"강남", "10", "20", "30"},
 				{"강북", "22", "12", "43"},
@@ -171,9 +192,7 @@ public class Frame extends JFrame implements ActionListener{
 		// 테이블 생성
 		JTable result = new JTable(data, header);
 		JScrollPane scroll = new JScrollPane(result);
-		p3.add(scroll);
-		
-		
+		p3.add(scroll);	
 		
 		
 		// 메인에 패널들 추가
@@ -185,34 +204,6 @@ public class Frame extends JFrame implements ActionListener{
 		
 		
 	}
-	
-	
-
-
-	@Override
-	public void actionPerformed(java.awt.event.ActionEvent e) {
-		// TODO Auto-generated method stub
-		JMenuItem mi = (JMenuItem) (e.getSource());
-
-		switch (mi.getText()) {
-
-		case "DB 저장":
-			break;
-		case "DB 불러오기":
-			break;
-		case "CSV 파일 불러오기":
-			break;
-		case "CSV 파일 저장하기":
-			break;
-		
-		case "종료":
-			System.exit(0);
-			break;
-			
-		}
-		
-	}
-	
 	
 	
 
