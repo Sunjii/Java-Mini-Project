@@ -189,11 +189,11 @@ public class Frame extends JFrame {
 		JPanel p3 = new JPanel();
 		// JTable
 		// 데모용 데이터
-		String header[] = {"지역", Constant.pollut_0, Constant.pollut_1, Constant.pollut_2};
+		String header[] = {"지역", "날짜", Constant.pollut_0, Constant.pollut_1, Constant.pollut_2};
 		String data[][] = {
-				{"강남", "10", "20", "30"},
-				{"강북", "22", "12", "43"},
-				{"용산", "8", "47", "21"}
+				{"강남", "2018-01-01", "10", "20", "30"},
+				{"강북", "2018-01-01", "22", "12", "43"},
+				{"용산", "2018-01-01", "8", "47", "21"}
 		};
 		// 테이블 생성
 		JTable result = new JTable(data, header);
