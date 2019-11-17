@@ -86,7 +86,7 @@ public class Frame extends JFrame {
 		item = new JMenuItem("지역별 조회");
 		item.addActionListener(mal);
 		graph.add(item);
-		item = new JMenuItem("기간별 조회");
+		item = new JMenuItem("특정기간 조회");
 		item.addActionListener(mal);
 		graph.add(item);
 		
@@ -173,7 +173,7 @@ public class Frame extends JFrame {
 		});
 		p1.add(inputDate);
 		// 확인 버튼
-		JButton send = new JButton("확인");
+		JButton send = new JButton("검색");
 		p1.add(send);
 		
 		
