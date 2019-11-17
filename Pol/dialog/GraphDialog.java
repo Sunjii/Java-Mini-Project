@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GraphDialog extends JDialog{
@@ -29,8 +30,20 @@ public class GraphDialog extends JDialog{
 		
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
-			//graph.setNumbers(10, 20, 30);
+			if(Frame.resTable.getSelectedRowCount() != 1) {
+				JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
+				return;
+			}
+			int row = Frame.resTable.getSelectedRow();
+			int col = Frame.resTable.getSelectedColumn();
 			
+			String area = (String) Frame.resTable.getValueAt(row, 0);
+			int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+			int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+			int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+			Frame.cgDialog.setNumbers(pol1, pol2, pol3);
+			
+			graph.setName(area);
 			graph.setNumbers(num1, num2, num3);
 			graph.repaint();
 		});
