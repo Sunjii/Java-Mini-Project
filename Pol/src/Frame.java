@@ -29,7 +29,9 @@ public class Frame extends JFrame {
 	MenuActionListener mal = new MenuActionListener();
 	ButtonActionListener bal = new ButtonActionListener();
 	
-	static GraphDialog gDialog;
+	static JTable resTable;
+	
+	static GraphDialog cgDialog;
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -41,7 +43,7 @@ public class Frame extends JFrame {
 		add(top_area, BorderLayout.NORTH);
 		add(main_area, BorderLayout.CENTER);
 		
-		gDialog = new GraphDialog(this, "그 래 프");
+		cgDialog = new GraphDialog(this, "원형그래프");
 		
 		
 		setVisible(true);
@@ -193,11 +195,14 @@ public class Frame extends JFrame {
 		String data[][] = {
 				{"강남", "2018-01-01", "10", "20", "30"},
 				{"강북", "2018-01-01", "22", "12", "43"},
-				{"용산", "2018-01-01", "8", "47", "21"}
+				{"용산", "2018-01-01", "8", "47", "21"},
+				{"강남", "2018-01-02", "13", "17", "19"},
+				{"강북", "2018-01-02", "36", "57", "33"},
+				{"용산", "2018-01-02", "11", "26", "37"}
 		};
 		// 테이블 생성
-		JTable result = new JTable(data, header);
-		JScrollPane scroll = new JScrollPane(result);
+		resTable = new JTable(data, header);
+		JScrollPane scroll = new JScrollPane(resTable);
 		p3.add(scroll);	
 		
 		

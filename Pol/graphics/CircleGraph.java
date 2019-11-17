@@ -49,17 +49,6 @@ class CircleGraph extends JPanel {
 		g.setColor(Color.BLUE);
 		g.fillArc(pos_x, pos_y, radius, radius, arc1 + arc2, arc3);
 		
-
-		
-		/*
-		int x, y;
-		x = (int)( c_x + (Math.cos((arc1/2) * (pai/180)) * radius/2));
-		y = (int)( c_y - (Math.sin((arc1/2) * (pai/180)) * radius/2));
-		System.out.println(x + ", " + y + " " + arc1);
-		g.drawString(Integer.toString(num1), x , y);
-		//g.drawString("H", c_x, c_y);
-		*/
-		
 		drawLabel(num1, c_x, c_y, arcs, arc1, g);
 		drawLabel(num2, c_x, c_y, arcs, arc2, g);
 		drawLabel(num3, c_x, c_y, arcs, arc3, g);
