@@ -43,6 +43,7 @@ public class MenuActionListener implements ActionListener{
 
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);
+				
 				// 데이터 적용 시키기
 				Frame.cgDialog.setNumbers(pol1, pol2, pol3);
 				// 데이터를 기반으로 그래프 그리기
@@ -54,7 +55,7 @@ public class MenuActionListener implements ActionListener{
 					
 			}
 			
-		case "기간별 조회":
+		case "특정기간 조회":
 			break;
 		
 		case "종료":
