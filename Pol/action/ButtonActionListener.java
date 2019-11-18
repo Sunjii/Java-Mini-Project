@@ -55,6 +55,14 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Graph 2":
+			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
+			
+			// 해당 기간 데이터 추출
+			
+			// 데이터 적용
+			
+			// 데이터 기반으로 그래프 그리기
+			// Frame.lgDialog.setVisible(true);
 			break;
 		
 		case "종료":

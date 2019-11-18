@@ -59,7 +59,20 @@ public class MenuActionListener implements ActionListener{
 					
 			}
 			
-		case "특정기간 조회":
+		case "특정기간 비교":
+			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
+			
+			// 해당 기간 데이터 추출
+			
+			// 데이터 적용
+			
+			// 데이터 기반으로 그래프 그리기
+			
+			break;
+		case "지역간 비교":
+			// 지역을 선택한다
+			
+			// 막대그래프
 			break;
 		
 		case "종료":
