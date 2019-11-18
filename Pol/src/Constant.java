@@ -1,14 +1,14 @@
 // 상수 정의 클래스
 public class Constant {
 	// 오염물질
-	static final String pollut_0 = "미세먼지";
-	static final String pollut_1 = "초미세먼지";
-	static final String pollut_2 = "오존";
-	static final String pollut_3 = "";
-	
+	static final String[] pollut = { "이산화질소", "오존", "아황산가스", "미세먼지", "초미세먼지" };
+	// 지역목록
+	static final String[] locations = { "전체", "강남구", "강남대로", "강동구", "강변북로", "강북구", "강서구", "공항대로", "관악구", "광진구", "구로구", "금천구",
+			"노원구", "도봉구", "도산대로", "동대문구", "동작구", "동작대로", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "신촌로", "양천구",
+			"영등포구", "영등포로", "용산구", "은평구", "정릉로", "종로", "종로구", "중구", "중랑구", "천호대로", "청계천로", "한강대로", "홍릉로", "화랑로"};
+
 	// 대화상자 사이즈
 	static final int dial_W = 600;
 	static final int dial_H = 350;
-	
 
 }
