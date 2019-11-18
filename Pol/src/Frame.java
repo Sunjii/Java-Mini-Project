@@ -32,6 +32,7 @@ public class Frame extends JFrame {
 	static JTable resTable;
 	
 	static GraphDialog cgDialog;
+	static GraphDialog lgDialog;
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -43,7 +44,8 @@ public class Frame extends JFrame {
 		add(top_area, BorderLayout.NORTH);
 		add(main_area, BorderLayout.CENTER);
 		
-		cgDialog = new GraphDialog(this, "원형그래프");
+		cgDialog = new GraphDialog(this, "원형그래프", 0);
+		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
 		
 		
 		setVisible(true);
@@ -86,7 +88,10 @@ public class Frame extends JFrame {
 		item = new JMenuItem("지역별 조회");
 		item.addActionListener(mal);
 		graph.add(item);
-		item = new JMenuItem("특정기간 조회");
+		item = new JMenuItem("특정기간 비교");
+		item.addActionListener(mal);
+		graph.add(item);
+		item = new JMenuItem("지역간 비교");
 		item.addActionListener(mal);
 		graph.add(item);
 		
@@ -95,7 +100,10 @@ public class Frame extends JFrame {
 		// 3. 통계
 		JMenu statics = new JMenu("통계");
 		// 3. Items
-		item = new JMenuItem("UC");
+		item = new JMenuItem("특정 기간 동안의 통계량 조회");
+		item.addActionListener(mal);
+		statics.add(item);
+		item = new JMenuItem("특정 지역의 통계량 조회");
 		item.addActionListener(mal);
 		statics.add(item);
 
