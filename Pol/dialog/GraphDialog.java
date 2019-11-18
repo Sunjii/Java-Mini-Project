@@ -6,17 +6,21 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+// 그래프 대화상자
 public class GraphDialog extends JDialog{
 
 	JButton closeBtn = new JButton("닫기");
 	JButton paintBtn = new JButton("그리기");
 	
-	CircleGraph graph = new CircleGraph();
+	CircleGraph circle_graph = new CircleGraph();
+	LineGraph line_graph = new LineGraph();
 	
 	int num1, num2, num3, num4, num5;
+	int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
 	
-	public GraphDialog(JFrame jframe, String title) {
+	public GraphDialog(JFrame jframe, String title, int type) {
 		super(jframe, title);
+		this.type = type;
 		setLayout(new BorderLayout());
 		
 		// 버튼 패널
@@ -24,30 +28,38 @@ public class GraphDialog extends JDialog{
 		btnP.add(paintBtn);
 		btnP.add(closeBtn);
 		add(btnP, BorderLayout.SOUTH);
-		add(graph, BorderLayout.CENTER);
+		add(circle_graph, BorderLayout.CENTER);
 		
 		setSize(Constant.dial_W, Constant.dial_H);
 		
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
-			if(Frame.resTable.getSelectedRowCount() != 1) {
-				JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
-				return;
+			if(type == 0) {	// 원형그래프이면,
+				if(Frame.resTable.getSelectedRowCount() != 1) {
+					JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
+					return;
+				}
+			
+				
+				int row = Frame.resTable.getSelectedRow();
+				int col = Frame.resTable.getSelectedColumn();
+				
+				String area = (String) Frame.resTable.getValueAt(row, 0);
+				int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
+				
+				circle_graph.setName(area);
+				circle_graph.setNumbers(num1, num2, num3, num4, num5);
+				circle_graph.repaint();
+			} else if(type == 1) {	// 꺽은선 그래프이면
+
+			} else {	// 막대 그래프이면
+				
 			}
-			int row = Frame.resTable.getSelectedRow();
-			int col = Frame.resTable.getSelectedColumn();
-			
-			String area = (String) Frame.resTable.getValueAt(row, 0);
-			int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-			int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-			int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-			int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-			int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-			Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
-			
-			graph.setName(area);
-			graph.setNumbers(num1, num2, num3, num4, num5);
-			graph.repaint();
 		});
 		
 		// 닫기 버튼 리스너
