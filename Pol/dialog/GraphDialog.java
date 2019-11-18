@@ -13,7 +13,7 @@ public class GraphDialog extends JDialog{
 	
 	CircleGraph graph = new CircleGraph();
 	
-	int num1, num2, num3;
+	int num1, num2, num3, num4, num5;
 	
 	public GraphDialog(JFrame jframe, String title) {
 		super(jframe, title);
@@ -41,10 +41,12 @@ public class GraphDialog extends JDialog{
 			int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
 			int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
 			int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-			Frame.cgDialog.setNumbers(pol1, pol2, pol3);
+			int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+			int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+			Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
 			
 			graph.setName(area);
-			graph.setNumbers(num1, num2, num3);
+			graph.setNumbers(num1, num2, num3, num4, num5);
 			graph.repaint();
 		});
 		
@@ -53,10 +55,12 @@ public class GraphDialog extends JDialog{
 		
 	}
 	
-	public void setNumbers(int num1, int num2, int num3) {
+	public void setNumbers(int num1, int num2, int num3, int num4, int num5) {
 		this.num1 = num1;
 		this.num2 = num2;
 		this.num3 = num3;
+		this.num4 = num4;
+		this.num5 = num5;
 	}
 	
 }

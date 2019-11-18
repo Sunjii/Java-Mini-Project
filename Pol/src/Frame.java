@@ -35,7 +35,7 @@ public class Frame extends JFrame {
 	
 	public Frame() {
 		setTitle("POL Project");
-		setSize(800, 800);
+		setSize(1000, 1000);
 		setLayout(new BorderLayout());
 		menu();
 		toolbar();
@@ -156,8 +156,7 @@ public class Frame extends JFrame {
 		/// p1  ::
 		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
 		// 지역 콤보박스
-		String [] location = {"전체", "강남", "강북", "용산"};
-		JComboBox locations = new JComboBox(location);
+		JComboBox locations = new JComboBox(Constant.locations);
 		p1.add(locations);
 		// 레이블 1
 		JLabel inputDate_ex = new JLabel("날짜입력 ");
@@ -186,25 +185,24 @@ public class Frame extends JFrame {
 		
 		
 		
-		
 		/// p3 :: 데이터 출력 할 곳
 		JPanel p3 = new JPanel();
 		// JTable
 		// 데모용 데이터
-		String header[] = {"지역", "날짜", Constant.pollut_0, Constant.pollut_1, Constant.pollut_2};
+		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4] };
 		String data[][] = {
-				{"강남", "2018-01-01", "10", "20", "30"},
-				{"강북", "2018-01-01", "22", "12", "43"},
-				{"용산", "2018-01-01", "8", "47", "21"},
-				{"강남", "2018-01-02", "13", "17", "19"},
-				{"강북", "2018-01-02", "36", "57", "33"},
-				{"용산", "2018-01-02", "11", "26", "37"}
+				{"강남", "2018-01-01", "10", "20", "30", "21", "27"},
+				{"강북", "2018-01-01", "22", "12", "43", "22", "17"},
+				{"용산", "2018-01-01", "8", "47", "21", "33", "20"},
+				{"강남", "2018-01-02", "13", "17", "19", "14", "31"},
+				{"강북", "2018-01-02", "36", "57", "33", "47", "24"},
+				{"용산", "2018-01-02", "11", "26", "37", "22", "11"}
 		};
 		// 테이블 생성
 		resTable = new JTable(data, header);
 		JScrollPane scroll = new JScrollPane(resTable);
 		p3.add(scroll);	
-		
+
 		
 		// 메인에 패널들 추가
 		top_area.add(p1, BorderLayout.CENTER); 

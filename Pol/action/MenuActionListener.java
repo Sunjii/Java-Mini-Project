@@ -1,4 +1,6 @@
 
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,12 +42,14 @@ public class MenuActionListener implements ActionListener{
 				int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
 				int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
 				int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
 
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);
 				
 				// 데이터 적용 시키기
-				Frame.cgDialog.setNumbers(pol1, pol2, pol3);
+				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
 				// 데이터를 기반으로 그래프 그리기
 				Frame.cgDialog.setVisible(true);
 				break;
