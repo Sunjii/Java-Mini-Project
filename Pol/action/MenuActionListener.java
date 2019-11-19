@@ -27,7 +27,7 @@ public class MenuActionListener implements ActionListener{
 		case "CSV 파일 저장하기":
 			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			break;
-		case "지역별 조회":
+		case "원형 그래프":
 			// 테이블에서 어딘가 선택되었을때만 그려지도록 한다.
 			switch(Frame.resTable.getSelectedRowCount()) {
 			case 0:
@@ -39,17 +39,18 @@ public class MenuActionListener implements ActionListener{
 				int col = Frame.resTable.getSelectedColumn();
 				
 				String area = (String) Frame.resTable.getValueAt(row, 0);
-				int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-				int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-				int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-				int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
 				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-
+				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);
 				
 				// 데이터 적용 시키기
-				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
+				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
 				// 데이터를 기반으로 그래프 그리기
 				Frame.cgDialog.setVisible(true);
 				break;
@@ -59,7 +60,7 @@ public class MenuActionListener implements ActionListener{
 					
 			}
 			
-		case "특정기간 비교":
+		case "꺽은선 그래프":
 			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
 			
 			// 해당 기간 데이터 추출
@@ -69,10 +70,11 @@ public class MenuActionListener implements ActionListener{
 			// 데이터 기반으로 그래프 그리기
 			
 			break;
-		case "지역간 비교":
+		case "막대 그래프":
 			// 지역을 선택한다
 			
 			// 막대그래프
+			Frame.bgDialog.setVisible(true);
 			break;
 		
 		case "종료":

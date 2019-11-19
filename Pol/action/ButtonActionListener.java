@@ -33,17 +33,17 @@ public class ButtonActionListener implements ActionListener{
 				int col = Frame.resTable.getSelectedColumn();
 				
 				String area = (String) Frame.resTable.getValueAt(row, 0);
-				int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-				int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-				int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-				int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
 				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-
+				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);
 				
 				// 데이터 적용 시키기
-				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
+				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
 				// 데이터를 기반으로 그래프 그리기
 				Frame.cgDialog.setVisible(true);
 				break;
@@ -64,7 +64,17 @@ public class ButtonActionListener implements ActionListener{
 			// 데이터 기반으로 그래프 그리기
 			// Frame.lgDialog.setVisible(true);
 			break;
-		
+		case "Graph 3":
+			// 지역 하나와 날짜 하나를 고른다.
+			
+			// 해당 데이터 추출
+			
+			// 데이터 적용
+			
+			// 데이터 기반으로 막대 그래프 그리기
+			Frame.bgDialog.setVisible(true);
+			
+			break;
 		case "종료":
 			System.exit(0);
 			break;

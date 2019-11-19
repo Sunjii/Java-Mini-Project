@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 class CircleGraph extends JPanel {
 	String area;
-	int num1, num2, num3, num4, num5;
+	double num1, num2, num3, num4, num5, num6;
 	
 	int count = 0;
 	// 그래프 좌표, 반지름
@@ -21,26 +21,26 @@ class CircleGraph extends JPanel {
 	double pai = 3.14;
 
 	public void paint(Graphics g) {
-		
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, Constant.dial_W, Constant.dial_H);
 		//값이 없다면 종료시킴
-		if ((num1 < 0) || (num2 < 0) || (num3 < 0) || (num4 <0) || (num5<0))
+		if ((num1 < 0) || (num2 < 0) || (num3 < 0) || (num4 <0) || (num5<0) || (num6<0))
 			return;
 		//전체 합을 구한다
-		int total = num1 + num2 + num3 + num4 + num5;
+		double total = num1 + num2 + num3 + num4 + num5 + num6;
 		if (total == 0)
 			return;
-		// 전체에서의 비중을 구함. 단위는 도
-		int arc1 = (int) 360.0 * num1 / total;
-		int arc2 = (int) 360.0 * num2 / total;
-		int arc3 = (int) 360.0 * num3 / total;
-		int arc4 = (int) 360.0 * num4 / total;
-		int arc5 = (int) 360.0 * num5 / total;
+		// 전체에서의 비중을 구함. 단위는 도 - for
+		int arc1 = (int) ((int) 360.0 * num1 / total);
+		int arc2 = (int) ((int) 360.0 * num2 / total);
+		int arc3 = (int) ((int) 360.0 * num3 / total);
+		int arc4 = (int) ((int) 360.0 * num4 / total);
+		int arc5 = (int) ((int) 360.0 * num5 / total);
+		int arc6 = (int) ((int) 360.0 * num6 / total);
 		
-		int arcs[] = {arc1, arc2, arc3, arc4, arc5};
-		// 호 그리기. (시작각, 끝각)
+		int arcs[] = {arc1, arc2, arc3, arc4, arc5, arc6};
+		// 호 그리기. (시작각, 끝각) - 나중에 for문화 시킬것
 		g.setColor(Color.YELLOW);
 		g.fillArc(pos_x, pos_y, radius, radius, 0, arc1);
 		g.setColor(Color.RED);
@@ -50,13 +50,16 @@ class CircleGraph extends JPanel {
 		g.setColor(Color.GREEN);
 		g.fillArc(pos_x, pos_y, radius, radius, arc1 + arc2 + arc3, arc4);
 		g.setColor(Color.ORANGE);
-		g.fillArc(pos_x, pos_y, radius, radius, arc1 + arc2 + arc3 + arc4, 360 - (arc1 + arc2 + arc3 + arc4));
+		g.fillArc(pos_x, pos_y, radius, radius, arc1 + arc2 + arc3 + arc4, arc5/*360 - (arc1 + arc2 + arc3 + arc4)*/);
+		g.setColor(Color.magenta);
+		g.fillArc(pos_x, pos_y, radius, radius, arc1 + arc2 + arc3 + arc4 + arc5, 360 - (arc1 + arc2 + arc3 + arc4 + arc5));
 		
 		drawLabel(num1, c_x, c_y, arcs, arc1, g);
 		drawLabel(num2, c_x, c_y, arcs, arc2, g);
 		drawLabel(num3, c_x, c_y, arcs, arc3, g);
 		drawLabel(num4, c_x, c_y, arcs, arc4, g);
 		drawLabel(num5, c_x, c_y, arcs, arc5, g);
+		drawLabel(num6, c_x, c_y, arcs, arc6, g);
 		count = 0;
 		
 
@@ -70,6 +73,7 @@ class CircleGraph extends JPanel {
 		g.fillRect(300, 85, 18, 18);
 		g.setColor(Color.BLACK);
 		
+		// 나중에 for문화 시킬것
 		g.drawString(Constant.pollut[1], 330, 120);
 		g.setColor(Color.RED);
 		g.fillRect(300, 105, 18, 18);
@@ -90,9 +94,14 @@ class CircleGraph extends JPanel {
 		g.fillRect(300, 165, 18, 18);
 		g.setColor(Color.BLACK);
 		
+		g.drawString(Constant.pollut[5], 330, 200);
+		g.setColor(Color.MAGENTA);
+		g.fillRect(300, 185, 18, 18);
+		g.setColor(Color.BLACK);
+		
 	}
 	// 중심이 x, y이고 사잇각이 mid_arc인 원에 라벨을 붙여주는 함수
-	private void drawLabel(int num, int x, int y, int arcs[], int arc, Graphics g) {
+	private void drawLabel(double num, int x, int y, int arcs[], int arc, Graphics g) {
 		int result_x, result_y;
 		// 지금까지의 각들의 합 + 이번에 그릴 원의 사잇각
 		int sum = 0;
@@ -106,16 +115,17 @@ class CircleGraph extends JPanel {
 		result_y = (int)( c_y - (Math.sin((res_arc) * (pai/180)) * radius/3));
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("굵게", Font.BOLD, 20));
-		g.drawString(Integer.toString(num), result_x , result_y);
+		g.drawString(Double.toString(num), result_x , result_y);
 		
 	}
 	
-	public void setNumbers(int num1, int num2, int num3, int num4, int num5) {
-		this.num1 = num1;
-		this.num2 = num2;
-		this.num3 = num3;
-		this.num4 = num4;
+	public void setNumbers(double num12, double num22, double num32, double num42, int num5, int num6) {
+		this.num1 = num12;
+		this.num2 = num22;
+		this.num3 = num32;
+		this.num4 = num42;
 		this.num5 = num5;
+		this.num6 = num6;
 	}
 	
 	public void setName(String in) {

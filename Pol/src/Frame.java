@@ -33,6 +33,7 @@ public class Frame extends JFrame {
 	
 	static GraphDialog cgDialog;
 	static GraphDialog lgDialog;
+	static GraphDialog bgDialog;
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -46,6 +47,7 @@ public class Frame extends JFrame {
 		
 		cgDialog = new GraphDialog(this, "원형그래프", 0);
 		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
+		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		
 		
 		setVisible(true);
@@ -85,13 +87,13 @@ public class Frame extends JFrame {
 		// 2. 그래프
 		JMenu graph = new JMenu("그래프");
 		// 2. Items
-		item = new JMenuItem("지역별 조회");
+		item = new JMenuItem("원형 그래프");
 		item.addActionListener(mal);
 		graph.add(item);
-		item = new JMenuItem("특정기간 비교");
+		item = new JMenuItem("꺽은선 그래프");
 		item.addActionListener(mal);
 		graph.add(item);
-		item = new JMenuItem("지역간 비교");
+		item = new JMenuItem("막대 그래프");
 		item.addActionListener(mal);
 		graph.add(item);
 		
@@ -141,6 +143,9 @@ public class Frame extends JFrame {
 		item.addActionListener(bal);
 		tb.add(item);
 		item = new JButton("Graph 2");
+		item.addActionListener(bal);
+		tb.add(item);
+		item = new JButton("Graph 3");
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -197,14 +202,14 @@ public class Frame extends JFrame {
 		JPanel p3 = new JPanel();
 		// JTable
 		// 데모용 데이터
-		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4] };
+		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
 		String data[][] = {
-				{"강남", "2018-01-01", "10", "20", "30", "21", "27"},
-				{"강북", "2018-01-01", "22", "12", "43", "22", "17"},
-				{"용산", "2018-01-01", "8", "47", "21", "33", "20"},
-				{"강남", "2018-01-02", "13", "17", "19", "14", "31"},
-				{"강북", "2018-01-02", "36", "57", "33", "47", "24"},
-				{"용산", "2018-01-02", "11", "26", "37", "22", "11"}
+				{"강남", "2018-01-01", "10", "20", "30", "21", "27", "3"},
+				{"강북", "2018-01-01", "22", "12", "43", "22", "17", "4"},
+				{"용산", "2018-01-01", "8", "47", "21", "33", "20", "5"},
+				{"강남", "2018-01-02", "13", "17", "19", "14", "31", "6"},
+				{"강북", "2018-01-02", "36", "57", "33", "47", "24", "3"},
+				{"용산", "2018-01-02", "11", "26", "37", "22", "11", "7"}
 		};
 		// 테이블 생성
 		resTable = new JTable(data, header);

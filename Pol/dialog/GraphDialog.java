@@ -14,8 +14,10 @@ public class GraphDialog extends JDialog{
 	
 	CircleGraph circle_graph = new CircleGraph();
 	LineGraph line_graph = new LineGraph();
+	BarGraph bar_graph = new BarGraph();
 	
-	int num1, num2, num3, num4, num5;
+	double num1, num2, num3, num4;
+	int num5, num6;
 	int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
 	
 	public GraphDialog(JFrame jframe, String title, int type) {
@@ -28,10 +30,20 @@ public class GraphDialog extends JDialog{
 		btnP.add(paintBtn);
 		btnP.add(closeBtn);
 		add(btnP, BorderLayout.SOUTH);
-		add(circle_graph, BorderLayout.CENTER);
-		
-		setSize(Constant.dial_W, Constant.dial_H);
-		
+		switch (type) {	// 그래프 종류 설정
+		case 0:
+			add(circle_graph, BorderLayout.CENTER);
+			break;
+		case 1:
+			add(line_graph, BorderLayout.CENTER);
+			break;
+		case 2:
+			add(bar_graph, BorderLayout.CENTER);
+			break;
+		}
+
+		setSize(Constant.dial_W, Constant.dial_H + 100);
+
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
 			if(type == 0) {	// 원형그래프이면,
@@ -45,19 +57,22 @@ public class GraphDialog extends JDialog{
 				int col = Frame.resTable.getSelectedColumn();
 				
 				String area = (String) Frame.resTable.getValueAt(row, 0);
-				int pol1 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-				int pol2 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-				int pol3 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-				int pol4 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
 				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5);
+				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
 				
 				circle_graph.setName(area);
-				circle_graph.setNumbers(num1, num2, num3, num4, num5);
+				circle_graph.setNumbers(num1, num2, num3, num4, num5, num6);
 				circle_graph.repaint();
 			} else if(type == 1) {	// 꺽은선 그래프이면
 
 			} else {	// 막대 그래프이면
+				System.out.println("막대");
+				bar_graph.repaint();
 				
 			}
 		});
@@ -67,12 +82,13 @@ public class GraphDialog extends JDialog{
 		
 	}
 	
-	public void setNumbers(int num1, int num2, int num3, int num4, int num5) {
-		this.num1 = num1;
-		this.num2 = num2;
-		this.num3 = num3;
-		this.num4 = num4;
+	public void setNumbers(double pol1, double pol2, double pol3, double pol4, int num5, int num6) {
+		this.num1 = pol1;
+		this.num2 = pol2;
+		this.num3 = pol3;
+		this.num4 = pol4;
 		this.num5 = num5;
+		this.num6 = num6;
 	}
 	
 }
