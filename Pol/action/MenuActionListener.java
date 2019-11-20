@@ -43,8 +43,8 @@ public class MenuActionListener implements ActionListener{
 				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
 				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
 				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
 				
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);

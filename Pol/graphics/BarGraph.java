@@ -6,10 +6,9 @@ import javax.swing.JPanel;
 public class BarGraph extends JPanel{
 	
 	int gap;
-	double num1, num2, num3, num4;
-	int num5, num6; // 각 오염물질들의 농도
-	
-	double max[] = {0.150, 0.300, 3, 0.150, 200, 130};
+
+	double num[] = {0, 0, 0, 0, 0, 0}; // 오염물질의 농도
+	double max[] = {0.060, 0.060, 3, 0.050, 200, 130}; // 오염물질들의 최대값
 	
 	int bar_w = 10; // 막대그래프 폭
 	int bar_h; // 막대그래프 높이
@@ -37,24 +36,21 @@ public class BarGraph extends JPanel{
 			g.drawString(Integer.toString(100 - i*10), 40-22, 40+(i*28));
 		}
 		
-		// num1 ~ num5의 막대 그래프 그리기
+		// num1 ~ num6의 막대 그래프 그리기
 		// bar_h : 상대값. 
 		// s_y : 40 ~ 320
 		gap = 420/6;
+		for (int i=0; i<6; i++) {
+			System.out.println(num[i]);
+		}
+		
 		for(int i=0; i<6; i++) {
 			s_x = 40 + gap/2;
-			//s_y = 320;	// 막대의 최고점
-			
-			
-			
-			
-			
-			bar_h = 280 + 40 - s_y;	// 막대 높이
+			bar_h = (int) (num[i] / max[i] * 100);
+			s_y = 320 - bar_h;
 			gap += 420/3;
 			g.setColor(Color.red);
-			g.fillRect(s_x, s_y, bar_w, bar_h);
-			
-			
+			g.fillRect(s_x, s_y, bar_w, bar_h);		
 		}
 		
 		
@@ -63,13 +59,13 @@ public class BarGraph extends JPanel{
 		
 	}
 	
-	public void setNumbers(double num1, double num2, double num3, double num4, int num5, int num6) {
-		this.num1 = num1;
-		this.num2 = num2;
-		this.num3 = num3;
-		this.num4 = num4;
-		this.num5 = num5;
-		this.num6 = num6;
+	public void setNumbers(double num1, double num2, double num3, double num4, double num5, double num6) {
+		num[0] = num1;
+		num[1] = num2;
+		num[2] = num3;
+		num[3] = num4;
+		num[4] = num5;
+		num[5] = num6;
 	}
 	
 	

@@ -1,9 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -22,6 +24,13 @@ import javax.swing.JToolBar;
 public class Frame extends JFrame {
 	
 	ImageIcon test = new ImageIcon("image.jpg");
+	
+	static CSVLoad csvL = new CSVLoad();
+	
+	//static String data[][] = {};
+	//static List<Object> data = new ArrayList<Object>();
+	static List<String[]> data = new ArrayList<String[]>();
+	static String[][] arr = new String[13000][8];
 
 	JPanel top_area = new JPanel(new BorderLayout());	// 상단에 위치하는 툴바&컴포넌트 자리
 	JPanel main_area = new JPanel(new BorderLayout());	// 메인
@@ -201,18 +210,42 @@ public class Frame extends JFrame {
 		/// p3 :: 데이터 출력 할 곳
 		JPanel p3 = new JPanel();
 		// JTable
+		
+		/*
 		// 데모용 데이터
 		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
 		String data[][] = {
-				{"강남", "2018-01-01", "10", "20", "30", "21", "27", "3"},
-				{"강북", "2018-01-01", "22", "12", "43", "22", "17", "4"},
-				{"용산", "2018-01-01", "8", "47", "21", "33", "20", "5"},
-				{"강남", "2018-01-02", "13", "17", "19", "14", "31", "6"},
-				{"강북", "2018-01-02", "36", "57", "33", "47", "24", "3"},
-				{"용산", "2018-01-02", "11", "26", "37", "22", "11", "7"}
+				{"강남", "2018-01-01", "0.033", "0.01", "0.6", "0.006", "34", "22"},
+				{"강북", "2018-01-01", "0.026", "0.018", "0.6", "0.004", "38", "18"},
+				{"용산", "2018-01-01", "0.036", "0.012", "0.7", "0.004", "22", "13"},
+				{"강남", "2018-01-02", "0.051", "0.005", "0.7", "0.005", "40", "24"},
+				{"강북", "2018-01-02", "0.045", "0.008", "0.8", "0.003", "47", "21"},
+				{"용산", "2018-01-02", "0.029", "0.016", "0.6", "0.007", "34", "17"}
 		};
+		*/
+		
+		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
+		//resTable = new JTable(data, header);
+		//csvL.getlocations();
+		
+		
+		
 		// 테이블 생성
-		resTable = new JTable(data, header);
+		//resTable = new JTable(data, header);
+		//String[] arr = data.toArray(new String[data.size()]);
+		/*
+		String[][] arr = new String[101][9];
+		for(int i=0; i< 100; i++) {
+			for(int j=0; j<8; j++) {
+				arr[i][j] = (String) data.get(j);
+			}
+		}
+		*/
+		
+		
+		
+		//System.out.println(data);
+		resTable = new JTable(arr, header);
 		JScrollPane scroll = new JScrollPane(resTable);
 		p3.add(scroll);	
 
@@ -224,6 +257,44 @@ public class Frame extends JFrame {
 		main_area.add(p3, BorderLayout.SOUTH);
 		
 		
+		
+	}
+	
+	public static void insertTable(ArrayList<Location> arrayList) {
+		for(int i=0; i<arrayList.size(); i++) {
+			Location location = arrayList.get(i);
+			String name = location.getName();
+			LocalDate date = location.getDate();
+			Stat stat = location.getStat();
+			
+			String[] one = {name, date.toString(), Double.toString(stat.nppm),
+					Double.toString(stat.oppm), Double.toString(stat.cppm), Double.toString(stat.appm),
+					Double.toString(stat.dust), Double.toString(stat.mdust)
+			};
+			
+			/*
+			data.add(name);
+			data.add(date.toString());
+			data.add(Double.toString(stat.nppm));
+			data.add(Double.toString(stat.oppm));
+			data.add(Double.toString(stat.cppm));
+			data.add(Double.toString(stat.appm));
+			data.add(Double.toString(stat.dust));
+			data.add(Double.toString(stat.mdust));
+			*/
+			//System.out.println(name + " " + date.toString() + " " + Double.toString(stat.dust));
+			data.add(one);
+			
+		}
+	}
+	
+	public static void makeTable() {
+		for(int i=0; i<data.size(); i++) {
+			for(int j=0; j<8; j++) {
+				arr[i][j] = data.get(i)[j];
+			}
+		}
+		//arr[][0] = data.get(0)[0];
 		
 	}
 	

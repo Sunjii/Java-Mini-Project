@@ -119,11 +119,11 @@ class CircleGraph extends JPanel {
 		
 	}
 	
-	public void setNumbers(double num12, double num22, double num32, double num42, int num5, int num6) {
-		this.num1 = num12;
-		this.num2 = num22;
-		this.num3 = num32;
-		this.num4 = num42;
+	public void setNumbers(double num1, double num2, double num3, double num4, double num5, double num6) {
+		this.num1 = num1;
+		this.num2 = num2;
+		this.num3 = num3;
+		this.num4 = num4;
 		this.num5 = num5;
 		this.num6 = num6;
 	}

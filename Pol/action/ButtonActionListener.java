@@ -3,6 +3,7 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -16,7 +17,23 @@ public class ButtonActionListener implements ActionListener{
 		switch (btn.getText()) {
 
 		case "Open":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			try {
+				Frame.csvL.Read();
+				//Frame.data.add();
+				Frame.insertTable(Frame.csvL.getlocations());
+				//System.out.println(Frame.csvL.getlocations());
+				//System.out.println(Frame.data.toString());
+				System.out.println(Frame.data.get(0)[0]);
+				System.out.println(Frame.data.get(0)[1]);
+				System.out.println(Frame.data.get(0)[2]);
+				
+				Frame.makeTable();
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			break;
 		case "Save":
 			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
@@ -37,8 +54,8 @@ public class ButtonActionListener implements ActionListener{
 				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
 				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
 				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
 				System.out.println(row + ", " + col);
 				System.out.println(area + " " + pol1);
 				
@@ -66,14 +83,34 @@ public class ButtonActionListener implements ActionListener{
 			break;
 		case "Graph 3":
 			// 지역 하나와 날짜 하나를 고른다.
-			
-			// 해당 데이터 추출
-			
-			// 데이터 적용
-			
-			// 데이터 기반으로 막대 그래프 그리기
-			Frame.bgDialog.setVisible(true);
-			
+			switch(Frame.resTable.getSelectedRowCount()) {
+			case 0:
+				JOptionPane.showMessageDialog(null, "선택된 칼럼이 없습니다!");
+				break;
+			case 1:
+				// 선택한 칼럼에서 데이터 가져오기
+				int row = Frame.resTable.getSelectedRow();
+				int col = Frame.resTable.getSelectedColumn();
+				
+				String area = (String) Frame.resTable.getValueAt(row, 0);
+				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				System.out.println(row + ", " + col);
+				System.out.println(area + " " + pol1);
+				
+				// 데이터 적용 시키기
+				Frame.bgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
+				// 데이터를 기반으로 그래프 그리기
+				Frame.bgDialog.setVisible(true);
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
+				break;
+			}
 			break;
 		case "종료":
 			System.exit(0);

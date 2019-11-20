@@ -16,8 +16,7 @@ public class GraphDialog extends JDialog{
 	LineGraph line_graph = new LineGraph();
 	BarGraph bar_graph = new BarGraph();
 	
-	double num1, num2, num3, num4;
-	int num5, num6;
+	double num1, num2, num3, num4, num5, num6;
 	int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
 	
 	public GraphDialog(JFrame jframe, String title, int type) {
@@ -61,8 +60,8 @@ public class GraphDialog extends JDialog{
 				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
 				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
 				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-				int pol5 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				int pol6 = Integer.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
 				Frame.cgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
 				
 				circle_graph.setName(area);
@@ -72,6 +71,26 @@ public class GraphDialog extends JDialog{
 
 			} else {	// 막대 그래프이면
 				System.out.println("막대");
+				if(Frame.resTable.getSelectedRowCount() != 1) {
+					JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
+					return;
+				}
+			
+				
+				int row = Frame.resTable.getSelectedRow();
+				int col = Frame.resTable.getSelectedColumn();
+				
+				String area = (String) Frame.resTable.getValueAt(row, 0);
+				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
+				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
+				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
+				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
+				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
+				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
+				Frame.bgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
+				
+				bar_graph.setName(area);
+				bar_graph.setNumbers(num1, num2, num3, num4, num5, num6);
 				bar_graph.repaint();
 				
 			}
@@ -82,13 +101,13 @@ public class GraphDialog extends JDialog{
 		
 	}
 	
-	public void setNumbers(double pol1, double pol2, double pol3, double pol4, int num5, int num6) {
+	public void setNumbers(double pol1, double pol2, double pol3, double pol4, double pol5, double pol6) {
 		this.num1 = pol1;
 		this.num2 = pol2;
 		this.num3 = pol3;
 		this.num4 = pol4;
-		this.num5 = num5;
-		this.num6 = num6;
+		this.num5 = pol5;
+		this.num6 = pol6;
 	}
 	
 }
