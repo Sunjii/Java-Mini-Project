@@ -133,6 +133,26 @@ public class ButtonActionListener implements ActionListener{
 				break;
 			}
 			break;
+		case "검색":
+			// 검색함수
+			String date = Frame.inputDate.getText();
+			ArrayList<String[]> search_result = new ArrayList<String[]>();
+			
+			for(String[] in : Frame.data) {
+				// 텍스트 필드에서 가져온 값인 date 와 in[1]을 비교한다.
+				if(date.equals(in[1])) {
+					search_result.add(in);
+				}
+			}
+			
+			if(search_result.size() > 0) {
+				
+			} else {
+				JOptionPane.showMessageDialog(null, "검색 결과가 없습니다!");
+			}
+			
+			
+			break;
 		case "종료":
 			System.exit(0);
 			break;
@@ -142,10 +162,12 @@ public class ButtonActionListener implements ActionListener{
 		
 	}
 
+	/*
 	private void loadData(ArrayList<Location> locations) {
 		// TODO Auto-generated method stub
 		
 	}
+	*/
 
 	
 	
