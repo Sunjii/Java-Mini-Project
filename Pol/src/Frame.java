@@ -45,6 +45,10 @@ public class Frame extends JFrame {
 	static GraphDialog lgDialog;
 	static GraphDialog bgDialog;
 	
+	
+	
+	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
+	
 	public Frame() {
 		setTitle("POL Project");
 		setSize(1000, 1000);
@@ -189,7 +193,7 @@ public class Frame extends JFrame {
 		JLabel inputDate_ex = new JLabel("날짜입력 ");
 		p1.add(inputDate_ex);
 		// 날짜 입력 텍스트필드
-		JTextField inputDate = new JTextField("ex) 20180101", 8);
+		//JTextField inputDate = new JTextField("ex) 20180101", 8);
 		// 텍스트필드 클릭시 초기 입력 삭제
 		inputDate.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -200,6 +204,7 @@ public class Frame extends JFrame {
 		p1.add(inputDate);
 		// 확인 버튼
 		JButton send = new JButton("검색");
+		send.addActionListener(bal);
 		p1.add(send);
 		
 		
