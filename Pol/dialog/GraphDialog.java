@@ -7,17 +7,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 // 그래프 대화상자
+@SuppressWarnings("serial")
 public class GraphDialog extends JDialog{
 
-	JButton closeBtn = new JButton("닫기");
-	JButton paintBtn = new JButton("그리기");
+	private JButton closeBtn = new JButton("닫기");
+	private JButton paintBtn = new JButton("그리기");
 	
-	CircleGraph circle_graph = new CircleGraph();
-	LineGraph line_graph = new LineGraph();
-	BarGraph bar_graph = new BarGraph();
+	private CircleGraph circle_graph = new CircleGraph();
+	private LineGraph line_graph = new LineGraph();
+	private BarGraph bar_graph = new BarGraph();
 	
-	double num1, num2, num3, num4, num5, num6;
-	int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
+	private double num1, num2, num3, num4, num5, num6;
+	private int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
 	
 	public GraphDialog(JFrame jframe, String title, int type) {
 		super(jframe, title);
@@ -72,7 +73,7 @@ public class GraphDialog extends JDialog{
 			} else {	// 막대 그래프이면
 				System.out.println("막대");
 				if(Frame.resTable.getSelectedRowCount() != 1) {
-					JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
+					JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
 					return;
 				}
 			
