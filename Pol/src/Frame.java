@@ -26,6 +26,7 @@ public class Frame extends JFrame {
 	ImageIcon test = new ImageIcon("image.jpg");
 	
 	static CSVLoad csvL = new CSVLoad();
+	static CSVWrite csvW = new CSVWrite();
 	
 	//static String data[][] = {};
 	//static List<Object> data = new ArrayList<Object>();
@@ -145,6 +146,10 @@ public class Frame extends JFrame {
 		item.addActionListener(bal);
 		tb.add(item);
 		item = new JButton("Save");
+		item.addActionListener(bal);
+		tb.add(item);
+		tb.addSeparator();
+		item = new JButton("DBLoad");
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();

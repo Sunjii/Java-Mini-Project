@@ -4,6 +4,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -36,8 +38,27 @@ public class ButtonActionListener implements ActionListener{
 			}
 			break;
 		case "Save":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			try {
+				Frame.csvW.Write();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			break;
+		case "DBLoad":
+			try {
+				new InputDatabase();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			InputDatabase.loadData(CSVLoad.locations);
+			
+			break;
+		case "DBSave":
+				break;
 		case "Graph 1":
 			// 테이블에서 어딘가 선택되었을때만 그려지도록 한다.
 			switch(Frame.resTable.getSelectedRowCount()) {
@@ -118,6 +139,11 @@ public class ButtonActionListener implements ActionListener{
 			
 		}
 			
+		
+	}
+
+	private void loadData(ArrayList<Location> locations) {
+		// TODO Auto-generated method stub
 		
 	}
 

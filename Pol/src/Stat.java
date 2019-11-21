@@ -1,7 +1,5 @@
 
 public class Stat {
-	protected String measureDay;	//측정 일시
-	protected String location;	//측정소명
 	protected double nppm;		//이산화질소
 	protected double oppm;		//오존농도
 	protected double cppm;		//이산화탄소
