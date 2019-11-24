@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -26,24 +27,17 @@ public class ButtonActionListener implements ActionListener{
 		case "Open":
 			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			try {
+				Frame.csvL.Reset();
 				Frame.csvL.Read();
-				//Frame.data.add();
 				// 초기화
-				Frame.resetTable(Frame.arr);
-				Frame.insertTable(Frame.csvL.getlocations());
-				//System.out.println(Frame.csvL.getlocations());
-				//System.out.println(Frame.data.toString());
-				//System.out.println(Frame.data.get(0)[0]);
-				//System.out.println(Frame.data.get(0)[1]);
-				//System.out.println(Frame.data.get(0)[2]);
-				
-				//Frame.makeTable();
-				/*Frame.arr =*/ Frame.makeTable(Frame.data);
-				Frame.redrawTable(Frame.arr);
-				//System.out.println(Frame.arr[0][0] + Frame.arr[0][1]);
-				
+				int rowCount = Frame.model.getRowCount();
+				for(int i=0; i<rowCount; i++) {
+					Table.deleteTable(0, Frame.model);
+				}	
+				Frame.model.fireTableDataChanged();
+				// 데이터 추가
+				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			break;
@@ -103,6 +97,12 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Graph 2":
+			Table.deleteTable(0, Frame.model);
+			
+			
+			
+			
+			
 			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
 			
 			// 해당 기간 데이터 추출
@@ -149,29 +149,40 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "검색":
-			// 검색함수
-			String date = Frame.inputDate.getText();
-			//ArrayList<String[]> search_result = new ArrayList<String[]>();
-			List<String[]> search_result = new ArrayList<String[]>();
+			// 테이블 초기화 및 데이터 재입력.
+			Frame.csvL.Reset();
+			try {
+				Frame.csvL.Read();
+				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			
-			for(String[] in : Frame.data) {
-				// 텍스트 필드에서 가져온 값인 date 와 in[1]을 비교한다.
-				if(date.equals(in[1])) {
+			String date = Frame.inputDate.getText();
+			ArrayList<String[]> search_result = new ArrayList<String[]>();
+
+			for (int i=0; i < Frame.model.getRowCount(); i++) {
+				// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
+				if(date.equals(Frame.model.getValueAt(i, 1))) {
+					String[] in = new String[8];
+					for(int j=0; j<8; j++) {
+						in[j] = (String) Frame.model.getValueAt(i, j);
+					}
 					search_result.add(in);
 				}
 			}
-			
+			// 현재 화면의 테이블 전부 삭제
 			if(search_result.size() > 0) {
-				// 검색결과를 테이블에 적용하여 재 출력.
-				//Frame.makeTable();
-				//Frame.insertTable(search_result);
-				
-				//Frame.redrawTable(Frame.makeTable(search_result));
-				Frame.makeTable(search_result);
-				
-				
-				
-			} else {	// 검색 결과가 없는 경우.
+				int count = Frame.model.getRowCount();
+				for(int i=0; i<count; i++) {
+					Frame.model.removeRow(0);
+				}
+				// search_result를 이용해 테이블 재생성
+				for (int i=0; i<search_result.size(); i++) {
+					Frame.model.addRow(search_result.get(i));
+				}	
+			} else {// 검색 결과가 없는 경우.
 				JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
 			}
 			
@@ -186,12 +197,7 @@ public class ButtonActionListener implements ActionListener{
 		
 	}
 
-	/*
-	private void loadData(ArrayList<Location> locations) {
-		// TODO Auto-generated method stub
-		
-	}
-	*/
+
 
 	
 	
