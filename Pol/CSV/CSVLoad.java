@@ -6,6 +6,8 @@ import java.util.*;
 public class CSVLoad {
 	static ArrayList<Location> locations = new ArrayList<Location>();
 	
+	//Vector<Location> vlos;
+	
 	@SuppressWarnings("resource")
 	public static void Read() throws IOException {
 		      BufferedReader br;
@@ -57,4 +59,9 @@ public class CSVLoad {
 	   
 	   // 이름 오름차순 정렬
 	   
+	   
+	   // locations 초기화
+	   public void Reset() {
+		   locations.clear();
+	   }
 }
