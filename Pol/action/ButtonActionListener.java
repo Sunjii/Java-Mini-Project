@@ -144,6 +144,9 @@ public class ButtonActionListener implements ActionListener{
 			}
 			break;
 		case "Data":
+			// 데이터 수정 창을 출력
+			Frame.tbDialog.setVisible(true);
+			
 			
 			
 			
