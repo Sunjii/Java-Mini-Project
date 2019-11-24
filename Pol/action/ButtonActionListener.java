@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class ButtonActionListener implements ActionListener{
 
+	
+	DefaultTableModel dtm = new DefaultTableModel();
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton btn = (JButton) (e.getSource());
@@ -23,14 +28,19 @@ public class ButtonActionListener implements ActionListener{
 			try {
 				Frame.csvL.Read();
 				//Frame.data.add();
+				// 초기화
+				Frame.resetTable(Frame.arr);
 				Frame.insertTable(Frame.csvL.getlocations());
 				//System.out.println(Frame.csvL.getlocations());
 				//System.out.println(Frame.data.toString());
-				System.out.println(Frame.data.get(0)[0]);
-				System.out.println(Frame.data.get(0)[1]);
-				System.out.println(Frame.data.get(0)[2]);
+				//System.out.println(Frame.data.get(0)[0]);
+				//System.out.println(Frame.data.get(0)[1]);
+				//System.out.println(Frame.data.get(0)[2]);
 				
-				Frame.makeTable();
+				//Frame.makeTable();
+				/*Frame.arr =*/ Frame.makeTable(Frame.data);
+				Frame.redrawTable(Frame.arr);
+				//System.out.println(Frame.arr[0][0] + Frame.arr[0][1]);
 				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -133,10 +143,16 @@ public class ButtonActionListener implements ActionListener{
 				break;
 			}
 			break;
+		case "Data":
+			
+			
+			
+			break;
 		case "검색":
 			// 검색함수
 			String date = Frame.inputDate.getText();
-			ArrayList<String[]> search_result = new ArrayList<String[]>();
+			//ArrayList<String[]> search_result = new ArrayList<String[]>();
+			List<String[]> search_result = new ArrayList<String[]>();
 			
 			for(String[] in : Frame.data) {
 				// 텍스트 필드에서 가져온 값인 date 와 in[1]을 비교한다.
@@ -146,9 +162,17 @@ public class ButtonActionListener implements ActionListener{
 			}
 			
 			if(search_result.size() > 0) {
+				// 검색결과를 테이블에 적용하여 재 출력.
+				//Frame.makeTable();
+				//Frame.insertTable(search_result);
 				
-			} else {
-				JOptionPane.showMessageDialog(null, "검색 결과가 없습니다!");
+				//Frame.redrawTable(Frame.makeTable(search_result));
+				Frame.makeTable(search_result);
+				
+				
+				
+			} else {	// 검색 결과가 없는 경우.
+				JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
 			}
 			
 			

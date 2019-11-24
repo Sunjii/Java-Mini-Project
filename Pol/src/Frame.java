@@ -125,11 +125,17 @@ public class Frame extends JFrame {
 
 		mb.add(statics);
 		
-		// 4. 설정
-		JMenu option = new JMenu("설정");
+		// 4. 데이터 관련 메뉴
+		JMenu data = new JMenu("데이터");
 		// 4. Items
+		item = new JMenuItem("수정");
+		item.addActionListener(mal);
+		statics.add(item);
+		item = new JMenuItem("");
+		item.addActionListener(mal);
+		statics.add(item);
 		
-		mb.add(option);
+		mb.add(data);
 		// 5.
 		
 		
@@ -164,6 +170,10 @@ public class Frame extends JFrame {
 		item.addActionListener(bal);
 		tb.add(item);
 		item = new JButton("Graph 3");
+		item.addActionListener(bal);
+		tb.add(item);
+		tb.addSeparator();
+		item = new JButton("Data");
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -234,7 +244,7 @@ public class Frame extends JFrame {
 		};
 		*/
 		
-		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
+		//String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
 		//resTable = new JTable(data, header);
 		//csvL.getlocations();
 		
@@ -254,8 +264,9 @@ public class Frame extends JFrame {
 		
 		
 		
-		//System.out.println(data);
-		resTable = new JTable(arr, header);
+
+		resTable = new JTable(arr, Constant.header);
+		//redrawTable(arr);
 		JScrollPane scroll = new JScrollPane(resTable);
 		p3.add(scroll);	
 
@@ -298,13 +309,31 @@ public class Frame extends JFrame {
 		}
 	}
 	
-	public static void makeTable() {
-		for(int i=0; i<data.size(); i++) {
+	public static void makeTable(List<String[]> input) {
+		//String[][] array = new String[13000][8];
+		// 배열 초기화
+		resetTable(arr);
+		
+		// input으로 String[][] 에 입력
+		for(int i=0; i</*data*/input.size(); i++) {
 			for(int j=0; j<8; j++) {
-				arr[i][j] = data.get(i)[j];
+				arr[i][j]/*array[i][j]*/ = /*data*/input.get(i)[j];
 			}
 		}
-		//arr[][0] = data.get(0)[0];
+		//return array;
+	}
+	
+	
+	public static void redrawTable(String[][] ar) {
+		resTable = new JTable(ar, Constant.header);
+	}
+	
+	public static void resetTable(String[][] table) {
+		for(int i=0; i<13000; i++) {
+			for(int j=0; j<8; j++) {
+				table[i][j] = "";
+			}
+		}
 		
 	}
 	

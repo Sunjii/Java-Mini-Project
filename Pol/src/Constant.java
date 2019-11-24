@@ -2,6 +2,7 @@
 public class Constant {
 	// 오염물질
 	static final String[] pollut = { "이산화질소", "오존농도", "이산화탄소", "아황산가스", "미세먼지", "초미세먼지" };
+	static final String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
 	
 	/*
 	 * 이산화질소 : 0.000 ~ 0.150 // 0.06
