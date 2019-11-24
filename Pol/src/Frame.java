@@ -1,11 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -50,7 +50,7 @@ public class Frame extends JFrame {
 	static GraphDialog cgDialog;
 	static GraphDialog lgDialog;
 	static GraphDialog bgDialog;
-	
+	static DataDialog tbDialog;
 	
 	
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
@@ -68,6 +68,7 @@ public class Frame extends JFrame {
 		cgDialog = new GraphDialog(this, "원형그래프", 0);
 		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
+		tbDialog = new DataDialog(this, "데이터");
 		
 		
 		setVisible(true);
@@ -166,6 +167,9 @@ public class Frame extends JFrame {
 		tb.add(item);
 		tb.addSeparator();
 		item = new JButton("DBLoad");
+		item.addActionListener(bal);
+		tb.add(item);
+		item = new JButton("DBSave");
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -278,10 +282,19 @@ public class Frame extends JFrame {
 
 		
 		// 테이블 모델 생성 & 테이블 생성
-		model = new DefaultTableModel(Constant.header, 0);
+		model = new DefaultTableModel(Constant.header, 0) {
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
 		resTable = new JTable(model);
+		// 수정, 이동방지. 사이즈 조정
+		resTable.getTableHeader().setReorderingAllowed(false);
+		resTable.getTableHeader().setResizingAllowed(false);
+		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		// 패널에 테이블 추가
 		jsp = new JScrollPane(resTable);
+		jsp.setPreferredSize(new Dimension(600,400));
 		p3.add(jsp);
 		resTable.updateUI();
 		
