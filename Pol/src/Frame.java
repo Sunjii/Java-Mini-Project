@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.table.DefaultTableModel;
 
 public class Frame extends JFrame {
 	
@@ -30,7 +32,7 @@ public class Frame extends JFrame {
 	
 	//static String data[][] = {};
 	//static List<Object> data = new ArrayList<Object>();
-	static List<String[]> data = new ArrayList<String[]>();
+	static ArrayList<String[]> data = new ArrayList<String[]>();
 	static String[][] arr = new String[13000][8];
 
 	JPanel top_area = new JPanel(new BorderLayout());	// 상단에 위치하는 툴바&컴포넌트 자리
@@ -39,7 +41,11 @@ public class Frame extends JFrame {
 	MenuActionListener mal = new MenuActionListener();
 	ButtonActionListener bal = new ButtonActionListener();
 	
+	
+	static JScrollPane jsp;
 	static JTable resTable;
+	static DefaultTableModel model;
+	Vector<String> dataRow;
 	
 	static GraphDialog cgDialog;
 	static GraphDialog lgDialog;
@@ -265,11 +271,20 @@ public class Frame extends JFrame {
 		
 		
 
-		resTable = new JTable(arr, Constant.header);
+		//resTable = new JTable(arr, Constant.header);
 		//redrawTable(arr);
-		JScrollPane scroll = new JScrollPane(resTable);
-		p3.add(scroll);	
+		//JScrollPane scroll = new JScrollPane(resTable);
+		//p3.add(scroll);	
 
+		
+		// 테이블 모델 생성 & 테이블 생성
+		model = new DefaultTableModel(Constant.header, 0);
+		resTable = new JTable(model);
+		// 패널에 테이블 추가
+		jsp = new JScrollPane(resTable);
+		p3.add(jsp);
+		resTable.updateUI();
+		
 		
 		// 메인에 패널들 추가
 		top_area.add(p1, BorderLayout.CENTER); 
@@ -281,7 +296,14 @@ public class Frame extends JFrame {
 		
 	}
 	
-	public static void insertTable(ArrayList<Location> arrayList) {
+	
+	
+	
+	
+	
+	
+	
+	public static void insertTable(ArrayList<Location> arrayList, DefaultTableModel mod) {
 		for(int i=0; i<arrayList.size(); i++) {
 			Location location = arrayList.get(i);
 			String name = location.getName();
@@ -304,15 +326,20 @@ public class Frame extends JFrame {
 			data.add(Double.toString(stat.mdust));
 			*/
 			//System.out.println(name + " " + date.toString() + " " + Double.toString(stat.dust));
-			data.add(one);
+			//data.add(one);
+			//model.addRow(one);
+			mod.addRow(one);
 			
 		}
 	}
 	
-	public static void makeTable(List<String[]> input) {
+	
+	
+	
+	public static void makeTable(ArrayList<String[]> input) {
 		//String[][] array = new String[13000][8];
 		// 배열 초기화
-		resetTable(arr);
+		//resetTable(arr);
 		
 		// input으로 String[][] 에 입력
 		for(int i=0; i</*data*/input.size(); i++) {
@@ -331,7 +358,7 @@ public class Frame extends JFrame {
 	public static void resetTable(String[][] table) {
 		for(int i=0; i<13000; i++) {
 			for(int j=0; j<8; j++) {
-				table[i][j] = "";
+				table[i][j] = ""; // 이게 아니라 아예 삭제해야됨.. 포인터를 감소
 			}
 		}
 		
