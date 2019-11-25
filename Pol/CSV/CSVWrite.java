@@ -11,7 +11,9 @@ public class CSVWrite {
             String data = stat.getDate()+","+ stat.getName()+","+stat.getStat().nppm +","+ stat.getStat().oppm+","+stat.getStat().cppm
                   +","+stat.getStat().appm+","+stat.getStat().dust +","+stat.getStat().mdust;
             pw.println(data);
+            //System.out.println(data);
         }
+     pw.close(); // 이 구문을 추가하니까 출력이 끝까지 완전하게 되었다. 왜 그런지 나중에 확인해보자
    }
 }
 

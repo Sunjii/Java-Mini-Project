@@ -15,6 +15,19 @@ public class Stat {
 		this.dust = dust;
 		this.mdust = mdust;
 	}
+
+	public Stat(String nppm, String oppm, String cppm, String appm, String dust, String mdust) {
+		this.nppm = Double.parseDouble(nppm);
+		this.oppm = Double.parseDouble(oppm);
+		this.cppm = Double.parseDouble(cppm);
+		this.appm = Double.parseDouble(appm);
+		this.dust = Integer.parseInt(dust);
+		this.mdust = Integer.parseInt(mdust);
+		
+		
+		
+		
+	}
 	
 	
 	

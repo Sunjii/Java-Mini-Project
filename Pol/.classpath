@@ -11,6 +11,6 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="dialog"/>
 	<classpathentry kind="src" path="CSV"/>
-	<classpathentry kind="lib" path="D:/Education/Java-Mini-Project/Pol/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aakar/OneDrive/바탕 화면/Git/Java-Mini-Project/Pol/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

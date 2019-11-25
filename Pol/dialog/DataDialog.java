@@ -1,9 +1,9 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -158,7 +158,14 @@ public class DataDialog extends JDialog{
 		}
 
 		String[] one = {name, date, nppm, oppm, cppm, appm, dust, mdust};
+		// 테이블에 데이터 추가
 		model.addRow(one);
+		// locations에도 데이터 추가
+		
+		LocalDate localDate = LocalDate.parse(date);
+		Stat c = new Stat(nppm, oppm, cppm, appm, dust, mdust);
+		Location location = new Location(localDate, name, c);
+		Frame.csvL.getlocations().add(location);
 		
 	}
 
