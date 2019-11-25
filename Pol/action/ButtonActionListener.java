@@ -154,14 +154,18 @@ public class ButtonActionListener implements ActionListener{
 			break;
 		case "검색":
 			// 테이블 초기화 및 데이터 재입력.
-			Frame.csvL.Reset();
+			
+			
+			
 			try {
+				Frame.csvL.Reset();
 				Frame.csvL.Read();
 				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
 				
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			
 			
 			String date = Frame.inputDate.getText();
 			ArrayList<String[]> search_result = new ArrayList<String[]>();
