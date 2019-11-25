@@ -49,8 +49,9 @@ public class CSVLoad {
 		         // 전체 데이터에 현재 데이터를 추가한다.
 		         locations.add(l);
 		         //System.out.println(locations.size());
-		         //System.out.println(l.getName() + l.getDate() + l.getStat());
+		         //System.out.println(l.getName() + l.getDate() + l.getStat());  
 		      }
+		      br.close();
 		   }
 	  	// 전체 데이터에 대한 지역 목록을 반환한다.
 	   public ArrayList<Location> getlocations() {
