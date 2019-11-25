@@ -120,6 +120,8 @@ public class DataDialog extends JDialog{
 		resTable.getTableHeader().setReorderingAllowed(false);
 		resTable.getTableHeader().setResizingAllowed(false);
 		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+		// 테이블 헤더 클릭시 정렬
+		resTable.setAutoCreateRowSorter(true);
 		// 패널에 테이블 추가
 		jsp = new JScrollPane(resTable);
 		jsp.setPreferredSize(new Dimension(600,400));
