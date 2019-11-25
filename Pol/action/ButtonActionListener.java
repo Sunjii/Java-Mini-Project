@@ -5,9 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -98,7 +97,7 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Graph 2":
-			Table.deleteTable(0, Frame.model);
+			//Table.deleteTable(0, Frame.model);
 			
 			
 			
@@ -114,7 +113,30 @@ public class ButtonActionListener implements ActionListener{
 			// Frame.lgDialog.setVisible(true);
 			break;
 		case "Graph 3":
-			// 지역 하나와 날짜 하나를 고른다.
+			// 막대그래프. 날짜와 물질을 하나선택. 모든 지역 출력 
+			// 날짜 선택
+			String inputDate = JOptionPane.showInputDialog("날짜를 입력하세요. ex) 2018-01-06");
+			// inputDate 유효성 검증
+			try{
+				LocalDate localDate = LocalDate.parse(inputDate);
+				Frame.bgDialog.setDate(localDate);
+			} catch(Exception err) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			// 오염물질 선택(1개)
+			String[] values = Constant.pollut;
+			Object selected = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "0");
+			if ( selected != null ){ 
+			    Frame.bgDialog.setItem(selected.toString());
+			}else{
+			    //System.out.println("User cancelled");
+			}
+			
+			
+			Frame.bgDialog.setVisible(true);
+			
+			/*
 			switch(Frame.resTable.getSelectedRowCount()) {
 			case 0:
 				JOptionPane.showMessageDialog(null, "선택된 칼럼이 없습니다!");
@@ -143,6 +165,7 @@ public class ButtonActionListener implements ActionListener{
 				JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
 				break;
 			}
+			*/
 			break;
 		case "Data":
 			// 데이터 수정 창을 출력
@@ -167,12 +190,12 @@ public class ButtonActionListener implements ActionListener{
 			}
 			
 			
-			String date = Frame.inputDate.getText();
+			String searchDate = Frame.inputDate.getText();
 			ArrayList<String[]> search_result = new ArrayList<String[]>();
 
 			for (int i=0; i < Frame.model.getRowCount(); i++) {
 				// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
-				if(date.equals(Frame.model.getValueAt(i, 1))) {
+				if(searchDate.equals(Frame.model.getValueAt(i, 1))) {
 					String[] in = new String[8];
 					for(int j=0; j<8; j++) {
 						in[j] = (String) Frame.model.getValueAt(i, j);

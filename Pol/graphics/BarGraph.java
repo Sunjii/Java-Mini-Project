@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.time.LocalDate;
 
 import javax.swing.JPanel;
 
@@ -66,6 +67,16 @@ public class BarGraph extends JPanel{
 		num[3] = num4;
 		num[4] = num5;
 		num[5] = num6;
+	}
+
+	public void setDate(LocalDate selectedLocalDate) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setItem(String selectedItem) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

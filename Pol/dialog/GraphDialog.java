@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.time.LocalDate;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,8 +18,11 @@ public class GraphDialog extends JDialog{
 	private LineGraph line_graph = new LineGraph();
 	private BarGraph bar_graph = new BarGraph();
 	
-	private double num1, num2, num3, num4, num5, num6;
+	private double num1, num2, num3, num4, num5, num6; // 오염물질들의 농도
 	private int type; // 그래프의 종류를 결정. 0 : 원형, 1 : 꺽은선, 2 : 막대
+	
+	private LocalDate selectedLocalDate; // 선택된 특정한 한 날짜
+	private String selectedItem; // 선택된 특정 오염물질
 	
 	public GraphDialog(JFrame jframe, String title, int type) {
 		super(jframe, title);
@@ -69,9 +73,45 @@ public class GraphDialog extends JDialog{
 				circle_graph.setNumbers(num1, num2, num3, num4, num5, num6);
 				circle_graph.repaint();
 			} else if(type == 1) {	// 꺽은선 그래프이면
+				
+				// 기간 입력 & 지역 선택
+				
+				
+				
+				// 그리기 - 모든 오염물질
+				
 
 			} else {	// 막대 그래프이면
-				System.out.println("막대");
+				//System.out.println("막대");
+				// 날짜 선택
+				String inputDate = JOptionPane.showInputDialog("날짜를 입력하세요. ex) 2018-01-06");
+				// inputDate 유효성 검증
+				try{
+					LocalDate localDate = LocalDate.parse(inputDate);
+					setDate(localDate);
+				} catch(Exception err) {
+					JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				// 오염물질 선택(1개)
+				String[] values = Constant.pollut;
+				Object selected = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "0");
+				if ( selected != null ){ 
+					setItem(selected.toString());			    
+				}else{
+				    //System.out.println("User cancelled");
+				}
+				
+				// 그 날의 모든 지역의 오염물질을 막대그래프로 그린다.
+				bar_graph.setDate(this.selectedLocalDate);
+				bar_graph.setItem(this.selectedItem);
+				bar_graph.repaint();
+				
+				
+				
+				
+				
+				/*
 				if(Frame.resTable.getSelectedRowCount() != 1) {
 					JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
 					return;
@@ -93,7 +133,7 @@ public class GraphDialog extends JDialog{
 				bar_graph.setName(area);
 				bar_graph.setNumbers(num1, num2, num3, num4, num5, num6);
 				bar_graph.repaint();
-				
+				*/
 			}
 		});
 		
@@ -109,6 +149,14 @@ public class GraphDialog extends JDialog{
 		this.num4 = pol4;
 		this.num5 = pol5;
 		this.num6 = pol6;
+	}
+
+	public void setDate(LocalDate lo) {
+		this.selectedLocalDate = lo;
+	}
+
+	public void setItem(String item) {
+		this.selectedItem = item;
 	}
 	
 }
