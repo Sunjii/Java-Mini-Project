@@ -27,9 +27,14 @@ class CircleGraph extends JPanel {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, Constant.dial_W, Constant.dial_H);
-		//값이 없다면 종료시킴
-		if ((num[0] < 0) || (num[1] < 0) || (num[2] < 0) || (num[3] <0) || (num[4]<0) || (num[5]<0))
-			return;	
+		//값이 없다면(-1) 제외시킴
+		for(int i=0; i<6; i++) {
+			if(num[i] <= 0) {
+				num[i] = 0;
+			}
+		}
+		
+		
 		// num 들을 상대값화 시킨다.
 		for (int i=0; i<6; i++) {
 			relative_num[i] = num[i] / max[i] * 100;
