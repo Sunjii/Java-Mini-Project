@@ -45,8 +45,9 @@ public class InputDatabase{
             pstmt.setString(4, Double.toString(p.getStat().oppm));
             pstmt.setString(5, Double.toString(p.getStat().cppm));
             pstmt.setString(6, Double.toString(p.getStat().appm));
-            pstmt.setString(7, Integer.toString(p.getStat().dust));
-            pstmt.setString(8, Integer.toString(p.getStat().mdust));
+            //pstmt.setString(7, Integer.toString(p.getStat().dust));
+            pstmt.setString(7, Double.toString(p.getStat().dust));
+            pstmt.setString(8, Double.toString(p.getStat().mdust));
             pstmt.execute();
          }
          
