@@ -65,4 +65,22 @@ public class CSVLoad {
 	   public void Reset() {
 		   locations.clear();
 	   }
+	   
+	  // 특정 location 찾아내기. - 지역명과 날짜를 통해
+	   public Location findLocation(String name, LocalDate ldate) {
+		   for (int i=0; i<this.locations.size(); i++) {
+			   if (locations.get(i).getName().equals(name) &&
+				   locations.get(i).getDate().equals(ldate) ) {   
+				   System.out.println(i);
+				   Location result = locations.get(i);
+				   return result;
+			   }
+		   }
+		   
+		   return null;
+		   
+		   
+		   
+	   }
+	   
 }
