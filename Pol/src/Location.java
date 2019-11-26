@@ -16,6 +16,9 @@ public class Location {
    public String getName() {
       return name;
    }
+   public void setName(String name) {
+	   this.name = name;
+   }
    
    // 날짜를 반환한다.
    public LocalDate getDate() {
@@ -25,5 +28,9 @@ public class Location {
    // 오염물질 객체를 반환한다.
    public Stat getStat() {
       return stat;
+   }
+   
+   public void setStat(Stat in) {
+	   this.stat = in;
    }
 }
