@@ -163,7 +163,6 @@ public class DataDialog extends JDialog{
 		// 테이블에 데이터 추가
 		model.addRow(one);
 		// locations에도 데이터 추가
-		
 		LocalDate localDate = LocalDate.parse(date);
 		Stat c = new Stat(nppm, oppm, cppm, appm, dust, mdust);
 		Location location = new Location(localDate, name, c);
@@ -187,6 +186,14 @@ public class DataDialog extends JDialog{
 			if(name.equals(model.getValueAt(i, 0)) && 
 					date.equals(model.getValueAt(i, 1))) {
 				target = i;
+				
+				// 입력과 일치하는 locations를 찾는다 
+				LocalDate localDate = LocalDate.parse(date);
+				// target 위치의 Stat를 보존
+				
+				// name 과 localdate로 location을 찾아내고,
+				Location location = Frame.csvL.findLocation(name, localDate);
+				
 				// 데이터 수정 실행
 				model.setValueAt(name, target, 0);
 				model.setValueAt(date, target, 1);
@@ -196,9 +203,40 @@ public class DataDialog extends JDialog{
 				model.setValueAt(appm, target, 5);
 				model.setValueAt(dust, target, 6);
 				model.setValueAt(mdust, target, 7);
+				
+				// Stat 수정한다.
+				Stat c = buildStat(i, model.getValueAt(i, 2), model.getValueAt(i, 3),model.getValueAt(i, 4),
+						model.getValueAt(i, 5),model.getValueAt(i, 6), model.getValueAt(i, 7));
+				// location에도 수정내용을 반영
+				location.setStat(c);
+				
 				break;
 			}
 		}	
+	}
+
+	private static Stat buildStat(int i, Object valueAt, Object valueAt2, Object valueAt3, Object valueAt4, Object valueAt5,
+			Object valueAt6) {
+		
+		double nppm = Double.parseDouble((String)valueAt);
+		double oppm = Double.parseDouble((String)valueAt2);
+		double cppm = Double.parseDouble((String)valueAt3);
+		double appm = Double.parseDouble((String)valueAt4);
+		double dust = Double.parseDouble((String)valueAt5);
+		double mdust = Double.parseDouble((String)valueAt6);
+		
+		/*
+		double nppm = Double.parseDouble((String) model.getValueAt(i, 2));
+		double oppm = Double.parseDouble((String) model.getValueAt(i, 3));
+		double cppm = Double.parseDouble((String) model.getValueAt(i, 4));
+		double appm = Double.parseDouble((String) model.getValueAt(i, 5));
+		double dust = Double.parseDouble((String) model.getValueAt(i, 6));
+		double mdust = Double.parseDouble((String) model.getValueAt(i, 7));
+		*/
+		
+		Stat ret = new Stat(nppm, oppm, cppm, appm, dust, mdust);
+				
+		return ret;
 	}
 
 	
