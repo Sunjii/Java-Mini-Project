@@ -47,7 +47,9 @@ public class GraphDialog extends JDialog{
 		}
 
 		setSize(Constant.dial_W, Constant.dial_H + 100);
-
+		if (type == 2) {
+			setSize(Constant.dial_W + 1000, Constant.dial_H + 100);
+		}
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
 			if(type == 0) {	// 원형그래프이면,

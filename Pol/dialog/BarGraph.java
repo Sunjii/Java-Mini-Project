@@ -18,12 +18,53 @@ public class BarGraph extends JPanel{
 	
 	private int s_x, s_y; // 막대 시작점 좌표
 	private int gap;
+	
+	private LocalDate date; // 그릴 날짜
+	private String item; // 그릴 오염물질
+	
+	
+	int plus = 1600;  // 막대그래프에서 추가로 늘어나는 폭
 
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(0, 0, Constant.dial_W, Constant.dial_H);
+		g.fillRect(0, 0, Constant.dial_W + plus, Constant.dial_H);
 		
+		gap = (graph_w+plus) / (Constant.locations.length -1); // 간격. 39개지역
+		// 그래프 틀
+		g.setColor(Color.black);
+		g.drawRect(graph_pos_x, graph_pos_y, graph_w + plus, graph_h);
+		
+		
+
+		// x축
+		for(int i=1; i < Constant.locations.length; i++) {
+			g.drawLine(graph_pos_x+gap, graph_pos_y+graph_h, graph_pos_x+gap, graph_pos_y);
+			g.drawString(Constant.locations[i], (gap), graph_pos_y + graph_h + 15);
+			//gap += 420/6;
+			gap += (graph_w + plus) / (Constant.locations.length -1);
+		}
+		// y축
+		for(int i=0; i<10; i++) {
+			g.drawLine(graph_pos_x, graph_pos_y+(i*28), graph_pos_x+graph_w+plus, graph_pos_y+(i*28));
+			g.drawString(Integer.toString(100 - i*10), graph_pos_x-22, graph_pos_y+(i*28));
+		}
+		
+		// num1 ~ num6의 막대 그래프 그리기
+		// bar_h : 상대값. 
+		// s_y : 40 ~ 320
+		gap = 420/6;
+		
+		for(int i=0; i<6; i++) {
+			s_x = graph_pos_x + gap/2;
+			bar_h = (int) (num[i] / max[i] * 100);
+			s_y = graph_pos_y + graph_h - bar_h;
+			gap += graph_w/3;
+			g.setColor(Color.red);
+			g.fillRect(s_x, s_y, bar_w, bar_h);		
+		}
+		
+		/*
 		// 그래프 틀
 		g.setColor(Color.black);
 		g.drawRect(graph_pos_x, graph_pos_y, graph_w, graph_h);
@@ -53,7 +94,7 @@ public class BarGraph extends JPanel{
 			g.setColor(Color.red);
 			g.fillRect(s_x, s_y, bar_w, bar_h);		
 		}
-		
+		*/
 		
 		
 		
@@ -71,12 +112,12 @@ public class BarGraph extends JPanel{
 
 	public void setDate(LocalDate selectedLocalDate) {
 		// TODO Auto-generated method stub
-		
+		this.date = selectedLocalDate;
 	}
 
 	public void setItem(String selectedItem) {
 		// TODO Auto-generated method stub
-		
+		this.item = selectedItem;
 	}
 	
 	
