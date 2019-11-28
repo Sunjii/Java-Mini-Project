@@ -39,6 +39,8 @@ public class ButtonActionListener implements ActionListener{
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			Frame.setOpen(true);
+			
 			break;
 		case "Save":
 			try {
@@ -114,6 +116,10 @@ public class ButtonActionListener implements ActionListener{
 			break;
 		case "Graph 3":
 			// 막대그래프. 날짜와 물질을 하나선택. 모든 지역 출력 
+			if (Frame.getOpen() != true) {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				return;
+			}
 			// 날짜 선택
 			String inputDate = JOptionPane.showInputDialog("날짜를 입력하세요. ex) 2018-01-06");
 			// inputDate 유효성 검증
