@@ -155,10 +155,12 @@ public class GraphDialog extends JDialog{
 
 	public void setDate(LocalDate lo) {
 		this.selectedLocalDate = lo;
+		bar_graph.setDate(this.selectedLocalDate);
 	}
 
 	public void setItem(String item) {
 		this.selectedItem = item;
+		bar_graph.setItem(this.selectedItem);
 	}
 	
 }

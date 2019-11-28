@@ -197,12 +197,25 @@ public class DataDialog extends JDialog{
 				// 데이터 수정 실행
 				model.setValueAt(name, target, 0);
 				model.setValueAt(date, target, 1);
-				model.setValueAt(nppm, target, 2);
-				model.setValueAt(oppm, target, 3);
-				model.setValueAt(cppm, target, 4);
-				model.setValueAt(appm, target, 5);
-				model.setValueAt(dust, target, 6);
-				model.setValueAt(mdust, target, 7);
+				// 필드에 값을 안 넣은 경우에는 실행하지 않는다.
+				if(!nppm.equals("")) {
+					model.setValueAt(nppm, target, 2);
+				}
+				if(!oppm.equals("")) {
+					model.setValueAt(oppm, target, 3);
+				}
+				if(!cppm.equals("")) {
+					model.setValueAt(cppm, target, 4);
+				}
+				if(!appm.equals("")) {
+					model.setValueAt(appm, target, 5);
+				}
+				if(!dust.equals("")) {
+					model.setValueAt(dust, target, 6);
+				}
+				if(!mdust.equals("")) {
+					model.setValueAt(mdust, target, 7);
+				}
 				
 				// Stat 수정한다.
 				Stat c = buildStat(i, model.getValueAt(i, 2), model.getValueAt(i, 3),model.getValueAt(i, 4),
