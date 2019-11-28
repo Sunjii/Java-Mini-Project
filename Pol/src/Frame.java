@@ -30,6 +30,8 @@ public class Frame extends JFrame {
 	static CSVLoad csvL = new CSVLoad();
 	static CSVWrite csvW = new CSVWrite();
 	
+	private static boolean isOpen; // 데이터가 들어왔는지 확인하는 변수
+	
 	//static String data[][] = {};
 	//static List<Object> data = new ArrayList<Object>();
 	static ArrayList<String[]> data = new ArrayList<String[]>();
@@ -54,6 +56,8 @@ public class Frame extends JFrame {
 	
 	
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
+
+	
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -377,6 +381,18 @@ public class Frame extends JFrame {
 			}
 		}
 		
+	}
+
+	public static void setOpen(boolean tf) {
+		if (tf){
+			isOpen = true;
+		} else {
+			isOpen = false;
+		}
+	}
+	
+	public static boolean getOpen() {
+		return isOpen;
 	}
 	
 	
