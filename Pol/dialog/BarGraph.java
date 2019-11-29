@@ -37,10 +37,6 @@ public class BarGraph extends JPanel{
 		gap = (graph_w+plus) / (Constant.locations.length -1); // 간격. 46개지역
 		// 그래프 틀
 		g.setColor(Color.black);
-		//g.drawRect(graph_pos_x, graph_pos_y, graph_w + plus, graph_h);
-		
-		
-
 		// x축
 		for(int i=1; i < Constant.locations.length; i++) {
 			g.drawLine(graph_pos_x+gap, graph_pos_y+graph_h, graph_pos_x+gap, graph_pos_y);
@@ -54,110 +50,57 @@ public class BarGraph extends JPanel{
 			g.drawString(Integer.toString(100 - i*10), graph_pos_x-22, graph_pos_y+(i*28));
 		}
 		
-		//System.out.println("지역의 수" + Constant.locations.length);
-		
-		// num1 ~ num6의 막대 그래프 그리기
-		// bar_h : 상대값. 
-		// s_y : 40 ~ 320
-		//gap = 420/6;
-		
+
 		gap = (graph_w+plus) / (Constant.locations.length -1);
-		for (int i=0; i < Constant.locations.length - 1; i++) {
+		// 각 도시의 date 의 item 농도를 그린다.
+		for (int i=1; i < Constant.locations.length - 1; i++) {
+			// 막대의 x좌표와 gap을 다시 설정합니다.
 			s_x = graph_pos_x + gap/2;
-			
 			gap += ( (graph_w + plus)/(Constant.locations.length -1) ) * 2  ;
-			//bar_h = 10;
-			// 지역 i의 date날의 item의 농도를 가져온다
-			//try {
-				bar_h = getBar(i, date, item);
-			//} catch(Exception e) {
-			//	JOptionPane.showMessageDialog(null, "잘못 된 날짜같습니다!");
-			//	return;
-			//}
-			
+			// 지역 i의 date날의 item의 농도를 가져옵니다.
+			//System.out.println(Constant.locations[i] + " 도시의 " + date + " 의 " + item + " 은...");
+			// 막대의 높이를 계산합니다. 데이터가 없는 경우에는 -1이 반환됩니다.
+			bar_h = getBar(i, date, item);
+			if (bar_h < 0) {
+				bar_h = 0;
+			}
+			// 막대의 높이를 이용하여 막대의 y좌표를 계산합니다.
+			s_y = graph_pos_y + graph_h - bar_h;
 			
 			g.setColor(Color.red);
 			g.fillRect(s_x, s_y, bar_w, bar_h);
-			System.out.println("좌표 : " + s_x + " " + s_y+ " " +bar_w + " " + bar_h);
 		}
-		
-		/*
-		for(int i=0; i<6; i++) {
-			s_x = graph_pos_x + gap/2;
-			bar_h = (int) (num[i] / max[i] * 100);
-			s_y = graph_pos_y + graph_h - bar_h;
-			gap += graph_w/3;
-			g.setColor(Color.red);
-			g.fillRect(s_x, s_y, bar_w, bar_h);		
-		}
-		*/
-		
-		
-		
-		/*
-		// 그래프 틀
-		g.setColor(Color.black);
-		g.drawRect(graph_pos_x, graph_pos_y, graph_w, graph_h);
-		gap = graph_w / 6; // 간격
-		// x축
-		for(int i=0; i<6; i++) {
-			g.drawLine(graph_pos_x+gap, graph_pos_y+graph_h, graph_pos_x+gap, graph_pos_y);
-			g.drawString(Constant.pollut[i], (gap)-20, graph_pos_y + graph_h + 15);
-			gap += 420/6;
-		}
-		// y축
-		for(int i=0; i<10; i++) {
-			g.drawLine(graph_pos_x, graph_pos_y+(i*28), graph_pos_x+graph_w, graph_pos_y+(i*28));
-			g.drawString(Integer.toString(100 - i*10), graph_pos_x-22, graph_pos_y+(i*28));
-		}
-		
-		// num1 ~ num6의 막대 그래프 그리기
-		// bar_h : 상대값. 
-		// s_y : 40 ~ 320
-		gap = 420/6;
-		
-		for(int i=0; i<6; i++) {
-			s_x = graph_pos_x + gap/2;
-			bar_h = (int) (num[i] / max[i] * 100);
-			s_y = graph_pos_y + graph_h - bar_h;
-			gap += graph_w/3;
-			g.setColor(Color.red);
-			g.fillRect(s_x, s_y, bar_w, bar_h);		
-		}
-		*/
-		
-		
-		
-		
+
 	}
 	
 	private int getBar(int i, LocalDate date, String item) {
 		// i번째 도시 (1부터 시작) 의 date날의 item에 해당하는 오염물질의 농도를 가져오는 함수
-		i++;
+
 		// i 와 date 기준으로 탐색
-		//Stat resStat = Frame.csvL.findLocation(Constant.locations[i], date).getStat();
 		Stat resStat = new Stat(0,0,0,0,0,0);
-		resStat = Frame.csvL.findLocation(Constant.locations[i], date).getStat();
-		// getStat  --> nullpointer 에러
+		// findLocation후에 null이면 getStat을 진행하지 않도록 바꾼다.
+		if(Frame.csvL.findLocation(Constant.locations[i], date) != null) {
+			resStat = Frame.csvL.findLocation(Constant.locations[i], date).getStat();
+		} else {
+			// 해당 날짜와 지역의 데이터가 없는 경우에는 return -1
+			return -1;
+		}
+
+		// item의 농도를 탐색. 없으면 -1 반환
+		double ppm = -1;
+		ppm = resStat.getPpm(item);
+		if(ppm == -1) {
+			return -1; // 값 없음
+		}
 		
-		//Location loc = Frame.csvL.findLocation(Constant.locations[i], date);
-		//System.out.println(loc);
-		
-		//System.out.println(item); // null 로 출력됨...
-		
-		
-		// item의 농도를 탐색. 없으면 0 반환
-		double ppm = resStat.getPpm(item);
-		System.out.println(item + "의 " + ppm);
-		// 찾아낸 ppm을 상대값화 시킨다?
+		// 찾아낸 ppm을 상대값화 시킨다. 각 오염물질의 값 범위는 max를 참조한다.
 		for (int k=0; k<Constant.pollut.length; k++) {
-			if(item.equals(Constant.pollut[i])) {
+			if(item.equals(Constant.pollut[k])) {
 				return (int)(ppm / max[k] * 100);
 			}
 		}
-		return 0;
 		
-		//return (int)(ppm / max[k] * 100);
+		return -1;
 		
 	}
 
@@ -171,12 +114,10 @@ public class BarGraph extends JPanel{
 	}
 
 	public void setDate(LocalDate selectedLocalDate) {
-		// TODO Auto-generated method stub
 		this.date = selectedLocalDate;
 	}
 
 	public void setItem(String selectedItem) {
-		// TODO Auto-generated method stub
 		this.item = selectedItem;
 	}
 	

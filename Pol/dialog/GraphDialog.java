@@ -84,7 +84,6 @@ public class GraphDialog extends JDialog{
 				
 
 			} else {	// 막대 그래프이면
-				//System.out.println("막대");
 				// 날짜 선택
 				String inputDate = JOptionPane.showInputDialog("날짜를 입력하세요. ex) 2018-01-06");
 				// inputDate 유효성 검증
@@ -101,7 +100,7 @@ public class GraphDialog extends JDialog{
 				if ( selected != null ){ 
 					setItem(selected.toString());			    
 				}else{
-				    //System.out.println("User cancelled");
+				    JOptionPane.showMessageDialog(null, "item selection Error !!!", "Unknowun Error", JOptionPane.ERROR_MESSAGE);
 				}
 				
 				// 그 날의 모든 지역의 오염물질을 막대그래프로 그린다.
@@ -109,33 +108,6 @@ public class GraphDialog extends JDialog{
 				bar_graph.setItem(this.selectedItem);
 				bar_graph.repaint();
 				
-				
-				
-				
-				
-				/*
-				if(Frame.resTable.getSelectedRowCount() != 1) {
-					JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
-					return;
-				}
-			
-				
-				int row = Frame.resTable.getSelectedRow();
-				int col = Frame.resTable.getSelectedColumn();
-				
-				String area = (String) Frame.resTable.getValueAt(row, 0);
-				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
-				Frame.bgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
-				
-				bar_graph.setName(area);
-				bar_graph.setNumbers(num1, num2, num3, num4, num5, num6);
-				bar_graph.repaint();
-				*/
 			}
 		});
 		
