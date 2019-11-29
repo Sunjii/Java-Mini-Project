@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import oracle.jdbc.Const;
 
 public class BarGraph extends JPanel{
-	private double num[] = {0, 0, 0, 0, 0, 0}; // 오염물질의 농도
-	private double max[] = {0.060, 0.060, 3, 0.050, 200, 130}; // 오염물질들의 최대값
+	//private double num[] = {0, 0, 0, 0, 0, 0}; // 오염물질의 농도
+	//private double max[] = {0.060, 0.060, 3, 0.050, 200, 130}; // 오염물질들의 최대값
 	
 	private static final int bar_w = 10; // 막대그래프 폭
 	private int bar_h; // 막대그래프 높이
@@ -96,7 +96,7 @@ public class BarGraph extends JPanel{
 		// 찾아낸 ppm을 상대값화 시킨다. 각 오염물질의 값 범위는 max를 참조한다.
 		for (int k=0; k<Constant.pollut.length; k++) {
 			if(item.equals(Constant.pollut[k])) {
-				return (int)(ppm / max[k] * 100);
+				return (int)(ppm / Constant.pollut_max[k] * 100);
 			}
 		}
 		
@@ -104,6 +104,7 @@ public class BarGraph extends JPanel{
 		
 	}
 
+	/*
 	public void setNumbers(double num1, double num2, double num3, double num4, double num5, double num6) {
 		num[0] = num1;
 		num[1] = num2;
@@ -112,6 +113,7 @@ public class BarGraph extends JPanel{
 		num[4] = num5;
 		num[5] = num6;
 	}
+	*/
 
 	public void setDate(LocalDate selectedLocalDate) {
 		this.date = selectedLocalDate;

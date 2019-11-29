@@ -2,13 +2,22 @@
 public class Constant {
 	// 오염물질
 	static final String[] pollut = { "이산화질소", "오존농도", "이산화탄소", "아황산가스", "미세먼지", "초미세먼지" };
+	// 오염물질의 최대값
+	static final double pollut_max[] = {0.060, 0.060, 3, 0.050, 200, 130};
 	static final String header[] = { "지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2],
 			Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
 
+	
+	
+	
+	
 	/*
-	 * 이산화질소 : 0.000 ~ 0.150 // 0.06 오존농도 : 0.000 ~ 0.300 // 0.06 기준치 이산화탄소 : 0 ~ 3
-	 * // 아황산가스 : 0.001 ~ 0.150 // 0.05 미세먼지 : 0 ~ 200 int형 // 100 초미세먼지 : 0 ~ 130
-	 * int형 // 35
+	 * 이산화질소 : 0.000 ~ 0.150 // 0.06 
+	 * 오존농도 : 0.000 ~ 0.300 // 0.06 기준치 
+	 * 이산화탄소 : 0 ~ 3
+	 * // 아황산가스 : 0.001 ~ 0.150 // 0.05 
+	 * 미세먼지 : 0 ~ 200 int형 // 100 
+	 * 초미세먼지 : 0 ~ 130 int형 // 35
 	 */
 
 	// 지역목록
