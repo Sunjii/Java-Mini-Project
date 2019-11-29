@@ -10,7 +10,7 @@ class CircleGraph extends JPanel {
 
 	private double num[] = {0, 0, 0, 0, 0, 0}; // 오염물질의 농도
 	private double relative_num[] = {0, 0, 0, 0, 0, 0};
-	private double max[] = {0.060, 0.060, 3, 0.050, 200, 130}; // 오염물질들의 최대값
+	//private double max[] = {0.060, 0.060, 3, 0.050, 200, 130}; // 오염물질들의 최대값
 	
 	private int count = 0;
 	// 그래프 좌표, 반지름
@@ -37,7 +37,7 @@ class CircleGraph extends JPanel {
 		
 		// num 들을 상대값화 시킨다.
 		for (int i=0; i<6; i++) {
-			relative_num[i] = num[i] / max[i] * 100;
+			relative_num[i] = num[i] / Constant.pollut_max[i] * 100;
 		}	
 		//전체 합을 구한다
 		double total = 0;
