@@ -74,8 +74,8 @@ public class Frame extends JFrame {
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		tbDialog = new DataDialog(this, "데이터");
 		txDialog = new TextDialog(this, "오염물질 권고기준");
-		
 		setVisible(true);
+		//pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
