@@ -34,6 +34,7 @@ public class GraphDialog extends JDialog{
 		btnP.add(paintBtn);
 		btnP.add(closeBtn);
 		add(btnP, BorderLayout.SOUTH);
+		
 		switch (type) {	// 그래프 종류 설정
 		case 0:
 			add(circle_graph, BorderLayout.CENTER);
@@ -45,10 +46,11 @@ public class GraphDialog extends JDialog{
 			add(bar_graph, BorderLayout.CENTER);
 			break;
 		}
-
-		setSize(Constant.dial_W, Constant.dial_H + 100);
-		if (type == 2) {
-			setSize(Constant.dial_W + 1000, Constant.dial_H + 100);
+		
+		// 대화창 사이즈 조절
+		setSize(Constant.dial_W, Constant.dial_H);
+		if (type == 2) {	// 막대그래프시
+			setSize(Constant.dial_W + 1427, Constant.dial_H + 300);
 		}
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
