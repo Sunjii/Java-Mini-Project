@@ -142,36 +142,6 @@ public class ButtonActionListener implements ActionListener{
 			
 			Frame.bgDialog.setVisible(true);
 			
-			/*
-			switch(Frame.resTable.getSelectedRowCount()) {
-			case 0:
-				JOptionPane.showMessageDialog(null, "선택된 칼럼이 없습니다!");
-				break;
-			case 1:
-				// 선택한 칼럼에서 데이터 가져오기
-				int row = Frame.resTable.getSelectedRow();
-				int col = Frame.resTable.getSelectedColumn();
-				
-				String area = (String) Frame.resTable.getValueAt(row, 0);
-				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));
-				double pol2 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 3)));
-				double pol3 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 4)));
-				double pol4 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 5)));
-				double pol5 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 6)));
-				double pol6 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 7)));
-				System.out.println(row + ", " + col);
-				System.out.println(area + " " + pol1);
-				
-				// 데이터 적용 시키기
-				Frame.bgDialog.setNumbers(pol1, pol2, pol3, pol4, pol5, pol6);
-				// 데이터를 기반으로 그래프 그리기
-				Frame.bgDialog.setVisible(true);
-				break;
-			default:
-				JOptionPane.showMessageDialog(null, "막대 그래프는 하나의 칼럼만 그릴 수 있습니다.");
-				break;
-			}
-			*/
 			break;
 		case "Data":
 			// 데이터 수정 창을 출력

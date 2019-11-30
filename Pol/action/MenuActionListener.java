@@ -3,6 +3,8 @@
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -22,10 +24,33 @@ public class MenuActionListener implements ActionListener{
 			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			break;
 		case "CSV 파일 불러오기":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			
+			try {
+				Frame.csvL.Reset();
+				Frame.csvL.Read();
+				// 초기화
+				int rowCount = Frame.model.getRowCount();
+				for(int i=0; i<rowCount; i++) {
+					Table.deleteTable(0, Frame.model);
+				}	
+				Frame.model.fireTableDataChanged();
+				// 데이터 추가
+				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			Frame.setOpen(true);
 			break;
 		case "CSV 파일 저장하기":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			try {
+				Frame.csvW.Write();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.out.println(e1);
+			}
 			break;
 		case "원형 그래프":
 			// 테이블에서 어딘가 선택되었을때만 그려지도록 한다.
@@ -71,10 +96,46 @@ public class MenuActionListener implements ActionListener{
 			
 			break;
 		case "막대 그래프":
-			// 지역을 선택한다
+			// 막대그래프. 날짜와 물질을 하나선택. 모든 지역 출력 
+			if (Frame.getOpen() != true) {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				return;
+			}
+			// 날짜 선택
+			String inputDate = JOptionPane.showInputDialog("날짜를 입력하세요. ex) 2018-01-06");
+			// inputDate 유효성 검증
+			try{
+				LocalDate localDate = LocalDate.parse(inputDate);
+				Frame.bgDialog.setDate(localDate);
+			} catch(Exception err) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			// 오염물질 선택(1개)
+			String[] values = Constant.pollut;
+			Object selected = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "0");
+			if ( selected != null ){ 
+			    Frame.bgDialog.setItem(selected.toString());
+			}else{
+			    //System.out.println("User cancelled");
+			}
+			Frame.bgDialog.setVisible(true);			
+			break;
+		case "특정 기간 동안의 통계량 조회":
 			
-			// 막대그래프
-			Frame.bgDialog.setVisible(true);
+			
+			break;
+		case "특정 지역의 통계량 조회":
+			
+			
+			break;
+		case "데이터 추가 및 수정":
+			Frame.tbDialog.setVisible(true);
+			
+			break;
+		case "오염물질 권고기준":
+			Frame.txDialog.setVisible(true);
+			
 			break;
 		
 		case "종료":
