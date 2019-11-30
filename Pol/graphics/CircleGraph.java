@@ -65,6 +65,10 @@ class CircleGraph extends JPanel {
 		g.setColor(Color.magenta);
 		g.fillArc(pos_x, pos_y, radius, radius, arc[0] + arc[1] + arc[2] + arc[3] + arc[4], 360 - (arc[0] + arc[1] + arc[2] + arc[3] + arc[4]));
 		
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillArc(pos_x+15, pos_y+15, radius-30, radius-30, 0, 360);
+		
+		
 		for(int i=0; i<6; i++) {
 			drawLabel(num[i], c_x, c_y, arc, arc[i], g);
 		}
@@ -77,32 +81,32 @@ class CircleGraph extends JPanel {
 		g.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		
 		// 나중에 for문화 시킬것
-		g.drawString(Constant.pollut[0], 330, 100);
+		g.drawString(Constant.pollut[0] + " (ppm)", 330, 100);
 		g.setColor(Color.YELLOW);
 		g.fillRect(300, 85, 18, 18);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Constant.pollut[1], 330, 120);
+		g.drawString(Constant.pollut[1] + " (ppm)", 330, 120);
 		g.setColor(Color.RED);
 		g.fillRect(300, 105, 18, 18);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Constant.pollut[2], 330, 140);
+		g.drawString(Constant.pollut[2] + " (ppm)", 330, 140);
 		g.setColor(Color.BLUE);
 		g.fillRect(300, 125, 18, 18);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Constant.pollut[3], 330, 160);
+		g.drawString(Constant.pollut[3] + " (ppm)", 330, 160);
 		g.setColor(Color.GREEN);
 		g.fillRect(300, 145, 18, 18);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Constant.pollut[4], 330, 180);
+		g.drawString(Constant.pollut[4] + " (㎍/㎥)", 330, 180);
 		g.setColor(Color.ORANGE);
 		g.fillRect(300, 165, 18, 18);
 		g.setColor(Color.BLACK);
 		
-		g.drawString(Constant.pollut[5], 330, 200);
+		g.drawString(Constant.pollut[5] + " (㎍/㎥)", 330, 200);
 		g.setColor(Color.MAGENTA);
 		g.fillRect(300, 185, 18, 18);
 		g.setColor(Color.BLACK);
