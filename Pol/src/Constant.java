@@ -1,3 +1,5 @@
+import javax.swing.JLabel;
+
 // 상수 정의 클래스
 public class Constant {
 	// 오염물질
@@ -38,8 +40,15 @@ public class Constant {
 	static final double[] dust_lv = {30, 80, 150};
 	static final double[] mdust_lv = {15, 35, 75};
 	
+	static final String nppmS = "이산화질소 : 0-0.03 좋음      0.03-0.06 보통      0.06-0.20 나쁨      0.20- 매우나쁨";
+	static final String oppmS = "오존   농도 : 0-0.03 좋음      0.03-0.09 보통      0.09-0.15 나쁨      0.15- 매우나쁨";
+	static final String cppmS = "이산화탄소 : 0-2 좋음      2-9 보통      9-15 나쁨      15- 매우나쁨";
+	static final String appmS = "아황산가스 : 0-0.02 좋음      0.02-0.05 보통      0.05-0.15 나쁨      0.15- 매우나쁨";
+	static final String dustS = "미세   먼지 : 0-30 좋음      30-80 보통      80-150 나쁨      150- 매우나쁨";
+	static final String mdustS = "초미세먼지 : 0-15 좋음      15-35 보통      35-75 나쁨      75- 매우나쁨";
 	
-
+	
+	
 	// 지역목록
 	static final String[] locations = { "전체", "강남구", "강남대로", "강동구", "강변북로", "강북구", "강서구", "공항대로", "관악구", "관악산", "광진구",
 			"구로구", "궁동", "금천구", "남산", "노원구", "도봉구", "도산대로", "동대문구", "동작구", "동작대로", "마포구", "북한산", "서대문구", "서초구", "성동구",
