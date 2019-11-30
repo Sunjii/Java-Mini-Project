@@ -49,11 +49,11 @@ public class Frame extends JFrame {
 	static DefaultTableModel model;
 	Vector<String> dataRow;
 	
-	static GraphDialog cgDialog;
-	static GraphDialog lgDialog;
-	static GraphDialog bgDialog;
-	static DataDialog tbDialog;
-	
+	static GraphDialog cgDialog;	// 원형그래프 대화창
+	static GraphDialog lgDialog;	// 선형그래프 대화창
+	static GraphDialog bgDialog;	// 막대그래프
+	static DataDialog tbDialog;		// 데이터 수정
+	static TextDialog txDialog;		// 기타 정보 대화창
 	
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
 
@@ -73,7 +73,7 @@ public class Frame extends JFrame {
 		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		tbDialog = new DataDialog(this, "데이터");
-		
+		txDialog = new TextDialog(this, "오염물질 권고기준");
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -139,12 +139,12 @@ public class Frame extends JFrame {
 		// 4. 데이터 관련 메뉴
 		JMenu data = new JMenu("데이터");
 		// 4. Items
-		item = new JMenuItem("수정");
+		item = new JMenuItem("데이터 추가 및 수정");
 		item.addActionListener(mal);
-		statics.add(item);
-		item = new JMenuItem("");
+		data.add(item);
+		item = new JMenuItem("오염물질 권고기준");
 		item.addActionListener(mal);
-		statics.add(item);
+		data.add(item);
 		
 		mb.add(data);
 		// 5.
@@ -383,6 +383,7 @@ public class Frame extends JFrame {
 		
 	}
 
+	// data를 불러왔으면 isOpen = true 한다.
 	public static void setOpen(boolean tf) {
 		if (tf){
 			isOpen = true;
