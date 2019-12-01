@@ -1,4 +1,4 @@
-import javax.swing.JLabel;
+import java.awt.Color;
 
 // 상수 정의 클래스
 public class Constant {
@@ -33,6 +33,10 @@ public class Constant {
 	 * 미세먼지 : 0~30 좋음, 31~80 보통, 81~150 나쁨, 151~ 매우나쁨
 	 * 초미세먼지 : 0~15 좋음, 16~35 보통, 36~75 나쁨, 76~ 매우나쁨
 	 */
+	static final Color good = new Color(135, 206, 250);
+	static final Color nomal = new Color(60, 179, 113);
+	static final Color bad = new Color(240, 230, 140);
+	static final Color verybad = new Color(255, 69, 0);
 	
 	static final double[] nppm_lv = {0.030, 0.060, 0.200};
 	static final double[] oppm_lv = {0.030, 0.090, 0.150};
@@ -59,5 +63,41 @@ public class Constant {
 	// 대화상자 사이즈
 	static final int dial_W = 600;
 	static final int dial_H = 350;
+	
+	
+	// polygon points
+	static final String[] s1 = {"강변북로", "남산", "마포구", "북한산", "서대문구", "신촌로", "용산구", "은평구", "종로", "종로구", "중구", "청계천로", "한강대로", "행주"  };
+	static final int[] s1_xp = {65, 105, 95, 160, 195, 244, 240, 195};
+	static final int[] s1_yp = {148, 120, 78, 60, 153, 177, 232, 264};
+	static final int s1_num = 8;
+	
+	static final String[] s2 = {"강북구", "노원구", "도봉구", "북한산", "성북구", "정릉로", "화랑로"};
+	static final int[] s2_xp = {175, 195, 244, 387, 378, 360, 352, 315, 249, 210, 202    };
+	static final int[] s2_yp = {92, 153, 177, 130, 99, 99, 49, 45, 25, 41, 78    };
+	static final int s2_num = 11;
+	
+	static final String[] s3 = {"강변북로", "광진구", "동대문구", "성동구", "중랑구", "천호대로", "홍릉로" };
+	static final int[] s3_xp = {244, 240, 270, 342, 432, 408, 439, 387  };
+	static final int[] s3_yp = {177, 232, 227, 253, 213, 194, 131, 130 };
+	static final int s3_num = 8;
+	
+	static final String[] s4 = {"강동구", "송파구" };
+	static final int[] s4_xp = {342, 344, 409, 425, 520, 492, 540, 560, 556, 522, 443 };
+	static final int[] s4_yp = {280, 322, 345, 366, 322, 282, 227, 224, 175, 167, 238  };
+	static final int s4_num = 11;
+	
+	static final String[] s5 = {"강남구", "강남대로", "관악구", "관악산", "도산대로", "동작구", "동작대로", "서초구", "세곡"  };
+	static final int[] s5_xp = {342, 344, 409, 425, 357, 330, 300, 247, 252, 232, 168, 109, 157, 195, 219, 266  };
+	static final int[] s5_yp = {280, 322, 345, 366, 401, 385, 426, 403, 376, 372, 418, 332, 265, 287, 288, 252 };
+	static final int s5_num = 16;
+	
+	static final String[] s6 = {"강서구", "공항대로", "구로구", "궁동", "금천구", "시흥대로", "양천구", "영등포구"  };
+	static final int[] s6_xp = {157, 109, 154, 117, 56, 19,  10,  32,  11,  54 };
+	static final int[] s6_yp = {265, 332, 403, 431, 335, 355, 332, 243, 212, 167 };
+	static final int s6_num = 10;
+	
+	
+	
+	
 
 }
