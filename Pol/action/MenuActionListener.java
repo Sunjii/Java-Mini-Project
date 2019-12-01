@@ -86,6 +86,40 @@ public class MenuActionListener implements ActionListener{
 			}
 			
 		case "꺽은선 그래프":
+			Frame.lgDialog.init();
+			// 선형 그래프. 시작날짜, 끝날짜, 지역을 선택하고 그래프 창 출력
+			if (Frame.getOpen() != true) {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				return;
+			}
+			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
+			try{
+				LocalDate start = LocalDate.parse(JOptionPane.showInputDialog("시작하는 날짜를 입력하세요. ex) 2018-01-06"));
+				LocalDate end = LocalDate.parse(JOptionPane.showInputDialog("끝나는 날짜를 입력하세요. ex) 2018-01-16"));
+				Frame.lgDialog.setDate(start, end);
+			} catch(Exception err) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			// 지역 선택
+			String[] locations = Constant.locations;
+			Object selectedLocation = JOptionPane.showInputDialog(null, "조회하고 싶은 지역을 하나 선택하세요.\n전체는 미지원입니다.", "Selection", JOptionPane.DEFAULT_OPTION, null, locations, "1");
+			if ( selectedLocation != null ){ 
+			    Frame.lgDialog.setLocation(selectedLocation.toString());
+			}else{
+			    //System.out.println("User cancelled");
+			}
+			// 오염물질 선택(1개)
+			String[] values1 = Constant.pollut;
+			Object selected1 = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values1, "0");
+			if ( selected1 != null ){ 
+				Frame.lgDialog.setItem(selected1.toString());			    
+			}else{
+			    JOptionPane.showMessageDialog(null, "item selection Error !!!", "Unknowun Error", JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+			Frame.lgDialog.setVisible(true);
 			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
 			
 			// 해당 기간 데이터 추출
