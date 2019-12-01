@@ -54,6 +54,8 @@ public class GraphDialog extends JDialog{
 		setSize(Constant.dial_W, Constant.dial_H);
 		if (type == 2) {	// 막대그래프시
 			setSize(Constant.dial_W + 1427, Constant.dial_H + 300);
+		} else if (type == 1) {
+			setSize(Constant.dial_W + 600, Constant.dial_H + 300);
 		}
 		// 그리기 버튼 리스너
 		paintBtn.addActionListener(e -> {
@@ -80,13 +82,34 @@ public class GraphDialog extends JDialog{
 				circle_graph.setNumbers(num1, num2, num3, num4, num5, num6);
 				circle_graph.repaint();
 			} else if(type == 1) {	// 꺽은선 그래프이면
+				// 입력값 초기화
+				init();
 				
 				// 기간 입력 & 지역 선택
+				try{
+					LocalDate start = LocalDate.parse(JOptionPane.showInputDialog("시작하는 날짜를 입력하세요. ex) 2018-01-06"));
+					LocalDate end = LocalDate.parse(JOptionPane.showInputDialog("끝나는 날짜를 입력하세요. ex) 2018-01-16"));
+					setDate(start, end);
+				} catch(Exception err) {
+					JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				// 지역 선택
+				String[] locations = Constant.locations;
+				Object selectedLocation = JOptionPane.showInputDialog(null, "조회하고 싶은 지역을 하나 선택하세요.\n전체는 미지원입니다.", "Selection", JOptionPane.DEFAULT_OPTION, null, locations, "1");
+				if ( selectedLocation != null ){ 
+				    setLocation(selectedLocation.toString());
+				}else{
+				    //System.out.println("User cancelled");
+				}
 				
-				
-				
+				//line_graph.Period.between(start, end);
 				// 그리기 - 모든 오염물질
 				
+				line_graph.init();
+				line_graph.setDate(selectedStartDate, selectedEndDate);
+				line_graph.setLocation(selectedLocation.toString());
+				line_graph.repaint();
 
 			} else {	// 막대 그래프이면
 				// 날짜 선택
@@ -150,6 +173,13 @@ public class GraphDialog extends JDialog{
 	public void setLocation(String string) {
 		this.selectedLocation = string;
 		line_graph.setLocation(string);
+		
+	}
+
+	public void init() {
+		selectedStartDate = null;	// 기간의 시작날짜
+		selectedEndDate = null;		// 기간의 끝날짜
+		selectedLocation = "";
 		
 	}
 	

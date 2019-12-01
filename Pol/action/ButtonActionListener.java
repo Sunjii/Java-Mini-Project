@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -100,6 +101,7 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Graph 2":
+			Frame.lgDialog.init();
 			// 선형 그래프. 시작날짜, 끝날짜, 지역을 선택하고 그래프 창 출력
 			if (Frame.getOpen() != true) {
 				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
@@ -123,7 +125,12 @@ public class ButtonActionListener implements ActionListener{
 			    //System.out.println("User cancelled");
 			}
 			
+			
+			Frame.lgDialog.setVisible(true);
+			
 			// 해당 기간 데이터 추출
+			//Period.between(start, end);
+			
 			
 			// 데이터 적용
 			
