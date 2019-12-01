@@ -73,7 +73,7 @@ public class CSVLoad {
 		   for (int i=0; i<locations.size(); i++) {
 			   if (locations.get(i).getName().equals(name) &&
 				   locations.get(i).getDate().equals(ldate) ) {   
-				   System.out.println(i);
+				   //System.out.println(i);
 				   Location result = locations.get(i);
 				   return result;
 			   }

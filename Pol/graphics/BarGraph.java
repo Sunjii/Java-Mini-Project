@@ -45,6 +45,7 @@ public class BarGraph extends JPanel{
 		// 그래프 틀
 		g.setColor(Color.black);
 		// x축
+		g.drawLine(graph_pos_x, graph_pos_y+graph_h, graph_pos_x, graph_pos_y);
 		for(int i=1; i < Constant.locations.length; i++) {
 			g.drawLine(graph_pos_x+gap, graph_pos_y+graph_h, graph_pos_x+gap, graph_pos_y);
 			g.drawString(Constant.locations[i], (gap), graph_pos_y + graph_h + 15);
