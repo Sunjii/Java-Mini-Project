@@ -23,6 +23,9 @@ public class GraphDialog extends JDialog{
 	
 	private LocalDate selectedLocalDate; // 선택된 특정한 한 날짜
 	private String selectedItem; // 선택된 특정 오염물질
+	private LocalDate selectedStartDate;	// 기간의 시작날짜
+	private LocalDate selectedEndDate;		// 기간의 끝날짜
+	private String selectedLocation;
 	
 	public GraphDialog(JFrame jframe, String title, int type) {
 		super(jframe, title);
@@ -126,7 +129,7 @@ public class GraphDialog extends JDialog{
 		this.num5 = pol5;
 		this.num6 = pol6;
 	}
-
+	// 막대그래프용
 	public void setDate(LocalDate lo) {
 		this.selectedLocalDate = lo;
 		bar_graph.setDate(this.selectedLocalDate);
@@ -135,6 +138,19 @@ public class GraphDialog extends JDialog{
 	public void setItem(String item) {
 		this.selectedItem = item;
 		bar_graph.setItem(this.selectedItem);
+	}
+	// line graph 용
+	public void setDate(LocalDate start, LocalDate end) {
+		this.selectedStartDate = start;
+		this.selectedEndDate = end;
+		line_graph.setDate(start, end);
+		
+	}
+
+	public void setLocation(String string) {
+		this.selectedLocation = string;
+		line_graph.setLocation(string);
+		
 	}
 	
 }
