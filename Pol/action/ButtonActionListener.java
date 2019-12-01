@@ -124,6 +124,14 @@ public class ButtonActionListener implements ActionListener{
 			}else{
 			    //System.out.println("User cancelled");
 			}
+			// 오염물질 선택(1개)
+			String[] values1 = Constant.pollut;
+			Object selected1 = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values1, "0");
+			if ( selected1 != null ){ 
+				Frame.lgDialog.setItem(selected1.toString());			    
+			}else{
+			    JOptionPane.showMessageDialog(null, "item selection Error !!!", "Unknowun Error", JOptionPane.ERROR_MESSAGE);
+			}
 			
 			
 			Frame.lgDialog.setVisible(true);
@@ -154,10 +162,10 @@ public class ButtonActionListener implements ActionListener{
 				return;
 			}
 			// 오염물질 선택(1개)
-			String[] values = Constant.pollut;
-			Object selectedItem = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "0");
-			if ( selectedItem != null ){ 
-			    Frame.bgDialog.setItem(selectedItem.toString());
+			String[] values2 = Constant.pollut;
+			Object selectedItem2 = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values2, "0");
+			if ( selectedItem2 != null ){ 
+			    Frame.bgDialog.setItem(selectedItem2.toString());
 			}else{
 			    //System.out.println("User cancelled");
 			}

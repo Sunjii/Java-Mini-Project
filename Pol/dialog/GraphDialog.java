@@ -102,13 +102,22 @@ public class GraphDialog extends JDialog{
 				}else{
 				    //System.out.println("User cancelled");
 				}
+				// 오염물질 선택(1개)
+				String[] values = Constant.pollut;
+				Object selected = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values, "0");
+				if ( selected != null ){ 
+					setItem(selected.toString());			    
+				}else{
+				    JOptionPane.showMessageDialog(null, "item selection Error !!!", "Unknowun Error", JOptionPane.ERROR_MESSAGE);
+				}
 				
 				//line_graph.Period.between(start, end);
 				// 그리기 - 모든 오염물질
 				
 				line_graph.init();
-				line_graph.setDate(selectedStartDate, selectedEndDate);
-				line_graph.setLocation(selectedLocation.toString());
+				line_graph.setDate(this.selectedStartDate, this.selectedEndDate);
+				line_graph.setLocation(this.selectedLocation.toString());
+				line_graph.setItem(this.selectedItem);
 				line_graph.repaint();
 
 			} else {	// 막대 그래프이면
@@ -157,11 +166,12 @@ public class GraphDialog extends JDialog{
 		this.selectedLocalDate = lo;
 		bar_graph.setDate(this.selectedLocalDate);
 	}
-
 	public void setItem(String item) {
 		this.selectedItem = item;
 		bar_graph.setItem(this.selectedItem);
+		line_graph.setItem(item);
 	}
+	
 	// line graph 용
 	public void setDate(LocalDate start, LocalDate end) {
 		this.selectedStartDate = start;
@@ -169,18 +179,17 @@ public class GraphDialog extends JDialog{
 		line_graph.setDate(start, end);
 		
 	}
-
 	public void setLocation(String string) {
 		this.selectedLocation = string;
 		line_graph.setLocation(string);
 		
 	}
-
 	public void init() {
 		selectedStartDate = null;	// 기간의 시작날짜
 		selectedEndDate = null;		// 기간의 끝날짜
 		selectedLocation = "";
 		
 	}
+
 	
 }
