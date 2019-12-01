@@ -64,21 +64,33 @@ public class Map extends JPanel {
 		// 구역의 평균으로 폴리곤에 색을 칠한다.
 		
 		// s1 의 평균을 구한다.
-		int power; // 그라데이션의 세기 (0~255)
-		power = getColor(1, item);
+		int[] power = {0, 0, 0, 0, 0, 0}; // 그라데이션의 세기 (0~255)
+		//power = getColor(1, item);
 		
+		for (int i=0; i<6; i++) {
+			// i sector의 그라데이션 세기를 구한다.
+			power[i] = getColor(i, item);			
+		}
 		
-		g.setColor(Constant.good);
+		g.setColor(new Color(power[0], 10, 10));
 		g.fillPolygon(Constant.s1_xp, Constant.s1_yp, Constant.s1_num);
 		
-		g.setColor(Constant.nomal);
+		g.setColor(new Color(power[1], 10, 10));
 		g.fillPolygon(Constant.s2_xp, Constant.s2_yp, Constant.s2_num);
 		
-		g.setColor(Constant.bad);
+		g.setColor(new Color(power[2], 10, 10));
 		g.fillPolygon(Constant.s3_xp, Constant.s3_yp, Constant.s3_num);
 		
-		g.setColor(Constant.verybad);
+		g.setColor(new Color(power[3], 10, 10));
 		g.fillPolygon(Constant.s4_xp, Constant.s4_yp, Constant.s4_num);
+		
+		g.setColor(new Color(power[4], 10, 10));
+		g.fillPolygon(Constant.s5_xp, Constant.s5_yp, Constant.s5_num);
+		
+		g.setColor(new Color(power[5], 10, 10));
+		g.fillPolygon(Constant.s6_xp, Constant.s6_yp, Constant.s6_num);
+		
+		
 		
 		
 		
