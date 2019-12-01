@@ -5,7 +5,8 @@ public class Constant {
 	// 오염물질
 	static final String[] pollut = { "이산화질소", "오존농도", "이산화탄소", "아황산가스", "미세먼지", "초미세먼지" };
 	// 오염물질의 최대값
-	static final double pollut_max[] = {0.060, 0.060, 3, 0.050, 200, 130};
+	//static final double pollut_max[] = {0.060, 0.060, 3, 0.050, 200, 130};
+	static final double pollut_max[] = {0.060, 0.050, 3, 0.045, 180, 110};
 	
 	static final String header[] = { "지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2],
 			Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
