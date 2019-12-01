@@ -11,6 +11,7 @@
 	<classpathentry kind="src" path="graphics"/>
 	<classpathentry kind="src" path="dialog"/>
 	<classpathentry kind="src" path="CSV"/>
+	<classpathentry kind="src" path="staticsinfo"/>
 	<classpathentry kind="lib" path="D:/Education/Java-Mini-Project/Pol/mysql-connector-java-8.0.18.jar"/>
 	<classpathentry kind="lib" path="D:/Education/Java-Mini-Project/Pol/ojdbc6.jar"/>
 	<classpathentry kind="output" path="bin"/>

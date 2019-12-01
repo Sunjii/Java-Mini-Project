@@ -174,12 +174,56 @@ public class ButtonActionListener implements ActionListener{
 			Frame.bgDialog.setVisible(true);
 			
 			break;
+		case "Stat1":
+			// 특정 기간 동안 통계량 조회
+			// 전체지역에서 특정 기간동안의 통계량을 제공
+			
+			// 기간 입력
+			// 그 기간동안 A 물질이 가장 높은곳, 낮은곳.  B 물질이 가장 높은곳 낮은곳. ...
+			
+			// 구간 입력창
+			if (Frame.getOpen() != true) {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				return;
+			}
+			// 기간을 입력하는 팝업창을 띄운다
+			
+			try{
+				LocalDate start = LocalDate.parse(JOptionPane.showInputDialog("시작하는 날짜를 입력하세요. ex) 2018-01-06"));
+				LocalDate end = LocalDate.parse(JOptionPane.showInputDialog("끝나는 날짜를 입력하세요. ex) 2018-01-16"));
+				//System.out.println(start.toString() + end.toString());
+				Frame.stDialog.setDate(start, end);
+				//Frame.stDialog.setType(0);
+			} catch(Exception err) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			//Frame.stDialog.repaint();
+			//Frame.stDialog.revalidate();
+			Frame.stDialog.setType(0);
+			Frame.stDialog.setVisible(true);
+			
+			
+			
+			
+			
+			break;
+		case "Stat2":
+			// 특정 지역의 통계량 조회
+			// 한 지역에서의 통계량을 제공 
+			
+			// 한 지역에서 A 물질이 가장 높았던 날, 가장 낮았던 날.  B 물질의 min, max. ...
+			
+			
+			
+			
+			Frame.stDialog.setType(1);
+			Frame.stDialog.setVisible(true);
+			break;
 		case "Data":
 			// 데이터 수정 창을 출력
 			Frame.tbDialog.setVisible(true);
-			
-			
-			
 			
 			break;
 		case "검색":
@@ -194,6 +238,8 @@ public class ButtonActionListener implements ActionListener{
 			
 			String searchLoca = Frame.locations.getSelectedItem().toString();
 			String searchDate = Frame.inputDate.getText();
+			
+			// searchLoca & searchDate 조건으로 검색
 			if(searchLoca.equals("전체")) {
 				ArrayList<String[]> search_result = new ArrayList<String[]>();
 				for (int i=0; i < Frame.model.getRowCount(); i++) {
