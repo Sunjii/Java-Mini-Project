@@ -184,25 +184,49 @@ public class ButtonActionListener implements ActionListener{
 			break;
 		case "검색":
 			// 테이블 초기화 및 데이터 재입력.
-			
-			
-			
 			try {
 				Frame.csvL.Reset();
 				Frame.csvL.Read();
-				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
-				
+				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);			
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			
-			
+			String searchLoca = Frame.locations.getSelectedItem().toString();
 			String searchDate = Frame.inputDate.getText();
+			if(searchLoca.equals("전체")) {
+				ArrayList<String[]> search_result = new ArrayList<String[]>();
+				for (int i=0; i < Frame.model.getRowCount(); i++) {
+					// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
+					if(searchDate.equals(Frame.model.getValueAt(i, 1))) {
+						String[] in = new String[8];
+						for(int j=0; j<8; j++) {
+							in[j] = (String) Frame.model.getValueAt(i, j);
+						}
+						search_result.add(in);
+					}
+				}
+				// 현재 화면의 테이블 전부 삭제
+				if(search_result.size() > 0) {
+					int count = Frame.model.getRowCount();
+					for(int i=0; i<count; i++) {
+						Frame.model.removeRow(0);
+					}
+					// search_result를 이용해 테이블 재생성
+					for (int i=0; i<search_result.size(); i++) {
+						Frame.model.addRow(search_result.get(i));
+					}	
+				} else {// 검색 결과가 없는 경우.
+					JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
+				}
+				break;
+			}
+			
 			ArrayList<String[]> search_result = new ArrayList<String[]>();
-
 			for (int i=0; i < Frame.model.getRowCount(); i++) {
 				// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
-				if(searchDate.equals(Frame.model.getValueAt(i, 1))) {
+				if(searchDate.equals(Frame.model.getValueAt(i, 1)) && 
+					searchLoca.equals(Frame.model.getValueAt(i, 0))	) {
 					String[] in = new String[8];
 					for(int j=0; j<8; j++) {
 						in[j] = (String) Frame.model.getValueAt(i, j);

@@ -55,6 +55,7 @@ public class Frame extends JFrame {
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
 	
+	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
 
 	
@@ -211,7 +212,6 @@ public class Frame extends JFrame {
 		/// p1  ::
 		JPanel p1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 10));
 		// 지역 콤보박스
-		JComboBox locations = new JComboBox(Constant.locations);
 		p1.add(locations);
 		// 레이블 1
 		JLabel inputDate_ex = new JLabel("날짜입력 ");
