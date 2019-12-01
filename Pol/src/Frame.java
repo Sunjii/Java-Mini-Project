@@ -1,7 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -48,21 +51,26 @@ public class Frame extends JFrame {
 	static JTable resTable;
 	static DefaultTableModel model;
 	Vector<String> dataRow;
+
+	private Map map;
 	
 	static GraphDialog cgDialog;	// 원형그래프 대화창
 	static GraphDialog lgDialog;	// 선형그래프 대화창
 	static GraphDialog bgDialog;	// 막대그래프
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
+	static StaticsDialog stDialog;		// 통계 정보 대화창
 	
 	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
 
 	
+
+	
 	
 	public Frame() {
 		setTitle("POL Project");
-		setSize(1000, 1000);
+		setSize(1000, 1200);
 		setLayout(new BorderLayout());
 		menu();
 		toolbar();
@@ -75,6 +83,8 @@ public class Frame extends JFrame {
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		tbDialog = new DataDialog(this, "데이터");
 		txDialog = new TextDialog(this, "오염물질 권고기준");
+		stDialog = new StaticsDialog(this, "통계 정보");
+		
 		setVisible(true);
 		//pack();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,6 +188,7 @@ public class Frame extends JFrame {
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
+		
 		item = new JButton("Graph 1");
 		item.addActionListener(bal);
 		tb.add(item);
@@ -185,6 +196,14 @@ public class Frame extends JFrame {
 		item.addActionListener(bal);
 		tb.add(item);
 		item = new JButton("Graph 3");
+		item.addActionListener(bal);
+		tb.add(item);
+		tb.addSeparator();
+		
+		item = new JButton("Stat1");
+		item.addActionListener(bal);
+		tb.add(item);
+		item = new JButton("Stat2");
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -231,14 +250,29 @@ public class Frame extends JFrame {
 		send.addActionListener(bal);
 		p1.add(send);
 		
+		JButton drawing = new JButton("그리기");
+		drawing.addActionListener(bal);
+		p1.add(drawing);
 		
 		/// p2 :: 서울시 지도 그림 들어갈 곳
+		//JPanel p2 = new JPanel(new GridLayout(2, 0, 20, 20));
 		JPanel p2 = new JPanel();
-		JLabel map = new JLabel("test - 그림 들어갈 곳");
+		//JLabel map = new JLabel("test - 그림 들어갈 곳");
 		//map.setBounds(0,50, test.getIconWidth(), test.getIconHeight());
+		//p2.add(map);
+		
+		
+		//drawing.setPreferredSize(new Dimension(30, 20));
+		
+		
+		map = new Map();
+		//map.setSize(200, 200);
+		map.setPreferredSize(new Dimension(600, 500)); // w, h
+		
+		
 		p2.add(map);
-		
-		
+		//p2.add(drawing);
+		p2.setPreferredSize(new Dimension(600, 600));
 		
 		
 		/// p3 :: 데이터 출력 할 곳
@@ -308,7 +342,7 @@ public class Frame extends JFrame {
 		// 메인에 패널들 추가
 		top_area.add(p1, BorderLayout.CENTER); 
 		
-		main_area.add(p2, BorderLayout.NORTH); 
+		main_area.add(p2, BorderLayout.NORTH);
 		main_area.add(p3, BorderLayout.SOUTH);
 		
 		
