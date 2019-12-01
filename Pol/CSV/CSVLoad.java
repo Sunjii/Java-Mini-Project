@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.DecimalFormat;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
@@ -39,7 +40,8 @@ public class CSVLoad {
 		         
 		         // 오염물질 데이터 생성
 		         stat = new Stat(Double.parseDouble(splitedString[2]), Double.parseDouble(splitedString[3]), Double.parseDouble(splitedString[4]),
-		               Double.parseDouble(splitedString[5]), Integer.parseInt(splitedString[6]), Integer.parseInt(splitedString[7]));
+		              Double.parseDouble(splitedString[5]), Integer.parseInt(splitedString[6]), Integer.parseInt(splitedString[7]));
+		         
 		         
 		         // 문자열로 표현된 날짜를 LocalDate형식으로 변환하고, 장소 데이터 생성
 		         date = LocalDate.parse(splitedString[0], DateTimeFormatter.ofPattern("yyyyMMdd", Locale.ENGLISH));
