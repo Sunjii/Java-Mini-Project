@@ -44,16 +44,13 @@ public class TextDialog extends JDialog{
 		JLabel l5 = new JLabel("미세   먼지 : 0-30 좋음      30-80 보통      80-150 나쁨      150- 매우나쁨");
 		JLabel l6 = new JLabel("초미세먼지 : 0-15 좋음      15-35 보통      35-75 나쁨      75- 매우나쁨");
 		*/
+		
 		JLabel l1 = new JLabel(Constant.nppmS);
 		JLabel l2 = new JLabel(Constant.oppmS);
 		JLabel l3 = new JLabel(Constant.cppmS);
 		JLabel l4 = new JLabel(Constant.appmS);
 		JLabel l5 = new JLabel(Constant.dustS);
 		JLabel l6 = new JLabel(Constant.mdustS);
-		
-		
-		
-		
 		
 		l1.setHorizontalAlignment(SwingConstants.CENTER);
 		l2.setHorizontalAlignment(SwingConstants.CENTER);
