@@ -50,7 +50,7 @@ public class Map extends JPanel {
 		g.drawPolygon(Constant.s6_xp, Constant.s6_yp, Constant.s6_num);
 		
 		
-		makeFill(g);
+		//makeFill(g);
 		
 		
 		
