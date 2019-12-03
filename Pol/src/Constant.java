@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 // 상수 정의 클래스
 public class Constant {
@@ -66,6 +68,7 @@ public class Constant {
 	
 	
 	// polygon points
+
 	static final String[] s1 = {"강변북로", "남산", "마포구", "북한산", "서대문구", "신촌로", "용산구", "은평구", "종로", "종로구", "중구", "청계천로", "한강대로", "행주"  };
 	static final int[] s1_xp = {65, 105, 95, 160, 195, 244, 240, 195};
 	static final int[] s1_yp = {148, 120, 78, 60, 153, 177, 232, 264};
@@ -96,7 +99,8 @@ public class Constant {
 	static final int[] s6_yp = {265, 332, 403, 431, 335, 355, 332, 243, 212, 167 };
 	static final int s6_num = 10;
 	
-	
+	static final ArrayList<String[]> sectorList = new ArrayList<String[]>(
+			Arrays.asList(s1, s2, s3, s4, s5, s6));
 	
 	
 
