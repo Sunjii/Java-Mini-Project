@@ -64,7 +64,7 @@ public class StaticsDialog extends JDialog {
 		
 		paintBtn.addActionListener(e -> {
 			if(type == 0) {	// 모든 지역에서 선택한 기간동안의 통계량을 제공한다.
-				//period_panel.reset();
+				period_panel.reset();
 				
 				LocalDate start = LocalDate.of(2018, 1, 1);
 				LocalDate end = LocalDate.of(2018, 12, 31);

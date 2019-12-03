@@ -52,7 +52,7 @@ public class Frame extends JFrame {
 	static DefaultTableModel model;
 	Vector<String> dataRow;
 
-	private Map map;
+	public static Map map;
 	
 	static GraphDialog cgDialog;	// 원형그래프 대화창
 	static GraphDialog lgDialog;	// 선형그래프 대화창
