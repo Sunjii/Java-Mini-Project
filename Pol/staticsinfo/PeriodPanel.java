@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.time.LocalDate;
 import java.time.Period;
@@ -24,7 +25,8 @@ public class PeriodPanel extends JPanel {
 	private String location;
 	
 	public void paint(Graphics g) {
-	
+		g.clearRect(0, 0, getWidth(), getHeight());
+		
 		// period를 계산한다.
 		period = Period.between(dateS, dateE);
 		if(period.getDays() > 365) {
@@ -41,47 +43,16 @@ public class PeriodPanel extends JPanel {
 			dateList.add(bufD.plusDays(i).toString());
 		}
 		
-	
-		
-		
-		
-		
-		
-		// dateS ~ dateE 까지 검색
-		// 각 오염물질들의 농도가 가장 높은 날과 그 수치
-		//findMax(maxList, dateList);
-		/*
-		double max[] = {0, 0, 0, 0, 0, 0};
-		double temp = 0;
-		for (int i=0; i<dateLength; i++) {
-			// dateList의 시작과 끝까지, 이산화질소를 검색
-			//maxList.add( findMax(i, dateList, Constant.pollut[0]) );
-			for(int j=0; j<6; j++) {
-				temp = findMax(i, dateList, Constant.pollut[j]);
-				if(max[j] < temp) {
-					max[j] = temp;
-				}
-			}
-			count = 0;
-			
-			// dateList의 시작과 끝까지, 아황산가스를 검색
-			// ...
-			
-		}
-		for (int i=0; i<6; i++) {
-			//maxList.add(maxString[i]);
-			maxList.add(Double.toString(max[i]));
-		}
-		*/
-		
 		
 		// dateS ~ dateE 까지 location의 데이터를 탐색.
-		//for(int i=0; i<dateLength; i++) {
-		//	calculate(this.location, Constant.pollut[0]);
-		//}
-		
+	
 		for (int i=0; i<6; i++) {
 			System.out.println( calculate(this.location, Constant.pollut[i]) );
+		}
+		
+		for(int i=0; i<Constant.pollut.length; i++) {
+			// index out of bound
+			g.drawString(Constant.pollut[i] + "가 가장 높은 곳 : " +calculate(this.location, Constant.pollut[i]), 50, 80 + (i*20));
 		}
 		
 		
@@ -179,12 +150,6 @@ public class PeriodPanel extends JPanel {
 	}
 
 
-	private void findMax(ArrayList<String> maxList, ArrayList<String> dateList) {
-		//maxList[0] = 이산화질소의 최대값;
-		
-		
-		
-	}
 
 
 
