@@ -54,18 +54,11 @@ public class LineGraph extends JPanel {
 		dateLength++; // +1 해야 dateE 까지 나옴
 		bufD = dateS;
 		
-		//System.out.println(dateLength);
-		//System.out.println(dateS + " ~ " + dateE);
-		//System.out.println(bufD);
 		// dateList에 입력
 		for (int i=0; i< dateLength; i++) {
 			dateList.add(bufD.plusDays(i).toString());
 			//bufD.plusDays(1); // bufD 값 자체를 변환시키는건 아님...
 		}
-		
-		//for(int i=0; i<dateLength; i++) {
-		//	System.out.println(dateList.get(i));
-		//}
 		
 		// 틀 짜기
 		g.setColor(Color.black);

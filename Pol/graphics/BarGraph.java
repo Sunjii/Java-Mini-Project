@@ -1,15 +1,9 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Window;
-import java.lang.management.GarbageCollectorMXBean;
 import java.time.LocalDate;
 
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import oracle.jdbc.Const;
 
 public class BarGraph extends JPanel{
 	//private double num[] = {0, 0, 0, 0, 0, 0}; // ¿À¿°¹°ÁúÀÇ ³óµµ
