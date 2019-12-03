@@ -24,6 +24,7 @@ public class StaticsDialog extends JDialog {
 	//private LocalDate dateE = LocalDate.now();
 	private int dateLength;
 	private int type;
+	private String location;
 	
 	
 	
@@ -63,6 +64,8 @@ public class StaticsDialog extends JDialog {
 		
 		paintBtn.addActionListener(e -> {
 			if(type == 0) {	// 모든 지역에서 선택한 기간동안의 통계량을 제공한다.
+				//period_panel.reset();
+				
 				LocalDate start = LocalDate.of(2018, 1, 1);
 				LocalDate end = LocalDate.of(2018, 12, 31);
 				if(Frame.getOpen()) {
@@ -74,6 +77,15 @@ public class StaticsDialog extends JDialog {
 						JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
+					String[] ls = Constant.locations;
+					Object selectedL = JOptionPane.showInputDialog(null, "조회하고 싶은 지역을 하나 선택하세요.\n전체는 미지원입니다.", "Selection", JOptionPane.DEFAULT_OPTION, null, ls, "1");
+					if ( selectedL != null ){ 
+					    setLocation(selectedL.toString());
+					}else{
+					    //System.out.println("User cancelled");
+					}
+					
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
 					//setDate(LocalDate.of(2018, 1, 1), LocalDate.of(2018, 12, 31));
@@ -175,6 +187,20 @@ public class StaticsDialog extends JDialog {
 
 	public void setType(int i) {
 		this.type = i;
+	}
+
+	public void init() {
+		this.dateS = null;
+		this.dateE = null;
+		this.period_panel.reset();
+		//this.location_panel.reset();
+		
+	}
+
+	public void setLocation(String string) {
+		this.location = string;
+		this.period_panel.setLocation(this.location);
+		
 	}
 	
 }

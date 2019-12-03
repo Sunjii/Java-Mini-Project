@@ -175,11 +175,13 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Stat1":
-			// 특정 기간 동안 통계량 조회
-			// 전체지역에서 특정 기간동안의 통계량을 제공
+			// 한 지역에서 특정 기간동안의 통계량을 제공
+			// 초기화
+			//Frame.stDialog.init();
+			
 			
 			// 기간 입력
-			// 그 기간동안 A 물질이 가장 높은곳, 낮은곳.  B 물질이 가장 높은곳 낮은곳. ...
+			// 그 기간동안 A 물질이 가장 높은 날, 낮은 날.  B 물질이 가장 높은날 낮은날. ...
 			
 			// 구간 입력창
 			if (Frame.getOpen() != true) {
@@ -199,6 +201,16 @@ public class ButtonActionListener implements ActionListener{
 				return;
 			}
 			
+			// 지역 선택창을 띄운다.
+			String[] ls = Constant.locations;
+			Object selectedL = JOptionPane.showInputDialog(null, "조회하고 싶은 지역을 하나 선택하세요.\n전체는 미지원입니다.", "Selection", JOptionPane.DEFAULT_OPTION, null, ls, "1");
+			if ( selectedL != null ){ 
+			    Frame.stDialog.setLocation(selectedL.toString());
+			}else{
+			    //System.out.println("User cancelled");
+			}
+			
+			
 			//Frame.stDialog.repaint();
 			//Frame.stDialog.revalidate();
 			Frame.stDialog.setType(0);
@@ -210,10 +222,9 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "Stat2":
-			// 특정 지역의 통계량 조회
-			// 한 지역에서의 통계량을 제공 
+			// 특정 날짜의 통계량 조회
+			// 모든 지역에서의 통계량을 제공 
 			
-			// 한 지역에서 A 물질이 가장 높았던 날, 가장 낮았던 날.  B 물질의 min, max. ...
 			
 			
 			
