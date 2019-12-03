@@ -177,7 +177,7 @@ public class ButtonActionListener implements ActionListener{
 		case "Stat1":
 			// 한 지역에서 특정 기간동안의 통계량을 제공
 			// 초기화
-			//Frame.stDialog.init();
+			Frame.stDialog.init();
 			
 			
 			// 기간 입력
@@ -304,8 +304,28 @@ public class ButtonActionListener implements ActionListener{
 			} else {// 검색 결과가 없는 경우.
 				JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
 			}
+			// 지도 객체에 날짜 반영
+			Frame.map.setDate(searchDate);
 			
 			
+			break;
+		case "그리기":
+			String sd = Frame.inputDate.getText();
+			
+			// 오염물질 선택 팝업 띄우기
+			// 오염물질 선택(1개)
+			String[] values3 = Constant.pollut;
+			Object selectedItem3 = JOptionPane.showInputDialog(null, "조회하고 싶은 오염물질을 하나 선택하세요.", "Selection", JOptionPane.DEFAULT_OPTION, null, values3, "0");
+			if ( selectedItem3 != null ){ 
+			    Frame.map.setItem(selectedItem3.toString());
+			}else{
+			    //System.out.println("User cancelled");
+			}
+			
+			
+			
+			Frame.map.setDate(sd);
+			Frame.map.repaint();
 			break;
 		case "종료":
 			System.exit(0);
