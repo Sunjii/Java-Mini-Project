@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.time.LocalDate;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Map extends JPanel {
@@ -44,7 +45,9 @@ public class Map extends JPanel {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.black);
 		//g.drawRect(20, 10, 100, 200);
+		makeFill(g);
 		
+		g.setColor(Color.black);
 		g.drawPolygon(Constant.s1_xp, Constant.s1_yp, Constant.s1_num);
 		g.drawPolygon(Constant.s2_xp, Constant.s2_yp, Constant.s2_num);
 		g.drawPolygon(Constant.s3_xp, Constant.s3_yp, Constant.s3_num);
@@ -52,8 +55,8 @@ public class Map extends JPanel {
 		g.drawPolygon(Constant.s5_xp, Constant.s5_yp, Constant.s5_num);
 		g.drawPolygon(Constant.s6_xp, Constant.s6_yp, Constant.s6_num);
 		
-		System.out.println(date.toString() + " 날짜, 아이템 " + item);
-		makeFill(g);
+		//System.out.println(date.toString() + " 날짜, 아이템 " + item);
+		//makeFill(g);
 		
 		
 		
@@ -149,26 +152,26 @@ public class Map extends JPanel {
 		
 		
 		System.out.println(sum + " = sum, " + avg);
-		int result = 0; // 0~255
+		int result = 0; // 100 ~ 255
 		// 각 오염물질의 권고기준을 찾아낸다.
 		switch (item) {
 		case "이산화질소":
-			result = (int) ((avg/0.3) * 100) ;
+			result = (int) ((avg/0.2) * 100) ;
 			break;
 		case "오존농도":
-			result = (int) ((avg/0.2) * 100) ;		
+			result = (int) ((avg/0.15) * 100) ;		
 			break;
 		case "이산화탄소":
-			result = (int) ((avg/20) * 100) ;		
+			result = (int) ((avg/15) * 100) ;		
 			break;
 		case "아황산가스":
-			result = (int) ((avg/0.2) * 100) ;			
+			result = (int) ((avg/0.15) * 100) ;			
 			break;
 		case "미세먼지":
-			result = (int) ((avg/200) * 100) ;			
+			result = (int) ((avg/150) * 100) ;			
 			break;			
 		case "초미세먼지":
-			result = (int) ((avg/100) * 100) ;
+			result = (int) ((avg/75) * 100) ;
 			break;
 		}
 		
@@ -178,8 +181,11 @@ public class Map extends JPanel {
 	}
 
 	public void setDate(String searchDate) {
-		this.date = LocalDate.parse(searchDate);
-		
+		try {
+			this.date = LocalDate.parse(searchDate);	
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "잘못된 날짜를 입력했습니다.");
+		}
 	}
 
 	public void setItem(String string) {
