@@ -66,6 +66,10 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "DBSave":
+			
+			
+			
+			
 				break;
 		case "Graph 1":
 			// 테이블에서 어딘가 선택되었을때만 그려지도록 한다.
@@ -224,7 +228,10 @@ public class ButtonActionListener implements ActionListener{
 		case "Stat2":
 			// 특정 날짜의 통계량 조회
 			// 모든 지역에서의 통계량을 제공 
-			
+			if (Frame.getOpen() != true) {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				return;
+			}
 			
 			
 			
