@@ -4,6 +4,7 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 import javax.swing.JMenuItem;
@@ -18,14 +19,22 @@ public class MenuActionListener implements ActionListener{
 		switch (mi.getText()) {
 
 		case "DB 저장":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			
+			
 			break;
 		case "DB 불러오기":
-			JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
+			try {
+				new InputDatabase();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			InputDatabase.loadData(CSVLoad.locations);
+			
+			
 			break;
 		case "CSV 파일 불러오기":
-			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
-			
 			try {
 				Frame.csvL.Reset();
 				Frame.csvL.Read();
@@ -43,7 +52,6 @@ public class MenuActionListener implements ActionListener{
 			Frame.setOpen(true);
 			break;
 		case "CSV 파일 저장하기":
-			//JOptionPane.showMessageDialog(null, "아직 DB기능은 미구현입니다.", "데이터 없음", JOptionPane.ERROR_MESSAGE);
 			try {
 				Frame.csvW.Write();
 			} catch (IOException e1) {
@@ -84,7 +92,6 @@ public class MenuActionListener implements ActionListener{
 				break;
 					
 			}
-			
 		case "꺽은선 그래프":
 			Frame.lgDialog.init();
 			// 선형 그래프. 시작날짜, 끝날짜, 지역을 선택하고 그래프 창 출력
@@ -118,16 +125,7 @@ public class MenuActionListener implements ActionListener{
 			    JOptionPane.showMessageDialog(null, "item selection Error !!!", "Unknowun Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
-			
 			Frame.lgDialog.setVisible(true);
-			// 지역을 선택하고 기간을 입력하는 팝업창을 띄운다
-			
-			// 해당 기간 데이터 추출
-			
-			// 데이터 적용
-			
-			// 데이터 기반으로 그래프 그리기
-			
 			break;
 		case "막대 그래프":
 			// 막대그래프. 날짜와 물질을 하나선택. 모든 지역 출력 
@@ -160,7 +158,46 @@ public class MenuActionListener implements ActionListener{
 			
 			break;
 		case "특정 지역의 통계량 조회":
-			
+			// 한 지역에서 특정 기간동안의 통계량을 제공
+						// 초기화
+						Frame.stDialog.init();
+						
+						
+						// 기간 입력
+						// 그 기간동안 A 물질이 가장 높은 날, 낮은 날.  B 물질이 가장 높은날 낮은날. ...
+						
+						// 구간 입력창
+						if (Frame.getOpen() != true) {
+							JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+							return;
+						}
+						// 기간을 입력하는 팝업창을 띄운다
+						
+						try{
+							LocalDate start = LocalDate.parse(JOptionPane.showInputDialog("시작하는 날짜를 입력하세요. ex) 2018-01-06"));
+							LocalDate end = LocalDate.parse(JOptionPane.showInputDialog("끝나는 날짜를 입력하세요. ex) 2018-01-16"));
+							//System.out.println(start.toString() + end.toString());
+							Frame.stDialog.setDate(start, end);
+							//Frame.stDialog.setType(0);
+						} catch(Exception err) {
+							JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+							return;
+						}
+						
+						// 지역 선택창을 띄운다.
+						String[] ls = Constant.locations;
+						Object selectedL = JOptionPane.showInputDialog(null, "조회하고 싶은 지역을 하나 선택하세요.\n전체는 미지원입니다.", "Selection", JOptionPane.DEFAULT_OPTION, null, ls, "1");
+						if ( selectedL != null ){ 
+						    Frame.stDialog.setLocation(selectedL.toString());
+						}else{
+						    //System.out.println("User cancelled");
+						}
+						
+						
+						//Frame.stDialog.repaint();
+						//Frame.stDialog.revalidate();
+						Frame.stDialog.setType(0);
+						Frame.stDialog.setVisible(true);
 			
 			break;
 		case "데이터 추가 및 수정":
