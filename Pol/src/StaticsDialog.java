@@ -63,7 +63,7 @@ public class StaticsDialog extends JDialog {
 		}
 		
 		paintBtn.addActionListener(e -> {
-			if(type == 0) {	// 모든 지역에서 선택한 기간동안의 통계량을 제공한다.
+			if(type == 0) {	// 선택한 지역에서 선택한 기간동안의 통계량을 제공한다.
 				period_panel.reset();
 				
 				LocalDate start = LocalDate.of(2018, 1, 1);
@@ -96,9 +96,21 @@ public class StaticsDialog extends JDialog {
 				
 				
 			} else {	// 선택된 지역의 통계량을 제공한다.
+				location_panel.reset();
+				if(Frame.getOpen()) {
+					LocalDate targetDate;
+					try {
+						targetDate = LocalDate.parse(JOptionPane.showInputDialog("날짜를 입력해주세요. ex) 2018-01-06"));
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					location_panel.setDate(targetDate);	
+				} else {
+					JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+				}
 				
-				
-				
+				period_panel.repaint();
 			}
 			
 			

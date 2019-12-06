@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 
 
 
-// 선택한 날의 모든 지역의 오염물질별 통계정보
+// 선택한 지역의 선택한 기간동안의 통계정보 조회
 public class PeriodPanel extends JPanel {
 	private LocalDate dateS, dateE;
 	private LocalDate bufD;
@@ -47,12 +47,13 @@ public class PeriodPanel extends JPanel {
 		// dateS ~ dateE 까지 location의 데이터를 탐색.
 	
 		for (int i=0; i<6; i++) {
-			System.out.println( calculate(this.location, Constant.pollut[i]) );
+		//	System.out.println( calculate(this.location, Constant.pollut[i]) );
 		}
 		
+		g.drawString(this.location, 50, 20);
 		for(int i=0; i<Constant.pollut.length; i++) {
 			// index out of bound
-			g.drawString(Constant.pollut[i] + "가 가장 높은 곳 : " +calculate(this.location, Constant.pollut[i]), 50, 80 + (i*20));
+			g.drawString(Constant.pollut[i] + "가 가장 높았던 날 : " + calculate(this.location, Constant.pollut[i]), 50, 80 + (i*20));
 		}
 		
 		
@@ -106,7 +107,7 @@ public class PeriodPanel extends JPanel {
 			
 		}
 		
-		return (this.location + " " + maxdate + " " + max);
+		return (maxdate + " " + max);
 	}
 
 	private String findMax(int i, ArrayList<String> dateList, String item) {
