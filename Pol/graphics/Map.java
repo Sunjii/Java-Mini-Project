@@ -156,25 +156,42 @@ public class Map extends JPanel {
 		// 각 오염물질의 권고기준을 찾아낸다.
 		switch (item) {
 		case "이산화질소":
-			result = (int) ((avg/0.2) * 100) ;
+			// 0.2 -> 255
+			// 0 -> 0
+			// avg -> ? 
+			// 0.2 : 255 = avg : ?
+			// 255 * avg = 0.2?
+			// result = 255 / 0.2 * avg;
+			//result = (int) ((avg/0.06) * 100) ;
+			result = (int) (255 / 0.2 * avg);
 			break;
 		case "오존농도":
-			result = (int) ((avg/0.15) * 100) ;		
+			//result = (int) ((avg/0.09) * 100) ;		
+			
+			// 0.15 : 255 = avg : res
+			result = (int)(255 / 0.15 * avg);
 			break;
 		case "이산화탄소":
-			result = (int) ((avg/15) * 100) ;		
+			//result = (int) ((avg/9) * 100) ;		
+			result = (int)(255 / 15 * avg);
 			break;
 		case "아황산가스":
-			result = (int) ((avg/0.15) * 100) ;			
+			//result = (int) ((avg/0.05) * 100) ;			
+			result = (int)(255 / 0.15 * avg);
 			break;
 		case "미세먼지":
-			result = (int) ((avg/150) * 100) ;			
+			//result = (int) ((avg/80) * 100) ;			
+			result = (int)(255 / 150 * avg);
 			break;			
 		case "초미세먼지":
-			result = (int) ((avg/75) * 100) ;
+			//result = (int) ((avg/35) * 100) ;
+			result = (int)(255 / 75 * avg);
 			break;
 		}
 		
+		if(result > 255) {
+			result = 255;
+		}
 		
 		
 		return 255-result;
