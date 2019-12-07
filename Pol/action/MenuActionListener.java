@@ -90,8 +90,10 @@ public class MenuActionListener implements ActionListener{
 			default:
 				JOptionPane.showMessageDialog(null, "원형 그래프는 하나의 칼럼만 그릴 수 있습니다.");
 				break;
-					
+				
+				
 			}
+			break;
 		case "꺽은선 그래프":
 			Frame.lgDialog.init();
 			// 선형 그래프. 시작날짜, 끝날짜, 지역을 선택하고 그래프 창 출력
