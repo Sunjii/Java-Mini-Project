@@ -241,20 +241,24 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "검색":
-			// 테이블 초기화 및 데이터 재입력.
-			try {
-				Frame.csvL.Reset();
-				Frame.csvL.Read();
-				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);			
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			//Frame.csvL.Reset();
+			//Frame.csvL.Read();
+			Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
 			
 			String searchLoca = Frame.locations.getSelectedItem().toString();
 			String searchDate = Frame.inputDate.getText();
 			
 			// searchLoca & searchDate 조건으로 검색
 			if(searchLoca.equals("전체")) {
+				if(searchDate.equals("")) {
+					// 비어있는 경우는 전체 날짜를 검색
+					int rowCount = Frame.model.getRowCount();
+					for(int i=0; i<rowCount; i++) {
+						Table.deleteTable(0, Frame.model);
+					}	
+					Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
+	
+				}
 				ArrayList<String[]> search_result = new ArrayList<String[]>();
 				for (int i=0; i < Frame.model.getRowCount(); i++) {
 					// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
@@ -270,7 +274,8 @@ public class ButtonActionListener implements ActionListener{
 				if(search_result.size() > 0) {
 					int count = Frame.model.getRowCount();
 					for(int i=0; i<count; i++) {
-						Frame.model.removeRow(0);
+						//Frame.model.removeRow(0);
+						Table.deleteTable(0, Frame.model);
 					}
 					// search_result를 이용해 테이블 재생성
 					for (int i=0; i<search_result.size(); i++) {
@@ -282,6 +287,7 @@ public class ButtonActionListener implements ActionListener{
 				break;
 			}
 			
+			/*
 			ArrayList<String[]> search_result = new ArrayList<String[]>();
 			for (int i=0; i < Frame.model.getRowCount(); i++) {
 				// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
@@ -299,14 +305,19 @@ public class ButtonActionListener implements ActionListener{
 				int count = Frame.model.getRowCount();
 				for(int i=0; i<count; i++) {
 					Frame.model.removeRow(0);
+					Table.deleteTable(0, Frame.model);
 				}
 				// search_result를 이용해 테이블 재생성
 				for (int i=0; i<search_result.size(); i++) {
-					Frame.model.addRow(search_result.get(i));
+					//Frame.model.addRow(search_result.get(i));
+					Frame.insertTable(search_result, Frame.model);
 				}	
 			} else {// 검색 결과가 없는 경우.
 				JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
 			}
+			*/
+			
+			
 			// 지도 객체에 날짜 반영
 			Frame.map.setDate(searchDate);
 			
