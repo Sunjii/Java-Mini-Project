@@ -33,15 +33,13 @@ import oracle.jdbc.proxy.annotation.GetCreator;
 
 public class Frame extends JFrame {
 	
-	ImageIcon test = new ImageIcon("image.jpg");
+	//ImageIcon test = new ImageIcon("image.jpg");
 	
 	static CSVLoad csvL = new CSVLoad();
 	static CSVWrite csvW = new CSVWrite();
 	
 	private static boolean isOpen; // 데이터가 들어왔는지 확인하는 변수
 	
-	//static String data[][] = {};
-	//static List<Object> data = new ArrayList<Object>();
 	static ArrayList<String[]> data = new ArrayList<String[]>();
 	static String[][] arr = new String[13000][8];
 
@@ -64,15 +62,12 @@ public class Frame extends JFrame {
 	static GraphDialog bgDialog;	// 막대그래프
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
-	static StaticsDialog stDialog;		// 통계 정보 대화창
-	static StaticsDialog stDialog2;
+	static StaticsDialog stDialog;		// 통계 정보 대화창 1
+	static StaticsDialog stDialog2;		// 통계 정보 대화창 2
 	
 	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
 
-	
-
-	
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -262,30 +257,16 @@ public class Frame extends JFrame {
 		p1.add(drawing);
 		
 		/// p2 :: 서울시 지도 그림 들어갈 곳
-		//JPanel p2 = new JPanel(new GridLayout(2, 0, 20, 20));
 		JPanel p2 = new JPanel();
-		//JLabel map = new JLabel("test - 그림 들어갈 곳");
-		//map.setBounds(0,50, test.getIconWidth(), test.getIconHeight());
-		//p2.add(map);
-		
-		
-		//drawing.setPreferredSize(new Dimension(30, 20));
-		
-		
 		map = new Map();
-		//map.setSize(200, 200);
 		map.setPreferredSize(new Dimension(600, 500)); // w, h
-		
-		
+			
 		p2.add(map);
-		//p2.add(drawing);
 		p2.setPreferredSize(new Dimension(600, 600));
-		
-		
+			
 		/// p3 :: 데이터 출력 할 곳
 		JPanel p3 = new JPanel();
 		// JTable
-		
 		/*
 		// 데모용 데이터
 		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
@@ -298,69 +279,13 @@ public class Frame extends JFrame {
 				{"용산", "2018-01-02", "0.029", "0.016", "0.6", "0.007", "34", "17"}
 		};
 		*/
-		
-		//String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
-		//resTable = new JTable(data, header);
-		//csvL.getlocations();
-		
-		
-		
-		// 테이블 생성
-		//resTable = new JTable(data, header);
-		//String[] arr = data.toArray(new String[data.size()]);
-		/*
-		String[][] arr = new String[101][9];
-		for(int i=0; i< 100; i++) {
-			for(int j=0; j<8; j++) {
-				arr[i][j] = (String) data.get(j);
-			}
-		}
-		*/
-		
-		
-		
 
-		//resTable = new JTable(arr, Constant.header);
-		//redrawTable(arr);
-		//JScrollPane scroll = new JScrollPane(resTable);
-		//p3.add(scroll);	
-
-		
 		// 테이블 모델 생성 & 테이블 생성
 		model = new DefaultTableModel(Constant.header, 0) {
-			/*
-			@Override
-			public Class getColumnClass(int columnIndex){
-				switch(columnIndex) {
-				case 0:
-					return String.class;
-				case 1:
-					return String.class;
-				case 2:
-					return Double.class;
-				case 3:
-					return Double.class;
-				case 4:
-					return Double.class;
-				case 5:
-					return Double.class;
-				case 6:
-					return Double.class;
-				case 7:
-					return Double.class;
-				}	
-				return null;
-			}
-			*/
-			public boolean isCellEditable(int i, int c) {
+			public boolean isCellEditable(int i, int c) { // 수정 금지
 				return false;
 			}
 		};
-		
-		//TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
-		//sorter.set
-		
-		
 		
 		resTable = new JTable(model);
 		
@@ -370,10 +295,9 @@ public class Frame extends JFrame {
 		resTable.getTableHeader().setResizingAllowed(false);
 		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		// 테이블 헤더 클릭시 정렬
-		//resTable.setAutoCreateRowSorter(true);
-		
+		//resTable.setAutoCreateRowSorter(true); :: String 기준 정렬임.
+		// 오염수치 정렬을 위한 Sorter 정의
 		TableRowSorter trs = new TableRowSorter(model);
-		
 		class DoubleComparator implements Comparator{
 			public int compare(Object o1, Object o2) {
 				Double d1 = Double.parseDouble((String)o1);
