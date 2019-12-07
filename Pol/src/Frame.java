@@ -1,14 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Vector;
@@ -29,11 +27,21 @@ import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import oracle.jdbc.proxy.annotation.GetCreator;
-
 public class Frame extends JFrame {
 	
-	//ImageIcon test = new ImageIcon("image.jpg");
+	//ImageIcon open = new ImageIcon(".//Icon//open.png");
+	ImageIcon save = new ImageIcon(".//Icon//save.png");
+	/*
+	ImageIcon DBLoad = new ImageIcon(".//Icon//dbload.png");
+	ImageIcon DBSave = new ImageIcon(".//Icon//dbsave.png");
+	ImageIcon Graph1 = new ImageIcon(".//Icon//graph1.png");
+	ImageIcon Graph2 = new ImageIcon(".//Icon//graph2.png");
+	ImageIcon Graph3 = new ImageIcon(".//Icon//graph3.png");
+	ImageIcon Stat1 = new ImageIcon(".//Icon//stat1.png");
+	ImageIcon Stat2 = new ImageIcon(".//Icon//stat2.png");
+	ImageIcon Data = new ImageIcon(".//Icon//data.png");
+	ImageIcon Exit = new ImageIcon(".//Icon//exit.png");
+*/
 	
 	static CSVLoad csvL = new CSVLoad();
 	static CSVWrite csvW = new CSVWrite();
@@ -158,6 +166,10 @@ public class Frame extends JFrame {
 		item = new JMenuItem("오염물질 권고기준");
 		item.addActionListener(mal);
 		data.add(item);
+		file.addSeparator();
+		item = new JMenuItem("프로그램 정보");
+		item.addActionListener(mal);
+		data.add(item);
 		
 		mb.add(data);
 		// 5.
@@ -179,7 +191,7 @@ public class Frame extends JFrame {
 		item = new JButton("Open");
 		item.addActionListener(bal);
 		tb.add(item);
-		item = new JButton("Save");
+		item = new JButton("Save", save);
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -347,19 +359,6 @@ public class Frame extends JFrame {
 					Double.toString(stat.dust), Double.toString(stat.mdust)
 			};
 			
-			/*
-			data.add(name);
-			data.add(date.toString());
-			data.add(Double.toString(stat.nppm));
-			data.add(Double.toString(stat.oppm));
-			data.add(Double.toString(stat.cppm));
-			data.add(Double.toString(stat.appm));
-			data.add(Double.toString(stat.dust));
-			data.add(Double.toString(stat.mdust));
-			*/
-			//System.out.println(name + " " + date.toString() + " " + Double.toString(stat.dust));
-			//data.add(one);
-			//model.addRow(one);
 			mod.addRow(one);
 			
 		}
@@ -369,20 +368,17 @@ public class Frame extends JFrame {
 	
 	
 	public static void makeTable(ArrayList<String[]> input) {
-		//String[][] array = new String[13000][8];
-		// 배열 초기화
-		//resetTable(arr);
-		
+		// 배열 초기화	
 		// input으로 String[][] 에 입력
 		for(int i=0; i</*data*/input.size(); i++) {
 			for(int j=0; j<8; j++) {
-				arr[i][j]/*array[i][j]*/ = /*data*/input.get(i)[j];
+				arr[i][j] = input.get(i)[j];
 			}
 		}
-		//return array;
+		
 	}
 	
-	
+	/*
 	public static void redrawTable(String[][] ar) {
 		resTable = new JTable(ar, Constant.header);
 	}
@@ -395,7 +391,7 @@ public class Frame extends JFrame {
 		}
 		
 	}
-
+	*/
 	// data를 불러왔으면 isOpen = true 한다.
 	public static void setOpen(boolean tf) {
 		if (tf){
