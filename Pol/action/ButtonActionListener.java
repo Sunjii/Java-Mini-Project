@@ -181,9 +181,7 @@ public class ButtonActionListener implements ActionListener{
 		case "Stat1":
 			// 한 지역에서 특정 기간동안의 통계량을 제공
 			// 초기화
-			Frame.stDialog.init();
-			
-			
+			Frame.stDialog.init();	
 			// 기간 입력
 			// 그 기간동안 A 물질이 가장 높은 날, 낮은 날.  B 물질이 가장 높은날 낮은날. ...
 			
@@ -214,16 +212,8 @@ public class ButtonActionListener implements ActionListener{
 			    //System.out.println("User cancelled");
 			}
 			
-			
-			//Frame.stDialog.repaint();
-			//Frame.stDialog.revalidate();
-			Frame.stDialog.setType(0);
-			Frame.stDialog.setVisible(true);
-			
-			
-			
-			
-			
+			//Frame.stDialog.setType(0);
+			Frame.stDialog.setVisible(true);		
 			break;
 		case "Stat2":
 			// 특정 날짜의 통계량 조회
@@ -232,12 +222,18 @@ public class ButtonActionListener implements ActionListener{
 				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
 				return;
 			}
+			LocalDate targetDate;
+			try {
+				targetDate = LocalDate.parse(JOptionPane.showInputDialog("날짜를 입력하세요. ex)2018-01-06"));
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			
 			
-			
-			
-			Frame.stDialog.setType(1);
-			Frame.stDialog.setVisible(true);
+			Frame.stDialog2.setDate(targetDate);
+			//Frame.stDialog2.setType(1);
+			Frame.stDialog2.setVisible(true);
 			break;
 		case "Data":
 			// 데이터 수정 창을 출력
