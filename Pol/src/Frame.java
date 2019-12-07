@@ -8,7 +8,9 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -25,6 +27,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+import oracle.jdbc.proxy.annotation.GetCreator;
 
 public class Frame extends JFrame {
 	
@@ -60,6 +65,7 @@ public class Frame extends JFrame {
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
 	static StaticsDialog stDialog;		// 통계 정보 대화창
+	static StaticsDialog stDialog2;
 	
 	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
@@ -77,13 +83,14 @@ public class Frame extends JFrame {
 		mainLayout();
 		add(top_area, BorderLayout.NORTH);
 		add(main_area, BorderLayout.CENTER);
-		
+	
 		cgDialog = new GraphDialog(this, "원형그래프", 0);
 		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		tbDialog = new DataDialog(this, "데이터");
 		txDialog = new TextDialog(this, "오염물질 권고기준");
-		stDialog = new StaticsDialog(this, "통계 정보");
+		stDialog = new StaticsDialog(this, "지역별 통계 정보", 0);
+		stDialog2 = new StaticsDialog(this, "날짜별 통계 정보", 1);
 		
 		setVisible(true);
 		//pack();
@@ -138,10 +145,10 @@ public class Frame extends JFrame {
 		// 3. 통계
 		JMenu statics = new JMenu("통계");
 		// 3. Items
-		item = new JMenuItem("특정 기간 동안의 통계량 조회");
+		item = new JMenuItem("특정 지역의 통계량 조회");
 		item.addActionListener(mal);
 		statics.add(item);
-		item = new JMenuItem("특정 지역의 통계량 조회");
+		item = new JMenuItem("선택한 날짜의 통계량 조회");
 		item.addActionListener(mal);
 		statics.add(item);
 
@@ -321,17 +328,65 @@ public class Frame extends JFrame {
 		
 		// 테이블 모델 생성 & 테이블 생성
 		model = new DefaultTableModel(Constant.header, 0) {
+			/*
+			@Override
+			public Class getColumnClass(int columnIndex){
+				switch(columnIndex) {
+				case 0:
+					return String.class;
+				case 1:
+					return String.class;
+				case 2:
+					return Double.class;
+				case 3:
+					return Double.class;
+				case 4:
+					return Double.class;
+				case 5:
+					return Double.class;
+				case 6:
+					return Double.class;
+				case 7:
+					return Double.class;
+				}	
+				return null;
+			}
+			*/
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
+		
+		//TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<DefaultTableModel>(model);
+		//sorter.set
+		
+		
+		
 		resTable = new JTable(model);
+		
+		//resTable.setRowSorter(sorter);
 		// 수정, 이동방지. 사이즈 조정
 		resTable.getTableHeader().setReorderingAllowed(false);
 		resTable.getTableHeader().setResizingAllowed(false);
 		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		// 테이블 헤더 클릭시 정렬
-		resTable.setAutoCreateRowSorter(true);
+		//resTable.setAutoCreateRowSorter(true);
+		
+		TableRowSorter trs = new TableRowSorter(model);
+		
+		class DoubleComparator implements Comparator{
+			public int compare(Object o1, Object o2) {
+				Double d1 = Double.parseDouble((String)o1);
+				Double d2 = Double.parseDouble((String)o2);
+				return d1.compareTo(d2);
+			}
+		}
+		for (int i=2; i<8; i++) {
+			trs.setComparator(i, new DoubleComparator());
+		}
+
+		resTable.setRowSorter(trs);
+		
 		// 패널에 테이블 추가
 		jsp = new JScrollPane(resTable);
 		jsp.setPreferredSize(new Dimension(600,400));
