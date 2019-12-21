@@ -16,13 +16,18 @@ public class PeriodPanel extends JPanel {
 	private LocalDate bufD;
 	private Period period;
 	
+
+	//private LocalDate dateS = LocalDate.parse("2018-01-01");
+	//private LocalDate dateE = LocalDate.parse("2018-12-31");
+	
+	
 	private int dateLength; // +1 해야 dateE 까지 나옴
 	
 	private ArrayList<String> dateList = new ArrayList<String>();
 	private ArrayList<String> maxList = new ArrayList<String>();
 	private String maxString[] = {"", "", "", "", "", ""};
 	private int count = 0;
-	private String location;
+	private String location = "";
 	
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
@@ -36,7 +41,7 @@ public class PeriodPanel extends JPanel {
 		dateLength = period.getDays();
 		dateLength++; // +1 해야 dateE 까지 나옴
 		bufD = dateS;
-
+		
 		g.drawString(dateS.toString() + " ~ " + dateE.toString(), 50, 50);
 		// dateList 생성
 		for (int i=0; i< dateLength; i++) {
@@ -174,8 +179,10 @@ public class PeriodPanel extends JPanel {
 	}
 
 	public void reset() {
-		this.dateS = null;
-		this.dateE = null;
+		//this.dateS = null;
+		//this.dateE = null;
+		dateS = LocalDate.parse("2018-01-01");
+		dateE = LocalDate.parse("2018-12-31");
 		this.dateList.clear();
 		this.maxList.clear();
 		

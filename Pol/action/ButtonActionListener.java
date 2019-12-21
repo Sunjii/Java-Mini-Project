@@ -228,16 +228,28 @@ public class ButtonActionListener implements ActionListener{
 		case "Stat2":
 			// 특정 날짜의 통계량 조회
 			// 모든 지역에서의 통계량을 제공 
+			Frame.st2Dialog.init();
+			
 			if (Frame.getOpen() != true) {
 				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
 				return;
 			}
-			
-			
-			
-			
-			Frame.stDialog.setType(1);
-			Frame.stDialog.setVisible(true);
+			LocalDate targetDate = LocalDate.parse("2018-01-10");
+			if(Frame.getOpen()) {
+				try {
+					targetDate = LocalDate.parse(JOptionPane.showInputDialog("날짜를 입력해주세요. ex) 2018-01-06"));
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+					
+			} else {
+				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
+			}
+			Frame.st2Dialog.setDate(targetDate);
+			Frame.st2Dialog.setType(1);
+			System.out.println(Frame.st2Dialog.type);
+			Frame.st2Dialog.setVisible(true);
 			break;
 		case "Data":
 			// 데이터 수정 창을 출력

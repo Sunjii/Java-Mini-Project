@@ -16,14 +16,20 @@ public class StaticsDialog extends JDialog {
 	private JButton closeBtn = new JButton("닫기");
 	private JButton paintBtn = new JButton("불러오기");
 	
-	private PeriodPanel period_panel = new PeriodPanel();
-	private LocationPanel location_panel = new LocationPanel();
+	//private PeriodPanel period_panel = new PeriodPanel();
+	//private LocationPanel location_panel = new LocationPanel();
 	
-	private LocalDate dateS, dateE;
+	private PeriodPanel period_panel;
+	private LocationPanel location_panel;
+	
+	//private LocalDate dateS, dateE;
 	//private LocalDate dateS = LocalDate.now();
 	//private LocalDate dateE = LocalDate.now();
+
+	private LocalDate dateS = LocalDate.parse("2018-01-01");
+	private LocalDate dateE = LocalDate.parse("2018-12-31");
 	private int dateLength;
-	private int type;
+	public int type;
 	private String location;
 	
 	
@@ -33,6 +39,7 @@ public class StaticsDialog extends JDialog {
 		super(jframe, title);
 		setLayout(new BorderLayout());
 		setSize(Constant.dial_W, Constant.dial_H);
+		System.out.println("DEBUG START");
 		
 		// 타이틀
 		JPanel textP = new JPanel();
@@ -53,14 +60,17 @@ public class StaticsDialog extends JDialog {
 		
 		switch (type) {
 		case 0:	// 특정 기간 통계량 조회
+			period_panel = new PeriodPanel();
+			period_panel.reset();
 			add(period_panel, BorderLayout.CENTER);
 			break;
 		case 1:	// 특정 지역 통계량 조회
+			location_panel = new LocationPanel();
+			location_panel.reset();
 			add(location_panel, BorderLayout.CENTER);
 			break;
-			
-			
 		}
+		System.out.println("TTT");
 		
 		paintBtn.addActionListener(e -> {
 			if(type == 0) {	// 선택한 지역에서 선택한 기간동안의 통계량을 제공한다.
@@ -95,7 +105,7 @@ public class StaticsDialog extends JDialog {
 				period_panel.repaint();
 				
 				
-			} else {	// 선택된 지역의 통계량을 제공한다.
+			} else {	// 선택된 날의 통계량을 제공한다.
 				location_panel.reset();
 				if(Frame.getOpen()) {
 					LocalDate targetDate;
@@ -110,7 +120,7 @@ public class StaticsDialog extends JDialog {
 					JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
 				}
 				
-				period_panel.repaint();
+				location_panel.repaint();
 			}
 			
 			
@@ -196,6 +206,14 @@ public class StaticsDialog extends JDialog {
 		this.dateE = end;
 		this.period_panel.setDate(start, end);
 	}
+	
+	public void setDate(LocalDate date) {
+		this.location_panel.setDate(date);
+		//System.out.println("PPPP");
+		//this.dateS = date;
+		//this.dateE = date;
+		//this.period_panel.setDate(dateS, dateE);
+	}
 
 	public void setType(int i) {
 		this.type = i;
@@ -205,7 +223,7 @@ public class StaticsDialog extends JDialog {
 		this.dateS = null;
 		this.dateE = null;
 		this.period_panel.reset();
-		//this.location_panel.reset();
+		this.location_panel.reset();
 		
 	}
 

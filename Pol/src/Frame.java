@@ -60,9 +60,11 @@ public class Frame extends JFrame {
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
 	static StaticsDialog stDialog;		// 통계 정보 대화창
+	static StaticsDialog st2Dialog;		// 통계 정보 대화창2
 	
 	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
+
 
 	
 
@@ -84,6 +86,7 @@ public class Frame extends JFrame {
 		tbDialog = new DataDialog(this, "데이터");
 		txDialog = new TextDialog(this, "오염물질 권고기준");
 		stDialog = new StaticsDialog(this, "통계 정보");
+		st2Dialog = new StaticsDialog(this, "통계 정보");
 		
 		setVisible(true);
 		//pack();

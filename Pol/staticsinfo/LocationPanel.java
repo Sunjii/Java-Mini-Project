@@ -93,7 +93,7 @@ public class LocationPanel extends JPanel {
 
 
 	public void reset() {
-		
+		this.date = LocalDate.parse("2018-01-02");
 	}
 
 
