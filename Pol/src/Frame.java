@@ -1,14 +1,14 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -25,18 +25,29 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Frame extends JFrame {
 	
-	ImageIcon test = new ImageIcon("image.jpg");
+	//ImageIcon open = new ImageIcon(".//Icon//open.png");
+	ImageIcon save = new ImageIcon(".//Icon//save.png");
+	/*
+	ImageIcon DBLoad = new ImageIcon(".//Icon//dbload.png");
+	ImageIcon DBSave = new ImageIcon(".//Icon//dbsave.png");
+	ImageIcon Graph1 = new ImageIcon(".//Icon//graph1.png");
+	ImageIcon Graph2 = new ImageIcon(".//Icon//graph2.png");
+	ImageIcon Graph3 = new ImageIcon(".//Icon//graph3.png");
+	ImageIcon Stat1 = new ImageIcon(".//Icon//stat1.png");
+	ImageIcon Stat2 = new ImageIcon(".//Icon//stat2.png");
+	ImageIcon Data = new ImageIcon(".//Icon//data.png");
+	ImageIcon Exit = new ImageIcon(".//Icon//exit.png");
+*/
 	
 	static CSVLoad csvL = new CSVLoad();
 	static CSVWrite csvW = new CSVWrite();
 	
 	private static boolean isOpen; // 데이터가 들어왔는지 확인하는 변수
 	
-	//static String data[][] = {};
-	//static List<Object> data = new ArrayList<Object>();
 	static ArrayList<String[]> data = new ArrayList<String[]>();
 	static String[][] arr = new String[13000][8];
 
@@ -59,16 +70,18 @@ public class Frame extends JFrame {
 	static GraphDialog bgDialog;	// 막대그래프
 	static DataDialog tbDialog;		// 데이터 수정
 	static TextDialog txDialog;		// 기타 정보 대화창
+<<<<<<< HEAD
 	static StaticsDialog stDialog;		// 통계 정보 대화창
 	static StaticsDialog st2Dialog;		// 통계 정보 대화창2
+=======
+	static StaticsDialog stDialog;		// 통계 정보 대화창 1
+	static StaticsDialog stDialog2;		// 통계 정보 대화창 2
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 	
 	static JComboBox locations = new JComboBox(Constant.locations);
 	static JTextField inputDate = new JTextField("ex) 2018-01-01", 8);
 
 
-	
-
-	
 	
 	public Frame() {
 		setTitle("POL Project");
@@ -79,14 +92,19 @@ public class Frame extends JFrame {
 		mainLayout();
 		add(top_area, BorderLayout.NORTH);
 		add(main_area, BorderLayout.CENTER);
-		
+	
 		cgDialog = new GraphDialog(this, "원형그래프", 0);
 		lgDialog = new GraphDialog(this, "꺽은선그래프", 1);
 		bgDialog = new GraphDialog(this, "막대그래프", 2);
 		tbDialog = new DataDialog(this, "데이터");
 		txDialog = new TextDialog(this, "오염물질 권고기준");
+<<<<<<< HEAD
 		stDialog = new StaticsDialog(this, "통계 정보");
 		st2Dialog = new StaticsDialog(this, "통계 정보");
+=======
+		stDialog = new StaticsDialog(this, "지역별 통계 정보", 0);
+		stDialog2 = new StaticsDialog(this, "날짜별 통계 정보", 1);
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 		
 		setVisible(true);
 		//pack();
@@ -141,10 +159,10 @@ public class Frame extends JFrame {
 		// 3. 통계
 		JMenu statics = new JMenu("통계");
 		// 3. Items
-		item = new JMenuItem("특정 기간 동안의 통계량 조회");
+		item = new JMenuItem("특정 지역의 통계량 조회");
 		item.addActionListener(mal);
 		statics.add(item);
-		item = new JMenuItem("특정 지역의 통계량 조회");
+		item = new JMenuItem("선택한 날짜의 통계량 조회");
 		item.addActionListener(mal);
 		statics.add(item);
 
@@ -157,6 +175,10 @@ public class Frame extends JFrame {
 		item.addActionListener(mal);
 		data.add(item);
 		item = new JMenuItem("오염물질 권고기준");
+		item.addActionListener(mal);
+		data.add(item);
+		file.addSeparator();
+		item = new JMenuItem("프로그램 정보");
 		item.addActionListener(mal);
 		data.add(item);
 		
@@ -180,7 +202,7 @@ public class Frame extends JFrame {
 		item = new JButton("Open");
 		item.addActionListener(bal);
 		tb.add(item);
-		item = new JButton("Save");
+		item = new JButton("Save", save);
 		item.addActionListener(bal);
 		tb.add(item);
 		tb.addSeparator();
@@ -258,30 +280,16 @@ public class Frame extends JFrame {
 		p1.add(drawing);
 		
 		/// p2 :: 서울시 지도 그림 들어갈 곳
-		//JPanel p2 = new JPanel(new GridLayout(2, 0, 20, 20));
 		JPanel p2 = new JPanel();
-		//JLabel map = new JLabel("test - 그림 들어갈 곳");
-		//map.setBounds(0,50, test.getIconWidth(), test.getIconHeight());
-		//p2.add(map);
-		
-		
-		//drawing.setPreferredSize(new Dimension(30, 20));
-		
-		
 		map = new Map();
-		//map.setSize(200, 200);
 		map.setPreferredSize(new Dimension(600, 500)); // w, h
-		
-		
+			
 		p2.add(map);
-		//p2.add(drawing);
 		p2.setPreferredSize(new Dimension(600, 600));
-		
-		
+			
 		/// p3 :: 데이터 출력 할 곳
 		JPanel p3 = new JPanel();
 		// JTable
-		
 		/*
 		// 데모용 데이터
 		String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
@@ -294,47 +302,38 @@ public class Frame extends JFrame {
 				{"용산", "2018-01-02", "0.029", "0.016", "0.6", "0.007", "34", "17"}
 		};
 		*/
-		
-		//String header[] = {"지역", "날짜", Constant.pollut[0], Constant.pollut[1], Constant.pollut[2], Constant.pollut[3], Constant.pollut[4], Constant.pollut[5] };
-		//resTable = new JTable(data, header);
-		//csvL.getlocations();
-		
-		
-		
-		// 테이블 생성
-		//resTable = new JTable(data, header);
-		//String[] arr = data.toArray(new String[data.size()]);
-		/*
-		String[][] arr = new String[101][9];
-		for(int i=0; i< 100; i++) {
-			for(int j=0; j<8; j++) {
-				arr[i][j] = (String) data.get(j);
-			}
-		}
-		*/
-		
-		
-		
 
-		//resTable = new JTable(arr, Constant.header);
-		//redrawTable(arr);
-		//JScrollPane scroll = new JScrollPane(resTable);
-		//p3.add(scroll);	
-
-		
 		// 테이블 모델 생성 & 테이블 생성
 		model = new DefaultTableModel(Constant.header, 0) {
-			public boolean isCellEditable(int i, int c) {
+			public boolean isCellEditable(int i, int c) { // 수정 금지
 				return false;
 			}
 		};
+		
 		resTable = new JTable(model);
+		
+		//resTable.setRowSorter(sorter);
 		// 수정, 이동방지. 사이즈 조정
 		resTable.getTableHeader().setReorderingAllowed(false);
 		resTable.getTableHeader().setResizingAllowed(false);
 		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		// 테이블 헤더 클릭시 정렬
-		resTable.setAutoCreateRowSorter(true);
+		//resTable.setAutoCreateRowSorter(true); :: String 기준 정렬임.
+		// 오염수치 정렬을 위한 Sorter 정의
+		TableRowSorter trs = new TableRowSorter(model);
+		class DoubleComparator implements Comparator{
+			public int compare(Object o1, Object o2) {
+				Double d1 = Double.parseDouble((String)o1);
+				Double d2 = Double.parseDouble((String)o2);
+				return d1.compareTo(d2);
+			}
+		}
+		for (int i=2; i<8; i++) {
+			trs.setComparator(i, new DoubleComparator());
+		}
+
+		resTable.setRowSorter(trs);
+		
 		// 패널에 테이블 추가
 		jsp = new JScrollPane(resTable);
 		jsp.setPreferredSize(new Dimension(600,400));
@@ -371,19 +370,6 @@ public class Frame extends JFrame {
 					Double.toString(stat.dust), Double.toString(stat.mdust)
 			};
 			
-			/*
-			data.add(name);
-			data.add(date.toString());
-			data.add(Double.toString(stat.nppm));
-			data.add(Double.toString(stat.oppm));
-			data.add(Double.toString(stat.cppm));
-			data.add(Double.toString(stat.appm));
-			data.add(Double.toString(stat.dust));
-			data.add(Double.toString(stat.mdust));
-			*/
-			//System.out.println(name + " " + date.toString() + " " + Double.toString(stat.dust));
-			//data.add(one);
-			//model.addRow(one);
 			mod.addRow(one);
 			
 		}
@@ -393,20 +379,17 @@ public class Frame extends JFrame {
 	
 	
 	public static void makeTable(ArrayList<String[]> input) {
-		//String[][] array = new String[13000][8];
-		// 배열 초기화
-		//resetTable(arr);
-		
+		// 배열 초기화	
 		// input으로 String[][] 에 입력
 		for(int i=0; i</*data*/input.size(); i++) {
 			for(int j=0; j<8; j++) {
-				arr[i][j]/*array[i][j]*/ = /*data*/input.get(i)[j];
+				arr[i][j] = input.get(i)[j];
 			}
 		}
-		//return array;
+		
 	}
 	
-	
+	/*
 	public static void redrawTable(String[][] ar) {
 		resTable = new JTable(ar, Constant.header);
 	}
@@ -419,7 +402,7 @@ public class Frame extends JFrame {
 		}
 		
 	}
-
+	*/
 	// data를 불러왔으면 isOpen = true 한다.
 	public static void setOpen(boolean tf) {
 		if (tf){

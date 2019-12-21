@@ -29,13 +29,17 @@ public class StaticsDialog extends JDialog {
 	private LocalDate dateS = LocalDate.parse("2018-01-01");
 	private LocalDate dateE = LocalDate.parse("2018-12-31");
 	private int dateLength;
+<<<<<<< HEAD
 	public int type;
+=======
+	//private int type;
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 	private String location;
 	
 	
 	
 	
-	public StaticsDialog(JFrame jframe, String title) {
+	public StaticsDialog(JFrame jframe, String title, int type) {
 		super(jframe, title);
 		setLayout(new BorderLayout());
 		setSize(Constant.dial_W, Constant.dial_H);
@@ -65,8 +69,12 @@ public class StaticsDialog extends JDialog {
 			add(period_panel, BorderLayout.CENTER);
 			break;
 		case 1:	// 특정 지역 통계량 조회
+<<<<<<< HEAD
 			location_panel = new LocationPanel();
 			location_panel.reset();
+=======
+			setSize(Constant.dial_W, Constant.dial_H + 150);
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 			add(location_panel, BorderLayout.CENTER);
 			break;
 		}
@@ -82,7 +90,7 @@ public class StaticsDialog extends JDialog {
 					try{
 						start = LocalDate.parse(JOptionPane.showInputDialog("시작하는 날짜를 입력하세요. ex) 2018-01-06"));
 						end = LocalDate.parse(JOptionPane.showInputDialog("끝나는 날짜를 입력하세요. ex) 2018-01-16"));
-						//setDate(start, end);
+						setDate(start, end);
 					} catch(Exception err) {
 						JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
 						return;
@@ -115,6 +123,7 @@ public class StaticsDialog extends JDialog {
 						JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
 						return;
 					}
+					setDate(targetDate);
 					location_panel.setDate(targetDate);	
 				} else {
 					JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
@@ -215,10 +224,6 @@ public class StaticsDialog extends JDialog {
 		//this.period_panel.setDate(dateS, dateE);
 	}
 
-	public void setType(int i) {
-		this.type = i;
-	}
-
 	public void init() {
 		this.dateS = null;
 		this.dateE = null;
@@ -226,11 +231,20 @@ public class StaticsDialog extends JDialog {
 		this.location_panel.reset();
 		
 	}
+	
+	public void setDate(LocalDate targetDate) {
+		this.dateS = targetDate;
+		this.dateE = targetDate;
+		this.location_panel.setDate(targetDate);
+		this.period_panel.setDate(targetDate, targetDate);
+	}
 
 	public void setLocation(String string) {
 		this.location = string;
 		this.period_panel.setLocation(this.location);
 		
 	}
+
+
 	
 }

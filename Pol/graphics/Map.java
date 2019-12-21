@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.time.LocalDate;
 
@@ -7,37 +8,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Map extends JPanel {
-	
-	// 1±¸¿ªÀÇ x, y ÁÂÇ¥µé
-	/*
-	private int[] s1_xp = {65, 105, 95, 160, 195, 244, 240, 195};
-	private int[] s1_yp = {148, 120, 78, 60, 153, 177, 232, 264};
-	private int s1_num = 8;
-	
-	private int[] s2_xp = {175, 195, 244, 387, 378, 360, 352, 315, 249, 210, 202    };
-	private int[] s2_yp = {92, 153, 177, 130, 99, 99, 49, 45, 25, 41, 78    };
-	private int s2_num = 11;
-	
-	private int[] s3_xp = {244, 240, 270, 342, 432, 408, 439, 387  };
-	private int[] s3_yp = {177, 232, 227, 253, 213, 194, 131, 130 };
-	private int s3_num = 8;
-	
-	
-	private int[] s4_xp = {342, 344, 409, 425, 520, 492, 540, 560, 556, 522, 443 };
-	private int[] s4_yp = {280, 322, 345, 366, 322, 282, 227, 224, 175, 167, 238  };
-	private int s4_num = 11;
-	
-	private int[] s5_xp = {342, 344, 409, 425, 357, 330, 300, 247, 252, 232, 168, 109, 157, 195, 219, 266  };
-	private int[] s5_yp = {280, 322, 345, 366, 401, 385, 426, 403, 376, 372, 418, 332, 265, 287, 288, 252 };
-	private int s5_num = 16;
-	
-	private int[] s6_xp = {157, 109, 154, 117, 56, 19,  10,  32,  11,  54 };
-	private int[] s6_yp = {265, 332, 403, 431, 335, 355, 332, 243, 212, 167 };
-	private int s6_num = 10;
-*/
-	
+
 	private String item = "¹Ì¼¼¸ÕÁö";			// ¿À¿°¹°Áú
-	private LocalDate date = LocalDate.parse("2018-01-01");	// ³¯Â¥
+	private LocalDate date = LocalDate.parse("2019-01-01");	// ³¯Â¥
 					
 
 	public void paint(Graphics g) {
@@ -46,6 +19,17 @@ public class Map extends JPanel {
 		g.setColor(Color.black);
 		//g.drawRect(20, 10, 100, 200);
 		makeFill(g);
+		
+		g.setColor(Color.black);
+		g.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 20));
+		g.drawString(date.toString(), 450, 50);
+		g.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 18));
+		g.drawString(item, 450, 70);
+		
+		for(int i=0; i<50; i++) {
+			g.setColor(new Color(200, i*5, 10));
+			g.fillRect(450 + (i*2), 80, 2, 10);
+		}
 		
 		g.setColor(Color.black);
 		g.drawPolygon(Constant.s1_xp, Constant.s1_yp, Constant.s1_num);

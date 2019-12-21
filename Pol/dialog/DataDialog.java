@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 // 그래프 대화상자
 @SuppressWarnings("serial")
@@ -121,7 +123,22 @@ public class DataDialog extends JDialog{
 		resTable.getTableHeader().setResizingAllowed(false);
 		resTable.getColumnModel().getColumn(1).setPreferredWidth(100);
 		// 테이블 헤더 클릭시 정렬
-		resTable.setAutoCreateRowSorter(true);
+		//resTable.setAutoCreateRowSorter(true);
+		TableRowSorter trs = new TableRowSorter(model);
+		class DoubleComparator implements Comparator{
+			public int compare(Object o1, Object o2) {
+				Double d1 = Double.parseDouble((String)o1);
+				Double d2 = Double.parseDouble((String)o2);
+				return d1.compareTo(d2);
+			}
+		}
+		for (int i=2; i<8; i++) {
+			trs.setComparator(i, new DoubleComparator());
+		}
+		resTable.setRowSorter(trs);
+		
+		
+		
 		// 패널에 테이블 추가
 		jsp = new JScrollPane(resTable);
 		jsp.setPreferredSize(new Dimension(600,400));

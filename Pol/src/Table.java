@@ -4,21 +4,11 @@ import java.util.Vector;
 
 import javax.swing.table.DefaultTableModel;
 
+
+
 public class Table {
 	
-	
-	
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
 	// 테이블에 한 줄 입력
 	public void insertLine(Location input, DefaultTableModel mod) {
 		
@@ -32,22 +22,7 @@ public class Table {
 				Double.toString(stat.dust), Double.toString(stat.mdust)
 		};
 		
-		mod.addRow(one);
-		
-		/*
-		Vector<String> one = new Vector<String>();
-		one.addElement(name);
-		one.addElement(date.toString());
-		one.addElement(Double.toString(stat.nppm));
-		one.addElement(Double.toString(stat.oppm));
-		one.addElement(Double.toString(stat.cppm));
-		one.addElement(Double.toString(stat.appm));
-		one.addElement(Double.toString(stat.dust));
-		one.addElement(Double.toString(stat.mdust));
-		
-		mod.addRow(one);
-		*/
-		
+		mod.addRow(one);		
 	}
 	
 	
@@ -58,8 +33,6 @@ public class Table {
 		mod.removeRow(index);
 		//Frame.model.fireTableDataChanged();
 	}
-	
-	
 	
 	
 	// 테이블 수정 - index의 row를 수정함
@@ -84,9 +57,6 @@ public class Table {
 		
 		
 	}
-	
-	
-	
 	
 
 }

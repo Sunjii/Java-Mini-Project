@@ -181,9 +181,7 @@ public class ButtonActionListener implements ActionListener{
 		case "Stat1":
 			// 한 지역에서 특정 기간동안의 통계량을 제공
 			// 초기화
-			Frame.stDialog.init();
-			
-			
+			Frame.stDialog.init();	
 			// 기간 입력
 			// 그 기간동안 A 물질이 가장 높은 날, 낮은 날.  B 물질이 가장 높은날 낮은날. ...
 			
@@ -214,16 +212,8 @@ public class ButtonActionListener implements ActionListener{
 			    //System.out.println("User cancelled");
 			}
 			
-			
-			//Frame.stDialog.repaint();
-			//Frame.stDialog.revalidate();
-			Frame.stDialog.setType(0);
-			Frame.stDialog.setVisible(true);
-			
-			
-			
-			
-			
+			//Frame.stDialog.setType(0);
+			Frame.stDialog.setVisible(true);		
 			break;
 		case "Stat2":
 			// 특정 날짜의 통계량 조회
@@ -234,6 +224,7 @@ public class ButtonActionListener implements ActionListener{
 				JOptionPane.showMessageDialog(null, "먼저 데이터를 불러와야합니다!");
 				return;
 			}
+<<<<<<< HEAD
 			LocalDate targetDate = LocalDate.parse("2018-01-10");
 			if(Frame.getOpen()) {
 				try {
@@ -250,6 +241,20 @@ public class ButtonActionListener implements ActionListener{
 			Frame.st2Dialog.setType(1);
 			System.out.println(Frame.st2Dialog.type);
 			Frame.st2Dialog.setVisible(true);
+=======
+			LocalDate targetDate;
+			try {
+				targetDate = LocalDate.parse(JOptionPane.showInputDialog("날짜를 입력하세요. ex)2018-01-06"));
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "잘못된 날짜입니다!", "입력오류", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			
+			
+			Frame.stDialog2.setDate(targetDate);
+			//Frame.stDialog2.setType(1);
+			Frame.stDialog2.setVisible(true);
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 			break;
 		case "Data":
 			// 데이터 수정 창을 출력
@@ -257,20 +262,24 @@ public class ButtonActionListener implements ActionListener{
 			
 			break;
 		case "검색":
-			// 테이블 초기화 및 데이터 재입력.
-			try {
-				Frame.csvL.Reset();
-				Frame.csvL.Read();
-				Frame.insertTable(Frame.csvL.getlocations(), Frame.model);			
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			//Frame.csvL.Reset();
+			//Frame.csvL.Read();
+			Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
 			
 			String searchLoca = Frame.locations.getSelectedItem().toString();
 			String searchDate = Frame.inputDate.getText();
 			
 			// searchLoca & searchDate 조건으로 검색
 			if(searchLoca.equals("전체")) {
+				if(searchDate.equals("")) {
+					// 비어있는 경우는 전체 날짜를 검색
+					int rowCount = Frame.model.getRowCount();
+					for(int i=0; i<rowCount; i++) {
+						Table.deleteTable(0, Frame.model);
+					}	
+					Frame.insertTable(Frame.csvL.getlocations(), Frame.model);
+	
+				}
 				ArrayList<String[]> search_result = new ArrayList<String[]>();
 				for (int i=0; i < Frame.model.getRowCount(); i++) {
 					// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
@@ -286,7 +295,8 @@ public class ButtonActionListener implements ActionListener{
 				if(search_result.size() > 0) {
 					int count = Frame.model.getRowCount();
 					for(int i=0; i<count; i++) {
-						Frame.model.removeRow(0);
+						//Frame.model.removeRow(0);
+						Table.deleteTable(0, Frame.model);
 					}
 					// search_result를 이용해 테이블 재생성
 					for (int i=0; i<search_result.size(); i++) {
@@ -298,6 +308,7 @@ public class ButtonActionListener implements ActionListener{
 				break;
 			}
 			
+			/*
 			ArrayList<String[]> search_result = new ArrayList<String[]>();
 			for (int i=0; i < Frame.model.getRowCount(); i++) {
 				// date와 일치하는 행을 가지고 리스트로 만들어서 추가함.
@@ -315,14 +326,19 @@ public class ButtonActionListener implements ActionListener{
 				int count = Frame.model.getRowCount();
 				for(int i=0; i<count; i++) {
 					Frame.model.removeRow(0);
+					Table.deleteTable(0, Frame.model);
 				}
 				// search_result를 이용해 테이블 재생성
 				for (int i=0; i<search_result.size(); i++) {
-					Frame.model.addRow(search_result.get(i));
+					//Frame.model.addRow(search_result.get(i));
+					Frame.insertTable(search_result, Frame.model);
 				}	
 			} else {// 검색 결과가 없는 경우.
 				JOptionPane.showMessageDialog(null, "일치하는 검색 결과가 없습니다!");
 			}
+			*/
+			
+			
 			// 지도 객체에 날짜 반영
 			Frame.map.setDate(searchDate);
 			

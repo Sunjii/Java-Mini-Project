@@ -67,7 +67,7 @@ public class GraphDialog extends JDialog{
 			
 				
 				int row = Frame.resTable.getSelectedRow();
-				int col = Frame.resTable.getSelectedColumn();
+				//int col = Frame.resTable.getSelectedColumn();
 				
 				String area = (String) Frame.resTable.getValueAt(row, 0);
 				double pol1 = Double.valueOf((String) (Frame.resTable.getValueAt(row, 2)));

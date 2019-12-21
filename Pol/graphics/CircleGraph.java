@@ -23,6 +23,9 @@ class CircleGraph extends JPanel {
 	
 	private double pai = 3.14;
 
+	private String[] suf = {"(ppm)", "(ppm)","(ppm)","(ppm)","(㎍/㎥)","(㎍/㎥)",};
+	private Color[] colorL = {Color.YELLOW, Color.red, Color.blue, Color.green, Color.orange, Color.magenta};
+
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.LIGHT_GRAY);
@@ -80,40 +83,52 @@ class CircleGraph extends JPanel {
 		g.drawString(area, 300, 50);
 		g.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		
-		// 나중에 for문화 시킬것
-		g.drawString(Constant.pollut[0] + " (ppm)", 330, 100);
-		g.setColor(Color.YELLOW);
-		g.fillRect(300, 85, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		g.drawString(Constant.pollut[1] + " (ppm)", 330, 120);
-		g.setColor(Color.RED);
-		g.fillRect(300, 105, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		g.drawString(Constant.pollut[2] + " (ppm)", 330, 140);
-		g.setColor(Color.BLUE);
-		g.fillRect(300, 125, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		g.drawString(Constant.pollut[3] + " (ppm)", 330, 160);
-		g.setColor(Color.GREEN);
-		g.fillRect(300, 145, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		g.drawString(Constant.pollut[4] + " (㎍/㎥)", 330, 180);
-		g.setColor(Color.ORANGE);
-		g.fillRect(300, 165, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		g.drawString(Constant.pollut[5] + " (㎍/㎥)", 330, 200);
-		g.setColor(Color.MAGENTA);
-		g.fillRect(300, 185, 18, 18);
-		g.setColor(Color.BLACK);
-		
-		
-		
+		// 라벨
+		for(int i=0; i<6; i++) {
+			g.drawString(Constant.pollut[i] + suf [i] + condition(i), 330, 100 + (i*20));
+			g.setColor(colorL [i]);
+			g.fillRect(300, 85 + (i*20), 18, 18);
+			g.setColor(Color.BLACK);
+		}		
 	}
+	
+	private String condition(int i) {
+		// Constant.pollut[i] 의 농도가 기준치의 어느정도인가?
+		String result;
+		double[] lv = {0, 0, 0};
+		switch (i) {
+		case 0:
+			lv = Constant.nppm_lv;
+			break;
+		case 1:
+			lv = Constant.oppm_lv;
+			break;
+		case 2:
+			lv = Constant.cppm_lv;
+			break;
+		case 3:
+			lv = Constant.appm_lv;
+			break;
+		case 4:
+			lv = Constant.dust_lv;
+			break;
+		case 5:
+			lv = Constant.mdust_lv;
+			break;
+		}
+		
+		if (num[i] < lv[0]) {
+			result = "   좋음";
+		} else if(num[i] < lv[1]) {
+			result = "   보통";
+		} else if(num[i] < lv[2]) {
+			result = "   나쁨";
+		} else {
+			result = "   매우나쁨";
+		}
+		return result;
+	}
+
 	// 중심이 x, y이고 사잇각이 mid_arc인 원에 라벨을 붙여주는 함수
 	private void drawLabel(double num, int x, int y, int arcs[], int arc, Graphics g) {
 		int result_x, result_y;

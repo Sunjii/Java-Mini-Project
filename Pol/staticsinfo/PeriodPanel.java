@@ -1,10 +1,8 @@
-import java.awt.Color;
 import java.awt.Graphics;
 import java.time.LocalDate;
-import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -14,8 +12,8 @@ import javax.swing.JPanel;
 public class PeriodPanel extends JPanel {
 	private LocalDate dateS, dateE;
 	private LocalDate bufD;
-	private Period period;
 	
+<<<<<<< HEAD
 
 	//private LocalDate dateS = LocalDate.parse("2018-01-01");
 	//private LocalDate dateE = LocalDate.parse("2018-12-31");
@@ -28,17 +26,18 @@ public class PeriodPanel extends JPanel {
 	private String maxString[] = {"", "", "", "", "", ""};
 	private int count = 0;
 	private String location = "";
+=======
+	private long dateLength; // +1 해야 dateE 까지 나옴
+	
+	private ArrayList<String> dateList = new ArrayList<String>();
+	private ArrayList<String> maxList = new ArrayList<String>();
+	private String location;
+>>>>>>> 4c5c752ce817d950c1d7000b3204838f79422ca2
 	
 	public void paint(Graphics g) {
 		g.clearRect(0, 0, getWidth(), getHeight());
-		
-		// period를 계산한다.
-		period = Period.between(dateS, dateE);
-		if(period.getDays() > 365) {
-			JOptionPane.showMessageDialog(null, "날짜 범위 오류!");
-			return;
-		}
-		dateLength = period.getDays();
+
+		dateLength = ChronoUnit.DAYS.between(dateS, dateE);
 		dateLength++; // +1 해야 dateE 까지 나옴
 		bufD = dateS;
 		
@@ -47,42 +46,12 @@ public class PeriodPanel extends JPanel {
 		for (int i=0; i< dateLength; i++) {
 			dateList.add(bufD.plusDays(i).toString());
 		}
-		
-		
-		// dateS ~ dateE 까지 location의 데이터를 탐색.
-	
-		for (int i=0; i<6; i++) {
-		//	System.out.println( calculate(this.location, Constant.pollut[i]) );
-		}
-		
+
 		g.drawString(this.location, 50, 20);
 		for(int i=0; i<Constant.pollut.length; i++) {
 			// index out of bound
 			g.drawString(Constant.pollut[i] + "가 가장 높았던 날 : " + calculate(this.location, Constant.pollut[i]), 50, 80 + (i*20));
 		}
-		
-		
-		/*
-		for(int i=0; i<Constant.pollut.length; i++) {
-			// index out of bound
-			g.drawString(Constant.pollut[i] + "가 가장 높은 곳 : " + maxList.get(i), 50, 80 + (i*20));
-		}
-		
-		// 각 오염물질들의 평균치
-		double e[] = {0, 0, 0, 0, 0, 0};
-
-		calE(dateList);
-		
-		
-		for (int i=0; i<Constant.pollut.length; i++) {
-			
-		}
-		*/
-		
-		
-		
-		
-		
 		
 	}
 
@@ -115,10 +84,9 @@ public class PeriodPanel extends JPanel {
 		return (maxdate + " " + max);
 	}
 
+	/*
 	private String findMax(int i, ArrayList<String> dateList, String item) {
 		// dateList의 처음부터 끝까지에서 item의 제일 높은 숫자를 반환한다.
-		
-		
 		double max = 0;
 		String resultArea = "";
 		// dateS 와 i 를 이용하여 찾으려는 날짜를 만든다.
@@ -156,9 +124,6 @@ public class PeriodPanel extends JPanel {
 	}
 
 
-
-
-
 	private void calE(ArrayList<String> dateList) {
 		// dl동안 각 오염물질들 마다 평균치를 계산한다.
 		
@@ -171,7 +136,7 @@ public class PeriodPanel extends JPanel {
 		
 	}
 
-
+*/
 
 	public void setDate(LocalDate start, LocalDate end) {
 		this.dateS = start;
